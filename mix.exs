@@ -75,7 +75,8 @@ defmodule Trays.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
       {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -98,7 +99,8 @@ defmodule Trays.MixProject do
         "esbuild trays --minify",
         "phx.digest"
       ],
-      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "coveralls.html"]
+      security: ["deps.audit"], 
+      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "security", "coveralls.html"]
     ]
   end
 end
