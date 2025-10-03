@@ -12,14 +12,7 @@ defmodule Trays.MixProject do
       deps: deps(),
       compilers: [:phoenix_live_view] ++ Mix.compilers(),
       listeners: [Phoenix.CodeReloader],
-      test_coverage: [tool: ExCoveralls],
-    preferred_cli_env: [
-      test: :test,
-      coveralls: :test,
-      "coveralls.detail": :test,
-      "coveralls.html": :test,
-      "coveralls.post": :test
-    ]
+      test_coverage: test_coverage()
     ]
   end
 
@@ -74,10 +67,27 @@ defmodule Trays.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp test_coverage do
+    [
+      ignore_modules: [
+        Trays.Application,
+        Trays.DataCase,
+        Trays.Repo,
+        TraysWeb.ConnCase,
+        TraysWeb.CoreComponents,
+        TraysWeb.ErrorHTML,
+        TraysWeb.ErrorJSON,
+        TraysWeb.Layouts,
+        TraysWeb.PageHTML,
+        TraysWeb.Router,
+        TraysWeb.Telemetry,
+      ]
     ]
   end
 
@@ -92,7 +102,7 @@ defmodule Trays.MixProject do
       setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "coveralls.html"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test --cover"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["compile", "tailwind trays", "esbuild trays"],
       "assets.deploy": [
@@ -100,8 +110,8 @@ defmodule Trays.MixProject do
         "esbuild trays --minify",
         "phx.digest"
       ],
-      security: ["deps.audit", "sobelow --config sobelow.exs --exit"], 
-      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "security", "coveralls.html"]
+      security: ["deps.audit", "sobelow --config sobelow.exs --exit"],
+      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "security"]
     ]
   end
 end
