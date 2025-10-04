@@ -88,7 +88,7 @@ defmodule Trays.MixProject do
         TraysWeb.Layouts,
         TraysWeb.PageHTML,
         TraysWeb.Router,
-        TraysWeb.Telemetry,
+        TraysWeb.Telemetry
       ]
     ]
   end
