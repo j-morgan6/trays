@@ -1,0 +1,40 @@
+## This is a PO Template file for application-specific translations.
+##
+## `msgid`s here are often extracted from source code.
+## Add new translations manually or use `mix gettext.extract` to merge new translations.
+msgid ""
+msgstr ""
+"Language: fr\n"
+
+msgid "welcome_title"
+msgstr "Tranquillité d'esprit du prototype à la production."
+
+msgid "welcome_description"
+msgstr "Créez des applications web riches et interactives rapidement, avec moins de code et moins de composants. Rejoignez notre communauté grandissante de développeurs qui utilisent Phoenix pour créer des API, des applications HTML5 et plus encore, pour le plaisir ou à grande échelle."
+
+msgid "guides_and_docs"
+msgstr "Guides et Documentation"
+
+msgid "source_code"
+msgstr "Code Source"
+
+msgid "changelog"
+msgstr "Journal des Modifications"
+
+msgid "discuss_forum"
+msgstr "Discuter sur le Forum Elixir"
+
+msgid "join_discord"
+msgstr "Rejoignez notre serveur Discord"
+
+msgid "join_slack"
+msgstr "Rejoignez-nous sur Slack"
+
+msgid "deploy_app"
+msgstr "Déployez votre application"
+
+msgid "phoenix_framework"
+msgstr "Framework Phoenix"
+
+msgid "language"
+msgstr "Langue"

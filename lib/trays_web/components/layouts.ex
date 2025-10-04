@@ -151,4 +151,32 @@ defmodule TraysWeb.Layouts do
     </div>
     """
   end
+
+  @doc """
+  Provides a language switcher for i18n support.
+  """
+  attr :locale, :string, required: true
+
+  def locale_switcher(assigns) do
+    ~H"""
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
+        <.icon name="hero-language" class="size-5" />
+        <span class="uppercase">{@locale}</span>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-[1] w-32 p-2 shadow mt-2">
+        <li>
+          <a href="?locale=en" class={[@locale == "en" && "active"]}>
+            English
+          </a>
+        </li>
+        <li>
+          <a href="?locale=fr" class={[@locale == "fr" && "active"]}>
+            Français
+          </a>
+        </li>
+      </ul>
+    </div>
+    """
+  end
 end

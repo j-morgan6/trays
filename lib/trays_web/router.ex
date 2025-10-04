@@ -8,6 +8,7 @@ defmodule TraysWeb.Router do
     plug :put_root_layout, html: {TraysWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'"}
+    plug TraysWeb.Plugs.Locale, "en"
   end
 
   pipeline :api do
