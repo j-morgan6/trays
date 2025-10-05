@@ -13,6 +13,7 @@ defmodule TraysWeb.UserLive.SettingsTest do
         |> log_in_user(user_fixture())
         |> live(~p"/users/settings")
 
+      assert html =~ "Update Profile"
       assert html =~ "Change Email"
       assert html =~ "Save Password"
     end
@@ -35,6 +36,95 @@ defmodule TraysWeb.UserLive.SettingsTest do
         |> follow_redirect(conn, ~p"/users/log-in")
 
       assert conn.resp_body =~ "You must re-authenticate to access this page."
+    end
+  end
+
+  describe "update profile form" do
+    setup %{conn: conn} do
+      user = user_fixture()
+      %{conn: log_in_user(conn, user), user: user}
+    end
+
+    test "updates the user profile", %{conn: conn, user: user} do
+      new_name = "Updated Name"
+      new_phone = "5551234567"
+
+      {:ok, lv, _html} = live(conn, ~p"/users/settings")
+
+      result =
+        lv
+        |> form("#profile_form", %{
+          "user" => %{"name" => new_name, "phone_number" => new_phone}
+        })
+        |> render_submit()
+
+      assert result =~ "Profile updated successfully"
+
+      updated_user = Accounts.get_user!(user.id)
+      assert updated_user.name == new_name
+      assert updated_user.phone_number == new_phone
+    end
+
+    test "renders errors with invalid data (phx-change)", %{conn: conn} do
+      {:ok, lv, _html} = live(conn, ~p"/users/settings")
+
+      result =
+        lv
+        |> element("#profile_form")
+        |> render_change(%{
+          "user" => %{"name" => "A", "phone_number" => "invalid"}
+        })
+
+      assert result =~ "Update Profile"
+      assert result =~ "should be at least 2 character(s)"
+      assert result =~ "must be a 10 digit phone number"
+    end
+
+    test "renders errors with invalid data (phx-submit)", %{conn: conn} do
+      {:ok, lv, _html} = live(conn, ~p"/users/settings")
+
+      result =
+        lv
+        |> form("#profile_form", %{
+          "user" => %{"name" => "", "phone_number" => ""}
+        })
+        |> render_submit()
+
+      assert result =~ "Update Profile"
+      assert result =~ "can&#39;t be blank"
+    end
+
+    test "validates phone number format", %{conn: conn} do
+      {:ok, lv, _html} = live(conn, ~p"/users/settings")
+
+      result =
+        lv
+        |> element("#profile_form")
+        |> render_change(%{
+          "user" => %{"name" => "Valid Name", "phone_number" => "123"}
+        })
+
+      assert result =~ "must be a 10 digit phone number"
+    end
+
+    test "accepts valid phone number formats", %{conn: conn, user: user} do
+      {:ok, lv, _html} = live(conn, ~p"/users/settings")
+
+      # Test various valid formats
+      valid_phones = ["555-123-4567", "5551234567", "(555) 123-4567", "555.123.4567"]
+
+      for phone <- valid_phones do
+        result =
+          lv
+          |> form("#profile_form", %{
+            "user" => %{"name" => "Test User", "phone_number" => phone}
+          })
+          |> render_submit()
+
+        assert result =~ "Profile updated successfully"
+        updated_user = Accounts.get_user!(user.id)
+        assert updated_user.phone_number == phone
+      end
     end
   end
 

@@ -48,7 +48,18 @@ defmodule Trays.Accounts.User do
     changeset
     |> validate_required([:phone_number])
     |> validate_format(:phone_number, ~r/^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-        message: "must be a 10 digit phone number")
+      message: "must be a 10 digit phone number"
+    )
+  end
+
+  @doc """
+  A user changeset for updating profile information (name and phone_number).
+  """
+  def profile_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :phone_number])
+    |> validate_name()
+    |> validate_phone_number()
   end
 
   @doc """

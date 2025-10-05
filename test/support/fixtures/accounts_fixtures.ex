@@ -52,6 +52,7 @@ defmodule Trays.AccountsFixtures do
 
   def user_fixture(attrs \\ %{}) do
     user = unconfirmed_user_fixture(attrs)
+
     Ecto.Changeset.change(user, confirmed_at: DateTime.utc_now(:second))
     |> Trays.Repo.update!()
   end

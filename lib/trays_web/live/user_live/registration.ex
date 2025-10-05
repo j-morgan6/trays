@@ -23,7 +23,7 @@ defmodule TraysWeb.UserLive.Registration do
         </div>
 
         <.form for={@form} id="registration_form" phx-submit="save" phx-change="validate">
-        <.input
+          <.input
             field={@form[:email]}
             type="email"
             label="Email"
@@ -32,7 +32,7 @@ defmodule TraysWeb.UserLive.Registration do
             phx-mounted={JS.focus()}
           />
 
-      <.input
+          <.input
             field={@form[:name]}
             type="text"
             label="Name"

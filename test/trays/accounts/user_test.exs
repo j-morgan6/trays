@@ -44,5 +44,4 @@ defmodule Trays.Accounts.UserTest do
     attrs = Map.put(attrs, field, value)
     User.registration_changeset(%User{}, attrs)
   end
-
 end
