@@ -164,7 +164,10 @@ defmodule TraysWeb.Layouts do
         <.icon name="hero-language" class="size-5" />
         <span class="uppercase">{@locale}</span>
       </div>
-      <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-[1] w-32 p-2 shadow mt-2">
+      <ul
+        tabindex="0"
+        class="dropdown-content menu bg-base-200 rounded-box z-[1] w-32 p-2 shadow mt-2"
+      >
         <li>
           <a href="?locale=en" class={[@locale == "en" && "active"]}>
             English

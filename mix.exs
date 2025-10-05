@@ -41,6 +41,7 @@ defmodule Trays.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.8.1"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.13"},
@@ -78,6 +79,7 @@ defmodule Trays.MixProject do
   defp test_coverage do
     [
       ignore_modules: [
+        Trays.AccountsFixtures,
         Trays.Application,
         Trays.DataCase,
         Trays.Repo,
@@ -87,6 +89,7 @@ defmodule Trays.MixProject do
         TraysWeb.ErrorJSON,
         TraysWeb.Layouts,
         TraysWeb.PageHTML,
+        TraysWeb.Plugs.Locale,
         TraysWeb.Router,
         TraysWeb.Telemetry
       ]

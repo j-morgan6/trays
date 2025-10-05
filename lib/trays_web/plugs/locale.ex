@@ -16,32 +16,43 @@ defmodule TraysWeb.Plugs.Locale do
   end
 
   defp extract_accept_language(conn) do
-    case get_req_header(conn, "accept-language") do
-      [value | _] ->
-        value
-        |> String.split(",")
-        |> Enum.map(&parse_language_option/1)
-        |> Enum.sort(&(&1.quality > &2.quality))
-        |> Enum.find(&Enum.member?(@locales, &1.tag))
-        |> case do
-          %{tag: tag} -> tag
-          nil -> nil
-        end
+    conn
+    |> get_req_header("accept-language")
+    |> parse_accept_language_header()
+  end
 
-      _ ->
-        nil
-    end
+  defp parse_accept_language_header([value | _]) do
+    value
+    |> String.split(",")
+    |> Enum.map(&parse_language_option/1)
+    |> find_best_locale()
+  end
+
+  defp parse_accept_language_header(_), do: nil
+
+  defp find_best_locale(options) do
+    options
+    |> Enum.sort_by(& &1.quality, :desc)
+    |> Enum.find_value(fn %{tag: tag} -> tag in @locales && tag end)
   end
 
   defp parse_language_option(string) do
-    captures = Regex.named_captures(~r/^\s?(?<tag>[\w\-]+)(?:;q=(?<quality>[\d\.]+))?$/i, string)
+    case Regex.named_captures(~r/^\s?(?<tag>[\w\-]+)(?:;q=(?<quality>[\d\.]+))?$/i, string) do
+      %{"tag" => tag, "quality" => quality} ->
+        %{tag: tag, quality: parse_quality(quality)}
 
-    quality =
-      case Float.parse(captures["quality"] || "1.0") do
-        {val, _} -> val
-        _ -> 1.0
-      end
+      _ ->
+        %{tag: string, quality: 1.0}
+    end
+  end
 
-    %{tag: captures["tag"], quality: quality}
+  defp parse_quality(""), do: 1.0
+  defp parse_quality(nil), do: 1.0
+
+  defp parse_quality(value) do
+    case Float.parse(value) do
+      {quality, _} -> quality
+      _ -> 1.0
+    end
   end
 end
