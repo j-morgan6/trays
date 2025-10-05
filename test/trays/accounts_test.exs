@@ -80,9 +80,12 @@ defmodule Trays.AccountsTest do
 
     test "registers users without password" do
       email = unique_user_email()
+
       {:ok, user} =
         valid_user_attributes(email: email)
+        |> Map.delete(:password)
         |> Accounts.register_user()
+
       assert user.email == email
       assert is_nil(user.hashed_password)
       assert is_nil(user.confirmed_at)
@@ -334,7 +337,7 @@ defmodule Trays.AccountsTest do
 
   describe "login_user_by_magic_link/1" do
     test "confirms user and expires tokens" do
-      user = unconfirmed_user_fixture()
+      user = unconfirmed_user_no_password_fixture()
       refute user.confirmed_at
       {encoded_token, hashed_token} = generate_user_magic_link_token(user)
 

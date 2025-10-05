@@ -5,7 +5,7 @@ defmodule TraysWeb.UserSessionControllerTest do
   alias Trays.Accounts
 
   setup do
-    %{unconfirmed_user: unconfirmed_user_fixture(), user: user_fixture()}
+    %{unconfirmed_user: unconfirmed_user_no_password_fixture(), user: user_fixture()}
   end
 
   describe "POST /users/log-in - email and password" do

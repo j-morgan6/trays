@@ -8,8 +8,33 @@ defmodule Trays.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
+    field :name, :string
+    field :phone_number, :string
+    field :type, Ecto.Enum, values: [:customer, :merchant, :admin]
 
     timestamps(type: :utc_datetime)
+  end
+
+  @doc """
+  A user changeset for registration.
+
+  It validates email, password, and required profile fields (name, phone_number, type).
+  Password is optional to support magic link registration.
+  """
+  def registration_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:email, :password, :name, :phone_number, :type])
+    |> validate_required([:name, :phone_number, :type])
+    |> validate_email(opts)
+    |> maybe_validate_password(opts)
+  end
+
+  defp maybe_validate_password(changeset, opts) do
+    if get_change(changeset, :password) do
+      validate_password(changeset, opts)
+    else
+      changeset
+    end
   end
 
   @doc """

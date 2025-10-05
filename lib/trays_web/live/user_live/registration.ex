@@ -23,13 +23,38 @@ defmodule TraysWeb.UserLive.Registration do
         </div>
 
         <.form for={@form} id="registration_form" phx-submit="save" phx-change="validate">
-          <.input
+        <.input
             field={@form[:email]}
             type="email"
             label="Email"
             autocomplete="username"
             required
             phx-mounted={JS.focus()}
+          />
+
+      <.input
+            field={@form[:name]}
+            type="text"
+            label="Name"
+            autocomplete="name"
+            required
+          />
+
+          <.input
+            field={@form[:phone_number]}
+            type="tel"
+            label="Phone Number"
+            autocomplete="tel"
+            required
+          />
+
+          <.input
+            field={@form[:type]}
+            type="select"
+            label="Account Type"
+            options={[{"Customer", :customer}, {"Merchant", :merchant}, {"Admin", :admin}]}
+            prompt="Select account type"
+            required
           />
 
           <.button phx-disable-with="Creating account..." class="btn btn-primary w-full">
@@ -48,7 +73,7 @@ defmodule TraysWeb.UserLive.Registration do
   end
 
   def mount(_params, _session, socket) do
-    changeset = Accounts.change_user_email(%User{}, %{}, validate_unique: false)
+    changeset = User.registration_changeset(%User{}, %{}, validate_unique: false)
 
     {:ok, assign_form(socket, changeset), temporary_assigns: [form: nil]}
   end
@@ -77,7 +102,12 @@ defmodule TraysWeb.UserLive.Registration do
   end
 
   def handle_event("validate", %{"user" => user_params}, socket) do
-    changeset = Accounts.change_user_email(%User{}, user_params, validate_unique: false)
+    changeset =
+      User.registration_changeset(%User{}, user_params,
+        validate_unique: false,
+        hash_password: false
+      )
+
     {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}
   end
 

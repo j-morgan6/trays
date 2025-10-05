@@ -14,7 +14,11 @@ defmodule Trays.AccountsFixtures do
 
   def valid_user_attributes(attrs \\ %{}) do
     Enum.into(attrs, %{
-      email: unique_user_email()
+      email: unique_user_email(),
+      password: valid_user_password(),
+      name: "Test User",
+      phone_number: "555-0100",
+      type: :customer
     })
   end
 
@@ -27,25 +31,27 @@ defmodule Trays.AccountsFixtures do
     user
   end
 
-  def user_fixture(attrs \\ %{}) do
-    user = unconfirmed_user_fixture(attrs)
-
-    token =
-      extract_user_token(fn url ->
-        Accounts.deliver_login_instructions(user, url)
-      end)
-
-    {:ok, {user, _expired_tokens}} =
-      Accounts.login_user_by_magic_link(token)
-
+  def unconfirmed_user_no_password_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> valid_user_attributes()
+      |> Map.delete(:password)
+      |> Accounts.register_user()
     user
+  end
+
+  def user_fixture(attrs \\ %{}) do
+    attrs
+    |> unconfirmed_user_fixture()
+    |> Ecto.Changeset.change(confirmed_at: DateTime.utc_now(:second))
+    |> Trays.Repo.update!()
   end
 
   def user_scope_fixture do
     user = user_fixture()
     user_scope_fixture(user)
   end
-
+{{ ... }}
   def user_scope_fixture(user) do
     Scope.for_user(user)
   end
