@@ -83,6 +83,7 @@ defmodule Trays.MixProject do
         Trays.Application,
         Trays.DataCase,
         Trays.Repo,
+        Trays.TestHelpers,
         TraysWeb.ConnCase,
         TraysWeb.CoreComponents,
         TraysWeb.ErrorHTML,

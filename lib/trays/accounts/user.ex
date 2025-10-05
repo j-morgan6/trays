@@ -24,8 +24,9 @@ defmodule Trays.Accounts.User do
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :name, :phone_number, :type])
-    |> validate_required([:name, :phone_number, :type])
     |> validate_email(opts)
+    |> validate_name()
+    |> validate_phone_number()
     |> maybe_validate_password(opts)
   end
 
@@ -35,6 +36,19 @@ defmodule Trays.Accounts.User do
     else
       changeset
     end
+  end
+
+  defp validate_name(changeset) do
+    changeset
+    |> validate_required([:name])
+    |> validate_length(:name, min: 2, max: 100)
+  end
+
+  defp validate_phone_number(changeset) do
+    changeset
+    |> validate_required([:phone_number])
+    |> validate_format(:phone_number, ~r/^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+        message: "must be a 10 digit phone number")
   end
 
   @doc """
