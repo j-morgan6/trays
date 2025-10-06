@@ -126,7 +126,7 @@ jobs:
 
     # Step: Security Analysis
     - name: Run Sobelow Security Analysis
-      run: mix sobelow --config
+      run: mix sobelow --config .sobelow-conf
 
     # Step: Static Analysis
     - name: Run Static Code Analysis
