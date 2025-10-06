@@ -8,59 +8,85 @@ defmodule TraysWeb.UserLive.Registration do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="mx-auto max-w-sm">
-        <div class="text-center">
-          <.header>
-            Register for an account
-            <:subtitle>
+      <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md">
+          <div class="text-center space-y-3 mb-8">
+            <h2 class="text-3xl font-bold text-base-content">
+              Create your account
+            </h2>
+            <p class="text-secondary">
               Already registered?
-              <.link navigate={~p"/users/log-in"} class="font-semibold text-brand hover:underline">
-                Log in
+              <.link
+                navigate={~p"/users/log-in"}
+                class="font-semibold text-primary hover:text-primary/80 transition-colors"
+              >
+                Sign in
               </.link>
-              to your account now.
-            </:subtitle>
-          </.header>
+              to your account.
+            </p>
+          </div>
+
+          <div class="bg-base-200 shadow-lg rounded-lg p-8 border border-base-300">
+            <.form
+              for={@form}
+              id="registration_form"
+              phx-submit="save"
+              phx-change="validate"
+              class="space-y-5"
+            >
+              <.input
+                field={@form[:email]}
+                type="email"
+                label="Email"
+                placeholder="you@example.com"
+                autocomplete="username"
+                required
+                phx-mounted={JS.focus()}
+              />
+
+              <.input
+                field={@form[:name]}
+                type="text"
+                label="Full Name"
+                placeholder="John Doe"
+                autocomplete="name"
+                required
+              />
+
+              <.input
+                field={@form[:phone_number]}
+                type="tel"
+                label="Phone Number"
+                placeholder="+1 (555) 000-0000"
+                autocomplete="tel"
+                required
+              />
+
+              <.input
+                field={@form[:type]}
+                type="select"
+                label="Account Type"
+                options={[{"Customer", :customer}, {"Merchant", :merchant}, {"Admin", :admin}]}
+                prompt="Select account type"
+                required
+              />
+
+              <div class="pt-2">
+                <.button
+                  phx-disable-with="Creating account..."
+                  class="btn btn-accent w-full"
+                >
+                  Create account
+                  <.icon name="hero-arrow-right" class="size-4" />
+                </.button>
+              </div>
+
+              <p class="text-xs text-center text-secondary pt-2">
+                By creating an account, you agree to our Terms of Service and Privacy Policy.
+              </p>
+            </.form>
+          </div>
         </div>
-
-        <.form for={@form} id="registration_form" phx-submit="save" phx-change="validate">
-          <.input
-            field={@form[:email]}
-            type="email"
-            label="Email"
-            autocomplete="username"
-            required
-            phx-mounted={JS.focus()}
-          />
-
-          <.input
-            field={@form[:name]}
-            type="text"
-            label="Name"
-            autocomplete="name"
-            required
-          />
-
-          <.input
-            field={@form[:phone_number]}
-            type="tel"
-            label="Phone Number"
-            autocomplete="tel"
-            required
-          />
-
-          <.input
-            field={@form[:type]}
-            type="select"
-            label="Account Type"
-            options={[{"Customer", :customer}, {"Merchant", :merchant}, {"Admin", :admin}]}
-            prompt="Select account type"
-            required
-          />
-
-          <.button phx-disable-with="Creating account..." class="btn btn-primary w-full">
-            Create an account
-          </.button>
-        </.form>
       </div>
     </Layouts.app>
     """

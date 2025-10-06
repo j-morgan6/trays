@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Trays" suffix=" · Phoenix Framework">
+    <.live_title default="Trays">
       {assigns[:page_title]}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
@@ -30,27 +30,40 @@
       })();
     </script>
   </head>
-  <body>
-    <ul class="menu menu-horizontal w-full relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <%= if @current_scope do %>
-        <li>
-          {@current_scope.user.email}
-        </li>
-        <li>
-          <.link href={~p"/users/settings"}>Settings</.link>
-        </li>
-        <li>
-          <.link href={~p"/users/log-out"} method="delete">Log out</.link>
-        </li>
-      <% else %>
-        <li>
-          <.link href={~p"/users/register"}>Register</.link>
-        </li>
-        <li>
-          <.link href={~p"/users/log-in"}>Log in</.link>
-        </li>
-      <% end %>
-    </ul>
-    {@inner_content}
+  <body class="h-full bg-base-100">
+    <nav class="fixed top-0 w-full z-50 bg-base-100 border-b border-base-content/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center gap-3">
+            <.link navigate={~p"/"} class="text-xl font-bold text-accent hover:text-accent/80 transition-colors">
+              Trays
+            </.link>
+          </div>
+          
+          <div class="flex items-center gap-4">
+            <%= if @current_scope do %>
+              <span class="text-sm text-secondary">{@current_scope.user.email}</span>
+              <.link href={~p"/users/settings"} class="btn btn-ghost btn-sm text-base-content">
+                Settings
+              </.link>
+              <.link href={~p"/users/log-out"} method="delete" class="btn btn-ghost btn-sm text-base-content">
+                Log out
+              </.link>
+            <% else %>
+              <.link href={~p"/users/log-in"} class="btn btn-ghost btn-sm text-base-content">
+                Log in
+              </.link>
+              <.link href={~p"/users/register"} class="btn btn-primary btn-sm">
+                Sign up
+              </.link>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="pt-16 h-full">
+      {@inner_content}
+    </div>
   </body>
 </html>
