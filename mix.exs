@@ -72,7 +72,8 @@ defmodule Trays.MixProject do
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
       {:tidewave, "~> 0.5", only: :dev},
-      {:usage_rules, "~> 0.1"}
+      {:usage_rules, "~> 0.1"},
+      {:hexdocs_mcp, "~> 0.5.0", only: :dev, runtime: false}
     ]
   end
 
