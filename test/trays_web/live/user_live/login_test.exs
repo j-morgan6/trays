@@ -8,9 +8,9 @@ defmodule TraysWeb.UserLive.LoginTest do
     test "renders login page", %{conn: conn} do
       {:ok, _lv, html} = live(conn, ~p"/users/log-in")
 
-      assert html =~ "Log in"
-      assert html =~ "Register"
-      assert html =~ "Log in with email"
+      assert html =~ "Sign in"
+      assert html =~ "Sign up"
+      assert html =~ "Magic Link Login"
     end
   end
 
@@ -85,7 +85,7 @@ defmodule TraysWeb.UserLive.LoginTest do
         |> render_click()
         |> follow_redirect(conn, ~p"/users/register")
 
-      assert login_html =~ "Register"
+      assert login_html =~ "Create your account"
     end
   end
 
@@ -99,8 +99,8 @@ defmodule TraysWeb.UserLive.LoginTest do
       {:ok, _lv, html} = live(conn, ~p"/users/log-in")
 
       assert html =~ "You need to reauthenticate"
-      refute html =~ "Register"
-      assert html =~ "Log in with email"
+      refute html =~ "Sign up"
+      assert html =~ "Magic Link Login"
 
       assert html =~
                ~s(<input type="email" name="user[email]" id="login_form_magic_email" value="#{user.email}")

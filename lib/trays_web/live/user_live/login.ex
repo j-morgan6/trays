@@ -17,8 +17,7 @@ defmodule TraysWeb.UserLive.Login do
               <%= if @current_scope do %>
                 You need to reauthenticate to perform sensitive actions on your account.
               <% else %>
-                Don't have an account?
-                <.link
+                Don't have an account? <.link
                   navigate={~p"/users/register"}
                   class="font-semibold text-primary hover:text-primary/80 transition-colors"
                   phx-no-format
@@ -65,8 +64,7 @@ defmodule TraysWeb.UserLive.Login do
                   phx-mounted={JS.focus()}
                 />
                 <.button class="btn btn-primary w-full">
-                  Send magic link
-                  <.icon name="hero-paper-airplane" class="size-4" />
+                  Send magic link <.icon name="hero-paper-airplane" class="size-4" />
                 </.button>
               </.form>
             </div>
@@ -105,8 +103,7 @@ defmodule TraysWeb.UserLive.Login do
                     name={@form[:remember_me].name}
                     value="true"
                   >
-                    Sign in and stay signed in
-                    <.icon name="hero-arrow-right" class="size-4" />
+                    Sign in and stay signed in <.icon name="hero-arrow-right" class="size-4" />
                   </.button>
                   <.button class="btn btn-ghost w-full border border-base-content/20 text-base-content">
                     Sign in for this session only

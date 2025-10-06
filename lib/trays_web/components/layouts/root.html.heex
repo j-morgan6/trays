@@ -35,18 +35,25 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center gap-3">
-            <.link navigate={~p"/"} class="text-xl font-bold text-accent hover:text-accent/80 transition-colors">
+            <.link
+              navigate={~p"/"}
+              class="text-xl font-bold text-accent hover:text-accent/80 transition-colors"
+            >
               Trays
             </.link>
           </div>
-          
+
           <div class="flex items-center gap-4">
             <%= if @current_scope do %>
               <span class="text-sm text-secondary">{@current_scope.user.email}</span>
               <.link href={~p"/users/settings"} class="btn btn-ghost btn-sm text-base-content">
                 Settings
               </.link>
-              <.link href={~p"/users/log-out"} method="delete" class="btn btn-ghost btn-sm text-base-content">
+              <.link
+                href={~p"/users/log-out"}
+                method="delete"
+                class="btn btn-ghost btn-sm text-base-content"
+              >
                 Log out
               </.link>
             <% else %>
@@ -61,7 +68,7 @@
         </div>
       </div>
     </nav>
-    
+
     <div class="pt-16 h-full">
       {@inner_content}
     </div>

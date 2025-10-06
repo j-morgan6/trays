@@ -76,8 +76,7 @@ defmodule TraysWeb.UserLive.Registration do
                   phx-disable-with="Creating account..."
                   class="btn btn-accent w-full"
                 >
-                  Create account
-                  <.icon name="hero-arrow-right" class="size-4" />
+                  Create account <.icon name="hero-arrow-right" class="size-4" />
                 </.button>
               </div>
 
