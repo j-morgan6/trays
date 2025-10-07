@@ -37,7 +37,7 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:64
+#: lib/trays_web/controllers/page_html/home.html.heex:70
 #, elixir-autogen, elixir-format
 msgid "Business Insights"
 msgstr ""
@@ -47,22 +47,22 @@ msgstr ""
 msgid "Coming Soon"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:54
+#: lib/trays_web/controllers/page_html/home.html.heex:58
 #, elixir-autogen, elixir-format
 msgid "Customer Experience"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:28
+#: lib/trays_web/controllers/page_html/home.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Get Started"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:66
+#: lib/trays_web/controllers/page_html/home.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "Make data-driven decisions with comprehensive analytics and reporting tools."
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:44
+#: lib/trays_web/controllers/page_html/home.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Order Management"
 msgstr ""
@@ -72,17 +72,17 @@ msgstr ""
 msgid "Professional catering management platform designed for restaurants to streamline operations and grow their business."
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:56
+#: lib/trays_web/controllers/page_html/home.html.heex:60
 #, elixir-autogen, elixir-format
 msgid "Provide customers with an easy-to-use portal for browsing menus and placing orders."
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:35
+#: lib/trays_web/controllers/page_html/home.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Sign In"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:46
+#: lib/trays_web/controllers/page_html/home.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "Streamline catering orders, schedules, and deliveries with our intuitive management system."
 msgstr ""
@@ -90,4 +90,24 @@ msgstr ""
 #: lib/trays_web/controllers/page_html/home.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Welcome to"
+msgstr ""
+
+#: lib/trays_web/components/layouts/root.html.heex:69
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr ""
+
+#: lib/trays_web/components/layouts/root.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr ""
+
+#: lib/trays_web/components/layouts/root.html.heex:55
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr ""
+
+#: lib/trays_web/components/layouts/root.html.heex:75
+#, elixir-autogen, elixir-format
+msgid "Sign up"
 msgstr ""

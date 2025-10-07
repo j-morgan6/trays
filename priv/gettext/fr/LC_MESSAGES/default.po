@@ -32,7 +32,7 @@ msgstr "Nous ne trouvons pas Internet"
 msgid "close"
 msgstr "fermer"
 
-#: lib/trays_web/controllers/page_html/home.html.heex:64
+#: lib/trays_web/controllers/page_html/home.html.heex:70
 #, elixir-autogen, elixir-format
 msgid "Business Insights"
 msgstr "Analyses commerciales"
@@ -42,22 +42,22 @@ msgstr "Analyses commerciales"
 msgid "Coming Soon"
 msgstr "Bientôt disponible"
 
-#: lib/trays_web/controllers/page_html/home.html.heex:54
+#: lib/trays_web/controllers/page_html/home.html.heex:58
 #, elixir-autogen, elixir-format
 msgid "Customer Experience"
 msgstr "Expérience client"
 
-#: lib/trays_web/controllers/page_html/home.html.heex:28
+#: lib/trays_web/controllers/page_html/home.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Get Started"
 msgstr "Commencer"
 
-#: lib/trays_web/controllers/page_html/home.html.heex:66
+#: lib/trays_web/controllers/page_html/home.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "Make data-driven decisions with comprehensive analytics and reporting tools."
 msgstr "Prenez des décisions basées sur les données avec des outils d'analyse et de reporting complets."
 
-#: lib/trays_web/controllers/page_html/home.html.heex:44
+#: lib/trays_web/controllers/page_html/home.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Order Management"
 msgstr "Gestion des commandes"
@@ -67,17 +67,17 @@ msgstr "Gestion des commandes"
 msgid "Professional catering management platform designed for restaurants to streamline operations and grow their business."
 msgstr "Plateforme professionnelle de gestion de restauration conçue pour que les restaurants rationalisent leurs opérations et développent leur entreprise."
 
-#: lib/trays_web/controllers/page_html/home.html.heex:56
+#: lib/trays_web/controllers/page_html/home.html.heex:60
 #, elixir-autogen, elixir-format
 msgid "Provide customers with an easy-to-use portal for browsing menus and placing orders."
 msgstr "Offrez aux clients un portail facile à utiliser pour consulter les menus et passer des commandes."
 
-#: lib/trays_web/controllers/page_html/home.html.heex:35
+#: lib/trays_web/controllers/page_html/home.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Sign In"
 msgstr "Se connecter"
 
-#: lib/trays_web/controllers/page_html/home.html.heex:46
+#: lib/trays_web/controllers/page_html/home.html.heex:48
 #, elixir-autogen, elixir-format
 msgid "Streamline catering orders, schedules, and deliveries with our intuitive management system."
 msgstr "Rationalisez les commandes de restauration, les horaires et les livraisons avec notre système de gestion intuitif."
@@ -86,3 +86,23 @@ msgstr "Rationalisez les commandes de restauration, les horaires et les livraiso
 #, elixir-autogen, elixir-format
 msgid "Welcome to"
 msgstr "Bienvenue à"
+
+#: lib/trays_web/components/layouts/root.html.heex:69
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr "Se connecter"
+
+#: lib/trays_web/components/layouts/root.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr "Se déconnecter"
+
+#: lib/trays_web/components/layouts/root.html.heex:55
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr "Paramètres"
+
+#: lib/trays_web/components/layouts/root.html.heex:75
+#, elixir-autogen, elixir-format
+msgid "Sign up"
+msgstr "S'inscrire"

@@ -52,27 +52,27 @@
                 href={~p"/users/settings"}
                 class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
               >
-                Settings
+                {gettext("Settings")}
               </.link>
               <.link
                 href={~p"/users/log-out"}
                 method="delete"
                 class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
               >
-                Log out
+                {gettext("Log out")}
               </.link>
             <% else %>
               <.link
                 href={~p"/users/log-in"}
                 class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
               >
-                Log in
+                {gettext("Log in")}
               </.link>
               <.link
                 href={~p"/users/register"}
                 class="px-5 py-2 text-sm font-semibold bg-[#e88e19] text-white rounded-lg hover:bg-[#d17d15] hover:shadow-md transition-all duration-200"
               >
-                Sign up
+                {gettext("Sign up")}
               </.link>
             <% end %>
             <Layouts.locale_switcher locale={@locale} />
