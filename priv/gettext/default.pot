@@ -16,25 +16,20 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/trays_web/components/layouts.ex:99
-#: lib/trays_web/components/layouts.ex:111
+#: lib/trays_web/components/layouts.ex:66
+#: lib/trays_web/components/layouts.ex:78
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/trays_web/components/layouts.ex:106
+#: lib/trays_web/components/layouts.ex:73
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/trays_web/components/layouts.ex:94
+#: lib/trays_web/components/layouts.ex:61
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
-msgstr ""
-
-#: lib/trays_web/controllers/page_html/home.html.heex:136
-#, elixir-autogen, elixir-format
-msgid "changelog"
 msgstr ""
 
 #: lib/trays_web/components/core_components.ex:74
@@ -42,49 +37,57 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:198
+#: lib/trays_web/controllers/page_html/home.html.heex:64
 #, elixir-autogen, elixir-format
-msgid "deploy_app"
+msgid "Business Insights"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:153
+#: lib/trays_web/controllers/page_html/home.html.heex:11
 #, elixir-autogen, elixir-format
-msgid "discuss_forum"
+msgid "Coming Soon"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:88
+#: lib/trays_web/controllers/page_html/home.html.heex:54
 #, elixir-autogen, elixir-format
-msgid "guides_and_docs"
+msgid "Customer Experience"
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:168
+#: lib/trays_web/controllers/page_html/home.html.heex:28
 #, elixir-autogen, elixir-format
-msgid "join_discord"
-msgstr ""
-
-#: lib/trays_web/controllers/page_html/home.html.heex:183
-#, elixir-autogen, elixir-format
-msgid "join_slack"
-msgstr ""
-
-#: lib/trays_web/controllers/page_html/home.html.heex:51
-#, elixir-autogen, elixir-format
-msgid "phoenix_framework"
-msgstr ""
-
-#: lib/trays_web/controllers/page_html/home.html.heex:106
-#, elixir-autogen, elixir-format
-msgid "source_code"
+msgid "Get Started"
 msgstr ""
 
 #: lib/trays_web/controllers/page_html/home.html.heex:66
 #, elixir-autogen, elixir-format
-msgid "welcome_description"
+msgid "Make data-driven decisions with comprehensive analytics and reporting tools."
 msgstr ""
 
-#: lib/trays_web/controllers/page_html/home.html.heex:63
+#: lib/trays_web/controllers/page_html/home.html.heex:44
 #, elixir-autogen, elixir-format
-msgid "welcome_title"
+msgid "Order Management"
 msgstr ""
 
+#: lib/trays_web/controllers/page_html/home.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Professional catering management platform designed for restaurants to streamline operations and grow their business."
+msgstr ""
 
+#: lib/trays_web/controllers/page_html/home.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Provide customers with an easy-to-use portal for browsing menus and placing orders."
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Sign In"
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "Streamline catering orders, schedules, and deliveries with our intuitive management system."
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Welcome to"
+msgstr ""

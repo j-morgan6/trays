@@ -6,35 +6,83 @@ msgid ""
 msgstr ""
 "Language: en\n"
 
-msgid "welcome_title"
-msgstr "Peace of mind from prototype to production."
+#: lib/trays_web/components/core_components.ex:342
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
 
-msgid "welcome_description"
-msgstr "Build rich, interactive web applications quickly, with less code and fewer moving parts. Join our growing community of developers using Phoenix to craft APIs, HTML5 apps and more, for fun or at scale."
+#: lib/trays_web/components/layouts.ex:66
+#: lib/trays_web/components/layouts.ex:78
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr ""
 
-msgid "guides_and_docs"
-msgstr "Guides & Docs"
+#: lib/trays_web/components/layouts.ex:73
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr ""
 
-msgid "source_code"
-msgstr "Source Code"
+#: lib/trays_web/components/layouts.ex:61
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr ""
 
-msgid "changelog"
-msgstr "Changelog"
+#: lib/trays_web/components/core_components.ex:74
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
 
-msgid "discuss_forum"
-msgstr "Discuss on the Elixir Forum"
+#: lib/trays_web/controllers/page_html/home.html.heex:64
+#, elixir-autogen, elixir-format
+msgid "Business Insights"
+msgstr ""
 
-msgid "join_discord"
-msgstr "Join our Discord server"
+#: lib/trays_web/controllers/page_html/home.html.heex:11
+#, elixir-autogen, elixir-format
+msgid "Coming Soon"
+msgstr ""
 
-msgid "join_slack"
-msgstr "Join us on Slack"
+#: lib/trays_web/controllers/page_html/home.html.heex:54
+#, elixir-autogen, elixir-format
+msgid "Customer Experience"
+msgstr ""
 
-msgid "deploy_app"
-msgstr "Deploy your application"
+#: lib/trays_web/controllers/page_html/home.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "Get Started"
+msgstr ""
 
-msgid "phoenix_framework"
-msgstr "Phoenix Framework"
+#: lib/trays_web/controllers/page_html/home.html.heex:66
+#, elixir-autogen, elixir-format
+msgid "Make data-driven decisions with comprehensive analytics and reporting tools."
+msgstr ""
 
-msgid "language"
-msgstr "Language"
+#: lib/trays_web/controllers/page_html/home.html.heex:44
+#, elixir-autogen, elixir-format
+msgid "Order Management"
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Professional catering management platform designed for restaurants to streamline operations and grow their business."
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Provide customers with an easy-to-use portal for browsing menus and placing orders."
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Sign In"
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "Streamline catering orders, schedules, and deliveries with our intuitive management system."
+msgstr ""
+
+#: lib/trays_web/controllers/page_html/home.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Welcome to"
+msgstr ""
