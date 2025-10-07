@@ -45,26 +45,26 @@
 
           <div class="flex items-center gap-4">
             <%= if @current_scope do %>
-              <span class="text-sm text-[#53585d]/70 font-medium">
+              <span class="text-sm text-base-content/70 font-medium">
                 {@current_scope.user.email}
               </span>
               <.link
                 href={~p"/users/settings"}
-                class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
+                class="px-4 py-2 text-sm font-medium text-base-content hover:text-[#85b4cf] transition-colors"
               >
                 {gettext("Settings")}
               </.link>
               <.link
                 href={~p"/users/log-out"}
                 method="delete"
-                class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
+                class="px-4 py-2 text-sm font-medium text-base-content hover:text-[#85b4cf] transition-colors"
               >
                 {gettext("Log out")}
               </.link>
             <% else %>
               <.link
                 href={~p"/users/log-in"}
-                class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
+                class="px-4 py-2 text-sm font-medium text-base-content hover:text-[#85b4cf] transition-colors"
               >
                 {gettext("Log in")}
               </.link>

@@ -11,10 +11,10 @@ defmodule TraysWeb.UserLive.Registration do
       <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md">
           <div class="text-center space-y-3 mb-8">
-            <h2 class="text-3xl font-bold text-[#53585d]">
+            <h2 class="text-3xl font-bold text-base-content">
               {gettext("Create your account")}
             </h2>
-            <p class="text-[#53585d]/70">
+            <p class="text-base-content/70">
               {gettext("Already registered?")}
               <.link
                 navigate={~p"/users/log-in"}
@@ -84,7 +84,7 @@ defmodule TraysWeb.UserLive.Registration do
                 </.button>
               </div>
 
-              <p class="text-xs text-center text-[#53585d]/60 pt-2">
+              <p class="text-xs text-center text-base-content pt-2">
                 {gettext(
                   "By creating an account, you agree to our Terms of Service and Privacy Policy."
                 )}
