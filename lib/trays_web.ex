@@ -52,6 +52,8 @@ defmodule TraysWeb do
     quote do
       use Phoenix.LiveView
 
+      on_mount TraysWeb.Hooks.Locale
+
       unquote(html_helpers())
     end
   end

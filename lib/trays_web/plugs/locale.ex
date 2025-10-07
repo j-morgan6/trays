@@ -8,6 +8,14 @@ defmodule TraysWeb.Plugs.Locale do
   def call(conn, default) do
     locale = fetch_locale(conn) || default
     Gettext.put_locale(TraysWeb.Gettext, locale)
+
+    conn =
+      if conn.params["locale"] do
+        put_session(conn, :locale, locale)
+      else
+        conn
+      end
+
     assign(conn, :locale, locale)
   end
 
