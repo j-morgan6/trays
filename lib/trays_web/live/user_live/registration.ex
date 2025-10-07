@@ -12,17 +12,17 @@ defmodule TraysWeb.UserLive.Registration do
         <div class="w-full max-w-md">
           <div class="text-center space-y-3 mb-8">
             <h2 class="text-3xl font-bold text-[#53585d]">
-              Create your account
+              {gettext("Create your account")}
             </h2>
             <p class="text-[#53585d]/70">
-              Already registered?
+              {gettext("Already registered?")}
               <.link
                 navigate={~p"/users/log-in"}
                 class="font-semibold text-[#85b4cf] hover:text-[#6a94ab] transition-colors"
               >
-                Sign in
+                {gettext("Sign in")}
               </.link>
-              to your account.
+              {gettext("to your account.")}
             </p>
           </div>
 
@@ -37,7 +37,7 @@ defmodule TraysWeb.UserLive.Registration do
               <.input
                 field={@form[:email]}
                 type="email"
-                label="Email"
+                label={gettext("Email")}
                 placeholder="you@example.com"
                 autocomplete="username"
                 required
@@ -47,7 +47,7 @@ defmodule TraysWeb.UserLive.Registration do
               <.input
                 field={@form[:name]}
                 type="text"
-                label="Full Name"
+                label={gettext("Full Name")}
                 placeholder="John Doe"
                 autocomplete="name"
                 required
@@ -56,7 +56,7 @@ defmodule TraysWeb.UserLive.Registration do
               <.input
                 field={@form[:phone_number]}
                 type="tel"
-                label="Phone Number"
+                label={gettext("Phone Number")}
                 placeholder="+1 (555) 000-0000"
                 autocomplete="tel"
                 required
@@ -65,23 +65,29 @@ defmodule TraysWeb.UserLive.Registration do
               <.input
                 field={@form[:type]}
                 type="select"
-                label="Account Type"
-                options={[{"Customer", :customer}, {"Merchant", :merchant}, {"Admin", :admin}]}
-                prompt="Select account type"
+                label={gettext("Account Type")}
+                options={[
+                  {gettext("Customer"), :customer},
+                  {gettext("Merchant"), :merchant},
+                  {gettext("Admin"), :admin}
+                ]}
+                prompt={gettext("Select account type")}
                 required
               />
 
               <div class="pt-2">
                 <.button
-                  phx-disable-with="Creating account..."
+                  phx-disable-with={gettext("Creating account...")}
                   class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200"
                 >
-                  Create account <.icon name="hero-arrow-right" class="size-4 inline" />
+                  {gettext("Create account")} <.icon name="hero-arrow-right" class="size-4 inline" />
                 </.button>
               </div>
 
               <p class="text-xs text-center text-[#53585d]/60 pt-2">
-                By creating an account, you agree to our Terms of Service and Privacy Policy.
+                {gettext(
+                  "By creating an account, you agree to our Terms of Service and Privacy Policy."
+                )}
               </p>
             </.form>
           </div>
@@ -117,7 +123,9 @@ defmodule TraysWeb.UserLive.Registration do
          socket
          |> put_flash(
            :info,
-           "An email was sent to #{user.email}, please access it to confirm your account."
+           gettext("An email was sent to %{email}, please access it to confirm your account.",
+             email: user.email
+           )
          )
          |> push_navigate(to: ~p"/users/log-in")}
 

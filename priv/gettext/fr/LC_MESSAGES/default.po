@@ -106,3 +106,83 @@ msgstr "Paramètres"
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr "S'inscrire"
+
+#: lib/trays_web/live/user_live/registration.ex:68
+#, elixir-autogen, elixir-format
+msgid "Account Type"
+msgstr "Type de compte"
+
+#: lib/trays_web/live/user_live/registration.ex:72
+#, elixir-autogen, elixir-format
+msgid "Admin"
+msgstr "Administrateur"
+
+#: lib/trays_web/live/user_live/registration.ex:18
+#, elixir-autogen, elixir-format
+msgid "Already registered?"
+msgstr "Déjà inscrit ?"
+
+#: lib/trays_web/live/user_live/registration.ex:124
+#, elixir-autogen, elixir-format
+msgid "An email was sent to %{email}, please access it to confirm your account."
+msgstr "Un e-mail a été envoyé à %{email}, veuillez y accéder pour confirmer votre compte."
+
+#: lib/trays_web/live/user_live/registration.ex:88
+#, elixir-autogen, elixir-format
+msgid "By creating an account, you agree to our Terms of Service and Privacy Policy."
+msgstr "En créant un compte, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité."
+
+#: lib/trays_web/live/user_live/registration.ex:83
+#, elixir-autogen, elixir-format
+msgid "Create account"
+msgstr "Créer un compte"
+
+#: lib/trays_web/live/user_live/registration.ex:15
+#, elixir-autogen, elixir-format
+msgid "Create your account"
+msgstr "Créez votre compte"
+
+#: lib/trays_web/live/user_live/registration.ex:80
+#, elixir-autogen, elixir-format
+msgid "Creating account..."
+msgstr "Création du compte..."
+
+#: lib/trays_web/live/user_live/registration.ex:70
+#, elixir-autogen, elixir-format
+msgid "Customer"
+msgstr "Client"
+
+#: lib/trays_web/live/user_live/registration.ex:40
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr "E-mail"
+
+#: lib/trays_web/live/user_live/registration.ex:50
+#, elixir-autogen, elixir-format
+msgid "Full Name"
+msgstr "Nom complet"
+
+#: lib/trays_web/live/user_live/registration.ex:71
+#, elixir-autogen, elixir-format
+msgid "Merchant"
+msgstr "Commerçant"
+
+#: lib/trays_web/live/user_live/registration.ex:59
+#, elixir-autogen, elixir-format
+msgid "Phone Number"
+msgstr "Numéro de téléphone"
+
+#: lib/trays_web/live/user_live/registration.ex:74
+#, elixir-autogen, elixir-format
+msgid "Select account type"
+msgstr "Sélectionnez le type de compte"
+
+#: lib/trays_web/live/user_live/registration.ex:23
+#, elixir-autogen, elixir-format
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: lib/trays_web/live/user_live/registration.ex:25
+#, elixir-autogen, elixir-format
+msgid "to your account."
+msgstr "à votre compte."
