@@ -7,44 +7,47 @@ defmodule TraysWeb.UserLive.Login do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md">
           <div class="text-center space-y-3 mb-8">
-            <h2 class="text-3xl font-bold text-base-content">
+            <h2 class="text-3xl font-bold text-[#53585d]">
               Welcome back
             </h2>
-            <p class="text-secondary">
+            <p class="text-[#53585d]/70">
               <%= if @current_scope do %>
                 You need to reauthenticate to perform sensitive actions on your account.
               <% else %>
                 Don't have an account? <.link
                   navigate={~p"/users/register"}
-                  class="font-semibold text-primary hover:text-primary/80 transition-colors"
+                  class="font-semibold text-[#85b4cf] hover:text-[#6a94ab] transition-colors"
                   phx-no-format
                 >Sign up</.link>
               <% end %>
             </p>
           </div>
 
-          <div class="bg-base-200 shadow-lg rounded-lg p-8 border border-base-300 space-y-6">
+          <div class="bg-white shadow-2xl rounded-xl p-8 border-2 border-[#85b4cf]/20 space-y-6">
             <div
               :if={local_mail_adapter?()}
-              class="alert bg-info/20 border border-info/30"
+              class="bg-[#85b4cf]/10 border-2 border-[#85b4cf]/30 rounded-lg p-4"
             >
-              <.icon name="hero-information-circle" class="size-5 shrink-0 text-info" />
-              <div class="text-sm text-base-content">
-                <p class="font-medium">Development Mode</p>
-                <p class="text-secondary">
-                  View emails at <.link
+              <.icon
+                name="hero-information-circle"
+                class="size-5 shrink-0 text-[#85b4cf] inline-block mb-1"
+              />
+              <div class="text-sm text-[#53585d] inline">
+                <p class="font-semibold inline">Development Mode</p>
+                <p class="text-[#53585d]/70 inline">
+                  - View emails at <.link
                     href="/dev/mailbox"
-                    class="underline hover:no-underline text-primary"
+                    class="underline hover:no-underline text-[#85b4cf] font-medium"
                   >the mailbox page</.link>.
                 </p>
               </div>
             </div>
 
             <div class="space-y-4">
-              <h3 class="text-lg font-semibold text-base-content">Magic Link Login</h3>
+              <h3 class="text-lg font-bold text-[#53585d]">Magic Link Login</h3>
               <.form
                 :let={f}
                 for={@form}
@@ -63,13 +66,22 @@ defmodule TraysWeb.UserLive.Login do
                   required
                   phx-mounted={JS.focus()}
                 />
-                <.button class="btn btn-primary w-full">
-                  Send magic link <.icon name="hero-paper-airplane" class="size-4" />
+                <.button class="w-full px-6 py-3 bg-[#85b4cf] text-white font-semibold rounded-lg hover:bg-[#6a94ab] hover:shadow-lg transition-all duration-200">
+                  Send magic link <.icon name="hero-paper-airplane" class="size-4 inline" />
                 </.button>
               </.form>
             </div>
 
-            <div class="divider text-sm text-secondary">or continue with password</div>
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-[#53585d]/20"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-4 bg-white text-[#53585d]/60 font-medium">
+                  or continue with password
+                </span>
+              </div>
+            </div>
 
             <div class="space-y-4">
               <.form
@@ -99,13 +111,13 @@ defmodule TraysWeb.UserLive.Login do
                 />
                 <div class="space-y-3">
                   <.button
-                    class="btn btn-accent w-full"
+                    class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200"
                     name={@form[:remember_me].name}
                     value="true"
                   >
-                    Sign in and stay signed in <.icon name="hero-arrow-right" class="size-4" />
+                    Sign in and stay signed in <.icon name="hero-arrow-right" class="size-4 inline" />
                   </.button>
-                  <.button class="btn btn-ghost w-full border border-base-content/20 text-base-content">
+                  <.button class="w-full px-6 py-3 bg-white text-[#53585d] font-semibold rounded-lg border-2 border-[#53585d]/30 hover:bg-[#53585d]/5 hover:border-[#53585d] transition-all duration-200">
                     Sign in for this session only
                   </.button>
                 </div>

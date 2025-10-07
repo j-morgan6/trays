@@ -8,17 +8,17 @@ defmodule TraysWeb.UserLive.Registration do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-base-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md">
           <div class="text-center space-y-3 mb-8">
-            <h2 class="text-3xl font-bold text-base-content">
+            <h2 class="text-3xl font-bold text-[#53585d]">
               Create your account
             </h2>
-            <p class="text-secondary">
+            <p class="text-[#53585d]/70">
               Already registered?
               <.link
                 navigate={~p"/users/log-in"}
-                class="font-semibold text-primary hover:text-primary/80 transition-colors"
+                class="font-semibold text-[#85b4cf] hover:text-[#6a94ab] transition-colors"
               >
                 Sign in
               </.link>
@@ -26,7 +26,7 @@ defmodule TraysWeb.UserLive.Registration do
             </p>
           </div>
 
-          <div class="bg-base-200 shadow-lg rounded-lg p-8 border border-base-300">
+          <div class="bg-white shadow-2xl rounded-xl p-8 border-2 border-[#85b4cf]/20">
             <.form
               for={@form}
               id="registration_form"
@@ -74,13 +74,13 @@ defmodule TraysWeb.UserLive.Registration do
               <div class="pt-2">
                 <.button
                   phx-disable-with="Creating account..."
-                  class="btn btn-accent w-full"
+                  class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200"
                 >
-                  Create account <.icon name="hero-arrow-right" class="size-4" />
+                  Create account <.icon name="hero-arrow-right" class="size-4 inline" />
                 </.button>
               </div>
 
-              <p class="text-xs text-center text-secondary pt-2">
+              <p class="text-xs text-center text-[#53585d]/60 pt-2">
                 By creating an account, you agree to our Terms of Service and Privacy Policy.
               </p>
             </.form>

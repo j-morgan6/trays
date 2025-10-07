@@ -30,14 +30,14 @@
       })();
     </script>
   </head>
-  <body class="h-full bg-base-100">
-    <nav class="fixed top-0 w-full z-50 bg-base-100 border-b border-base-content/20">
+  <body class="h-full bg-white">
+    <nav class="fixed top-0 w-full z-50 bg-white border-b-2 border-[#85b4cf]/20 shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center gap-3">
             <.link
               navigate={~p"/"}
-              class="text-xl font-bold text-accent hover:text-accent/80 transition-colors"
+              class="text-2xl font-bold text-[#85b4cf] hover:text-[#6a94ab] transition-colors"
             >
               Trays
             </.link>
@@ -45,22 +45,33 @@
 
           <div class="flex items-center gap-4">
             <%= if @current_scope do %>
-              <span class="text-sm text-secondary">{@current_scope.user.email}</span>
-              <.link href={~p"/users/settings"} class="btn btn-ghost btn-sm text-base-content">
+              <span class="text-sm text-[#53585d]/70 font-medium">
+                {@current_scope.user.email}
+              </span>
+              <.link
+                href={~p"/users/settings"}
+                class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
+              >
                 Settings
               </.link>
               <.link
                 href={~p"/users/log-out"}
                 method="delete"
-                class="btn btn-ghost btn-sm text-base-content"
+                class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
               >
                 Log out
               </.link>
             <% else %>
-              <.link href={~p"/users/log-in"} class="btn btn-ghost btn-sm text-base-content">
+              <.link
+                href={~p"/users/log-in"}
+                class="px-4 py-2 text-sm font-medium text-[#53585d] hover:text-[#85b4cf] transition-colors"
+              >
                 Log in
               </.link>
-              <.link href={~p"/users/register"} class="btn btn-primary btn-sm">
+              <.link
+                href={~p"/users/register"}
+                class="px-5 py-2 text-sm font-semibold bg-[#e88e19] text-white rounded-lg hover:bg-[#d17d15] hover:shadow-md transition-all duration-200"
+              >
                 Sign up
               </.link>
             <% end %>

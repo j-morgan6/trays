@@ -1,21 +1,21 @@
-<div class="min-h-screen flex items-center justify-center bg-base-100">
+<div class="min-h-screen flex items-center justify-center bg-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center space-y-12 py-20">
       <div class="space-y-6">
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent/20 rounded-full border border-accent/30">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#e88e19]/10 rounded-full border-2 border-[#e88e19]">
           <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e88e19] opacity-75">
             </span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#e88e19]"></span>
           </span>
-          <span class="text-sm font-medium text-accent">Coming Soon</span>
+          <span class="text-sm font-semibold text-[#e88e19]">Coming Soon</span>
         </div>
 
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-base-content tracking-tight">
-          Welcome to <span class="text-primary">Trays</span>
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-[#53585d] tracking-tight">
+          Welcome to <span class="text-[#85b4cf]">Trays</span>
         </h1>
 
-        <p class="text-xl sm:text-2xl text-secondary max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl sm:text-2xl text-[#53585d]/80 max-w-3xl mx-auto leading-relaxed">
           Professional catering management platform designed for restaurants to streamline operations and grow their business.
         </p>
       </div>
@@ -23,46 +23,46 @@
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
         <.link
           navigate={~p"/users/register"}
-          class="btn btn-accent btn-lg px-8 hover:shadow-lg transition-all"
+          class="px-8 py-4 text-lg font-semibold bg-[#e88e19] text-white rounded-lg hover:bg-[#d17d15] hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
         >
-          Get Started <.icon name="hero-arrow-right" class="size-5" />
+          Get Started <.icon name="hero-arrow-right" class="size-5 inline" />
         </.link>
 
         <.link
           navigate={~p"/users/log-in"}
-          class="btn btn-ghost btn-lg border-2 border-base-content/20 hover:border-primary/50 text-base-content"
+          class="px-8 py-4 text-lg font-semibold bg-white text-[#53585d] rounded-lg border-2 border-[#85b4cf] hover:bg-[#85b4cf]/5 hover:border-[#85b4cf] hover:shadow-lg transition-all duration-200"
         >
           Sign In
         </.link>
       </div>
 
       <div class="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <div class="bg-base-200 rounded-lg p-8 border border-base-300 hover:border-primary/50 hover:shadow-lg transition-all space-y-4">
-          <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center">
-            <.icon name="hero-calendar-days" class="size-7 text-primary" />
+        <div class="bg-gradient-to-br from-[#85b4cf]/5 to-white rounded-xl p-8 border-2 border-[#85b4cf]/20 hover:border-[#85b4cf] hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-4">
+          <div class="w-16 h-16 bg-[#85b4cf] rounded-xl flex items-center justify-center shadow-lg">
+            <.icon name="hero-calendar-days" class="size-8 text-white" />
           </div>
-          <h3 class="text-xl font-semibold text-base-content">Order Management</h3>
-          <p class="text-secondary leading-relaxed">
+          <h3 class="text-xl font-bold text-[#53585d]">Order Management</h3>
+          <p class="text-[#53585d]/70 leading-relaxed">
             Streamline catering orders, schedules, and deliveries with our intuitive management system.
           </p>
         </div>
 
-        <div class="bg-base-200 rounded-lg p-8 border border-base-300 hover:border-primary/50 hover:shadow-lg transition-all space-y-4">
-          <div class="w-14 h-14 bg-primary/20 rounded-lg flex items-center justify-center">
-            <.icon name="hero-users" class="size-7 text-primary" />
+        <div class="bg-gradient-to-br from-[#85b4cf]/5 to-white rounded-xl p-8 border-2 border-[#85b4cf]/20 hover:border-[#85b4cf] hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-4">
+          <div class="w-16 h-16 bg-[#85b4cf] rounded-xl flex items-center justify-center shadow-lg">
+            <.icon name="hero-users" class="size-8 text-white" />
           </div>
-          <h3 class="text-xl font-semibold text-base-content">Customer Experience</h3>
-          <p class="text-secondary leading-relaxed">
+          <h3 class="text-xl font-bold text-[#53585d]">Customer Experience</h3>
+          <p class="text-[#53585d]/70 leading-relaxed">
             Provide customers with an easy-to-use portal for browsing menus and placing orders.
           </p>
         </div>
 
-        <div class="bg-base-200 rounded-lg p-8 border border-base-300 hover:border-accent/50 hover:shadow-lg transition-all space-y-4">
-          <div class="w-14 h-14 bg-accent/20 rounded-lg flex items-center justify-center">
-            <.icon name="hero-chart-bar" class="size-7 text-accent" />
+        <div class="bg-gradient-to-br from-[#e88e19]/5 to-white rounded-xl p-8 border-2 border-[#e88e19]/30 hover:border-[#e88e19] hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 space-y-4">
+          <div class="w-16 h-16 bg-[#e88e19] rounded-xl flex items-center justify-center shadow-lg">
+            <.icon name="hero-chart-bar" class="size-8 text-white" />
           </div>
-          <h3 class="text-xl font-semibold text-base-content">Business Insights</h3>
-          <p class="text-secondary leading-relaxed">
+          <h3 class="text-xl font-bold text-[#53585d]">Business Insights</h3>
+          <p class="text-[#53585d]/70 leading-relaxed">
             Make data-driven decisions with comprehensive analytics and reporting tools.
           </p>
         </div>
