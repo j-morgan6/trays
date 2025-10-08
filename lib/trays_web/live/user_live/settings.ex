@@ -13,14 +13,20 @@ defmodule TraysWeb.UserLive.Settings do
         <div class="max-w-3xl mx-auto">
           <div class="text-center mb-8">
             <h1 class="text-4xl font-bold text-base-content mb-3">{gettext("Account Settings")}</h1>
-            <p class="text-base-content/70 text-lg">{gettext("Manage your account profile, email address and password settings")}</p>
+            <p class="text-base-content/70 text-lg">
+              {gettext("Manage your account profile, email address and password settings")}
+            </p>
           </div>
 
           <div class="space-y-6">
             <!-- Profile Section -->
             <div class="bg-white shadow-lg rounded-xl p-6 border-2 border-[#85b4cf]/20">
-              <h2 class="text-2xl font-bold text-base-content mb-1">{gettext("Profile Information")}</h2>
-              <p class="text-base-content/70 text-sm mb-6">{gettext("Update your name and phone number")}</p>
+              <h2 class="text-2xl font-bold text-base-content mb-1">
+                {gettext("Profile Information")}
+              </h2>
+              <p class="text-base-content/70 text-sm mb-6">
+                {gettext("Update your name and phone number")}
+              </p>
 
               <.form
                 for={@profile_form}
@@ -43,18 +49,29 @@ defmodule TraysWeb.UserLive.Settings do
                   autocomplete="tel"
                   required
                 />
-                <.button class="w-full px-6 py-3 bg-[#85b4cf] text-white font-semibold rounded-lg hover:bg-[#6a94ab] hover:shadow-lg transition-all duration-200" phx-disable-with={gettext("Saving...")}>
+                <.button
+                  class="w-full px-6 py-3 bg-[#85b4cf] text-white font-semibold rounded-lg hover:bg-[#6a94ab] hover:shadow-lg transition-all duration-200"
+                  phx-disable-with={gettext("Saving...")}
+                >
                   {gettext("Update Profile")}
                 </.button>
               </.form>
             </div>
-
-            <!-- Email Section -->
+            
+    <!-- Email Section -->
             <div class="bg-white shadow-lg rounded-xl p-6 border-2 border-[#85b4cf]/20">
               <h2 class="text-2xl font-bold text-base-content mb-1">{gettext("Email Address")}</h2>
-              <p class="text-base-content/70 text-sm mb-6">{gettext("Change your email address (requires confirmation)")}</p>
+              <p class="text-base-content/70 text-sm mb-6">
+                {gettext("Change your email address (requires confirmation)")}
+              </p>
 
-              <.form for={@email_form} id="email_form" phx-submit="update_email" phx-change="validate_email" class="space-y-4">
+              <.form
+                for={@email_form}
+                id="email_form"
+                phx-submit="update_email"
+                phx-change="validate_email"
+                class="space-y-4"
+              >
                 <.input
                   field={@email_form[:email]}
                   type="email"
@@ -62,16 +79,21 @@ defmodule TraysWeb.UserLive.Settings do
                   autocomplete="username"
                   required
                 />
-                <.button class="w-full px-6 py-3 bg-[#85b4cf] text-white font-semibold rounded-lg hover:bg-[#6a94ab] hover:shadow-lg transition-all duration-200" phx-disable-with={gettext("Changing...")}>
+                <.button
+                  class="w-full px-6 py-3 bg-[#85b4cf] text-white font-semibold rounded-lg hover:bg-[#6a94ab] hover:shadow-lg transition-all duration-200"
+                  phx-disable-with={gettext("Changing...")}
+                >
                   {gettext("Change Email")}
                 </.button>
               </.form>
             </div>
-
-            <!-- Password Section -->
+            
+    <!-- Password Section -->
             <div class="bg-white shadow-lg rounded-xl p-6 border-2 border-[#85b4cf]/20">
               <h2 class="text-2xl font-bold text-base-content mb-1">{gettext("Password")}</h2>
-              <p class="text-base-content/70 text-sm mb-6">{gettext("Update your password to keep your account secure")}</p>
+              <p class="text-base-content/70 text-sm mb-6">
+                {gettext("Update your password to keep your account secure")}
+              </p>
 
               <.form
                 for={@password_form}
@@ -103,7 +125,10 @@ defmodule TraysWeb.UserLive.Settings do
                   label={gettext("Confirm new password")}
                   autocomplete="new-password"
                 />
-                <.button class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200" phx-disable-with={gettext("Saving...")}>
+                <.button
+                  class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200"
+                  phx-disable-with={gettext("Saving...")}
+                >
                   {gettext("Save Password")}
                 </.button>
               </.form>

@@ -72,6 +72,11 @@ defmodule TraysWeb.Router do
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+      live "/merchants", MerchantLive.Index, :index
+      live "/merchants/new", MerchantLive.Form, :new
+      live "/merchants/:id", MerchantLive.Show, :show
+      live "/merchants/:id/edit", MerchantLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password

@@ -7,26 +7,29 @@ defmodule TraysWeb.Hooks.AuthorizeTest do
 
   describe "Hooks.Authorize" do
     setup do
-      {:ok, merchant} = Accounts.register_user(%{
-        email: "merchant@example.com",
-        name: "Merchant User",
-        phone_number: "5550001111",
-        type: :merchant
-      })
+      {:ok, merchant} =
+        Accounts.register_user(%{
+          email: "merchant@example.com",
+          name: "Merchant User",
+          phone_number: "5550001111",
+          type: :merchant
+        })
 
-      {:ok, customer} = Accounts.register_user(%{
-        email: "customer@example.com",
-        name: "Customer User",
-        phone_number: "5550002222",
-        type: :customer
-      })
+      {:ok, customer} =
+        Accounts.register_user(%{
+          email: "customer@example.com",
+          name: "Customer User",
+          phone_number: "5550002222",
+          type: :customer
+        })
 
-      {:ok, admin} = Accounts.register_user(%{
-        email: "admin@example.com",
-        name: "Admin User",
-        phone_number: "5550003333",
-        type: :admin
-      })
+      {:ok, admin} =
+        Accounts.register_user(%{
+          email: "admin@example.com",
+          name: "Admin User",
+          phone_number: "5550003333",
+          type: :admin
+        })
 
       %{merchant: merchant, customer: customer, admin: admin}
     end

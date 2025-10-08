@@ -67,7 +67,8 @@ defmodule TraysWeb.UserLive.Login do
                   phx-mounted={JS.focus()}
                 />
                 <.button class="w-full px-6 py-3 bg-[#85b4cf] text-white font-semibold rounded-lg hover:bg-[#6a94ab] hover:shadow-lg transition-all duration-200">
-                  {gettext("Send magic link")} <.icon name="hero-paper-airplane" class="size-4 inline" />
+                  {gettext("Send magic link")}
+                  <.icon name="hero-paper-airplane" class="size-4 inline" />
                 </.button>
               </.form>
             </div>
@@ -115,7 +116,8 @@ defmodule TraysWeb.UserLive.Login do
                     name={@form[:remember_me].name}
                     value="true"
                   >
-                    {gettext("Sign in and stay signed in")} <.icon name="hero-arrow-right" class="size-4 inline" />
+                    {gettext("Sign in and stay signed in")}
+                    <.icon name="hero-arrow-right" class="size-4 inline" />
                   </.button>
                   <.button class="w-full px-6 py-3 bg-white text-base-content font-semibold rounded-lg border-2 border-base-content/30 hover:bg-base-content/5 hover:border-base-content transition-all duration-200">
                     {gettext("Sign in for this session only")}
@@ -155,7 +157,9 @@ defmodule TraysWeb.UserLive.Login do
     end
 
     info =
-      gettext("If your email is in our system, you will receive instructions for logging in shortly.")
+      gettext(
+        "If your email is in our system, you will receive instructions for logging in shortly."
+      )
 
     {:noreply,
      socket

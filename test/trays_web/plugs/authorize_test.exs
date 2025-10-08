@@ -6,19 +6,21 @@ defmodule TraysWeb.Plugs.AuthorizeTest do
 
   describe "authorize plug" do
     setup do
-      {:ok, merchant} = Accounts.register_user(%{
-        email: "merchant@example.com",
-        name: "Merchant User",
-        phone_number: "5550001111",
-        type: :merchant
-      })
+      {:ok, merchant} =
+        Accounts.register_user(%{
+          email: "merchant@example.com",
+          name: "Merchant User",
+          phone_number: "5550001111",
+          type: :merchant
+        })
 
-      {:ok, customer} = Accounts.register_user(%{
-        email: "customer@example.com",
-        name: "Customer User",
-        phone_number: "5550002222",
-        type: :customer
-      })
+      {:ok, customer} =
+        Accounts.register_user(%{
+          email: "customer@example.com",
+          name: "Customer User",
+          phone_number: "5550002222",
+          type: :customer
+        })
 
       %{merchant: merchant, customer: customer}
     end
@@ -42,7 +44,9 @@ defmodule TraysWeb.Plugs.AuthorizeTest do
 
       assert conn.halted
       assert redirected_to(conn) == "/"
-      assert Phoenix.Flash.get(conn.assigns.flash, :error) == "You are not authorized to perform this action."
+
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) ==
+               "You are not authorized to perform this action."
     end
 
     test "denies access when no user is present", %{conn: conn} do

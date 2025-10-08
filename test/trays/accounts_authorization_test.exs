@@ -5,26 +5,29 @@ defmodule Trays.AccountsAuthorizationTest do
 
   describe "can?/3 authorization" do
     setup do
-      {:ok, admin} = Accounts.register_user(%{
-        email: "admin@example.com",
-        name: "Admin User",
-        phone_number: "5550001111",
-        type: :admin
-      })
+      {:ok, admin} =
+        Accounts.register_user(%{
+          email: "admin@example.com",
+          name: "Admin User",
+          phone_number: "5550001111",
+          type: :admin
+        })
 
-      {:ok, merchant} = Accounts.register_user(%{
-        email: "merchant@example.com",
-        name: "Merchant User",
-        phone_number: "5550002222",
-        type: :merchant
-      })
+      {:ok, merchant} =
+        Accounts.register_user(%{
+          email: "merchant@example.com",
+          name: "Merchant User",
+          phone_number: "5550002222",
+          type: :merchant
+        })
 
-      {:ok, customer} = Accounts.register_user(%{
-        email: "customer@example.com",
-        name: "Customer User",
-        phone_number: "5550003333",
-        type: :customer
-      })
+      {:ok, customer} =
+        Accounts.register_user(%{
+          email: "customer@example.com",
+          name: "Customer User",
+          phone_number: "5550003333",
+          type: :customer
+        })
 
       %{admin: admin, merchant: merchant, customer: customer}
     end

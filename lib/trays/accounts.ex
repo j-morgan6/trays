@@ -357,6 +357,7 @@ defmodule Trays.Accounts do
 
   # Customers can create and view their own orders
   def can?(%User{type: :customer}, :create, :order), do: true
+
   def can?(%User{type: :customer, id: user_id}, :view, {:order, order_user_id})
       when user_id == order_user_id,
       do: true
