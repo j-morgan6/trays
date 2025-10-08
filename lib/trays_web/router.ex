@@ -77,6 +77,11 @@ defmodule TraysWeb.Router do
       live "/merchants/new", MerchantLive.Form, :new
       live "/merchants/:id", MerchantLive.Show, :show
       live "/merchants/:id/edit", MerchantLive.Form, :edit
+
+      live "/merchant_locations", MerchantLocationLive.Index, :index
+      live "/merchant_locations/new", MerchantLocationLive.Form, :new
+      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
+      live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password
