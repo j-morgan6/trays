@@ -88,6 +88,7 @@ msgid "Welcome to"
 msgstr ""
 
 #: lib/trays_web/components/layouts/root.html.heex:69
+#: lib/trays_web/live/user_live/confirmation.ex:50
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
@@ -347,4 +348,52 @@ msgstr ""
 #: lib/trays_web/live/user_live/settings.ex:74
 #, elixir-autogen, elixir-format
 msgid "Update your password to keep your account secure"
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:34
+#, elixir-autogen, elixir-format
+msgid "Confirm and log in only this time"
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:31
+#, elixir-autogen, elixir-format
+msgid "Confirm and stay logged in"
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:28
+#: lib/trays_web/live/user_live/confirmation.ex:33
+#, elixir-autogen, elixir-format
+msgid "Confirming..."
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:59
+#, elixir-autogen, elixir-format
+msgid "Keep me logged in on this device"
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:62
+#, elixir-autogen, elixir-format
+msgid "Log me in only this time"
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:49
+#: lib/trays_web/live/user_live/confirmation.ex:56
+#: lib/trays_web/live/user_live/confirmation.ex:61
+#, elixir-autogen, elixir-format
+msgid "Logging in..."
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:85
+#, elixir-autogen, elixir-format
+msgid "Magic link is invalid or it has expired."
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:68
+#, elixir-autogen, elixir-format
+msgid "Tip: If you prefer passwords, you can enable them in the user settings."
+msgstr ""
+
+#: lib/trays_web/live/user_live/confirmation.ex:12
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Welcome"
 msgstr ""

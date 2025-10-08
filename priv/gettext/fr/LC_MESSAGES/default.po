@@ -88,6 +88,7 @@ msgid "Welcome to"
 msgstr "Bienvenue à"
 
 #: lib/trays_web/components/layouts/root.html.heex:69
+#: lib/trays_web/live/user_live/confirmation.ex:50
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "Se connecter"
@@ -348,3 +349,51 @@ msgstr "Mettre à jour votre nom et numéro de téléphone"
 #, elixir-autogen, elixir-format
 msgid "Update your password to keep your account secure"
 msgstr "Mettre à jour votre mot de passe pour sécuriser votre compte"
+
+#: lib/trays_web/live/user_live/confirmation.ex:34
+#, elixir-autogen, elixir-format
+msgid "Confirm and log in only this time"
+msgstr "Confirmer et se connecter uniquement cette fois"
+
+#: lib/trays_web/live/user_live/confirmation.ex:31
+#, elixir-autogen, elixir-format
+msgid "Confirm and stay logged in"
+msgstr "Confirmer et rester connecté"
+
+#: lib/trays_web/live/user_live/confirmation.ex:28
+#: lib/trays_web/live/user_live/confirmation.ex:33
+#, elixir-autogen, elixir-format
+msgid "Confirming..."
+msgstr "Confirmation..."
+
+#: lib/trays_web/live/user_live/confirmation.ex:59
+#, elixir-autogen, elixir-format
+msgid "Keep me logged in on this device"
+msgstr "Me garder connecté sur cet appareil"
+
+#: lib/trays_web/live/user_live/confirmation.ex:62
+#, elixir-autogen, elixir-format
+msgid "Log me in only this time"
+msgstr "Me connecter uniquement cette fois"
+
+#: lib/trays_web/live/user_live/confirmation.ex:49
+#: lib/trays_web/live/user_live/confirmation.ex:56
+#: lib/trays_web/live/user_live/confirmation.ex:61
+#, elixir-autogen, elixir-format
+msgid "Logging in..."
+msgstr "Connexion..."
+
+#: lib/trays_web/live/user_live/confirmation.ex:85
+#, elixir-autogen, elixir-format
+msgid "Magic link is invalid or it has expired."
+msgstr "Le lien magique est invalide ou a expiré."
+
+#: lib/trays_web/live/user_live/confirmation.ex:68
+#, elixir-autogen, elixir-format
+msgid "Tip: If you prefer passwords, you can enable them in the user settings."
+msgstr "Conseil : Si vous préférez les mots de passe, vous pouvez les activer dans les paramètres utilisateur."
+
+#: lib/trays_web/live/user_live/confirmation.ex:12
+#, elixir-autogen, elixir-format
+msgid "Welcome"
+msgstr "Bienvenue"
