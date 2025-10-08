@@ -93,7 +93,9 @@ defmodule Trays.MixProject do
         TraysWeb.PageHTML,
         TraysWeb.Plugs.Locale,
         TraysWeb.Router,
-        TraysWeb.Telemetry
+        TraysWeb.Telemetry,
+        TraysWeb.TestCurrentUserLive.SetCurrentUser,
+        TraysWeb.TestNoUserLive
       ]
     ]
   end
