@@ -151,6 +151,7 @@ msgstr "Client"
 #: lib/trays_web/live/user_live/login.ex:63
 #: lib/trays_web/live/user_live/login.ex:100
 #: lib/trays_web/live/user_live/registration.ex:40
+#: lib/trays_web/live/user_live/settings.ex:61
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "E-mail"
@@ -166,6 +167,7 @@ msgid "Merchant"
 msgstr "Commerçant"
 
 #: lib/trays_web/live/user_live/registration.ex:59
+#: lib/trays_web/live/user_live/settings.ex:42
 #, elixir-autogen, elixir-format
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
@@ -201,6 +203,7 @@ msgid "Magic Link Login"
 msgstr "Connexion par lien magique"
 
 #: lib/trays_web/live/user_live/login.ex:108
+#: lib/trays_web/live/user_live/settings.ex:73
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr "Mot de passe"
@@ -249,3 +252,99 @@ msgstr "la page de la boîte aux lettres"
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr "Si votre e-mail est dans notre système, vous recevrez sous peu des instructions pour vous connecter."
+
+#: lib/trays_web/live/user_live/settings.ex:202
+#, elixir-autogen, elixir-format
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr "Un lien pour confirmer votre changement d'e-mail a été envoyé à la nouvelle adresse."
+
+#: lib/trays_web/live/user_live/settings.ex:15
+#, elixir-autogen, elixir-format
+msgid "Account Settings"
+msgstr "Paramètres du compte"
+
+#: lib/trays_web/live/user_live/settings.ex:66
+#, elixir-autogen, elixir-format
+msgid "Change Email"
+msgstr "Modifier l'e-mail"
+
+#: lib/trays_web/live/user_live/settings.ex:55
+#, elixir-autogen, elixir-format
+msgid "Change your email address (requires confirmation)"
+msgstr "Modifier votre adresse e-mail (confirmation requise)"
+
+#: lib/trays_web/live/user_live/settings.ex:65
+#, elixir-autogen, elixir-format
+msgid "Changing..."
+msgstr "Modification..."
+
+#: lib/trays_web/live/user_live/settings.ex:103
+#, elixir-autogen, elixir-format
+msgid "Confirm new password"
+msgstr "Confirmer le nouveau mot de passe"
+
+#: lib/trays_web/live/user_live/settings.ex:54
+#, elixir-autogen, elixir-format
+msgid "Email Address"
+msgstr "Adresse e-mail"
+
+#: lib/trays_web/live/user_live/settings.ex:126
+#, elixir-autogen, elixir-format
+msgid "Email change link is invalid or it has expired."
+msgstr "Le lien de modification d'e-mail est invalide ou a expiré."
+
+#: lib/trays_web/live/user_live/settings.ex:123
+#, elixir-autogen, elixir-format
+msgid "Email changed successfully."
+msgstr "E-mail modifié avec succès."
+
+#: lib/trays_web/live/user_live/settings.ex:16
+#, elixir-autogen, elixir-format
+msgid "Manage your account profile, email address and password settings"
+msgstr "Gérez votre profil de compte, votre adresse e-mail et vos paramètres de mot de passe"
+
+#: lib/trays_web/live/user_live/settings.ex:35
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr "Nom"
+
+#: lib/trays_web/live/user_live/settings.ex:96
+#, elixir-autogen, elixir-format
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: lib/trays_web/live/user_live/settings.ex:22
+#, elixir-autogen, elixir-format
+msgid "Profile Information"
+msgstr "Informations de profil"
+
+#: lib/trays_web/live/user_live/settings.ex:169
+#, elixir-autogen, elixir-format
+msgid "Profile updated successfully."
+msgstr "Profil mis à jour avec succès."
+
+#: lib/trays_web/live/user_live/settings.ex:107
+#, elixir-autogen, elixir-format
+msgid "Save Password"
+msgstr "Enregistrer le mot de passe"
+
+#: lib/trays_web/live/user_live/settings.ex:46
+#: lib/trays_web/live/user_live/settings.ex:106
+#, elixir-autogen, elixir-format
+msgid "Saving..."
+msgstr "Enregistrement..."
+
+#: lib/trays_web/live/user_live/settings.ex:47
+#, elixir-autogen, elixir-format
+msgid "Update Profile"
+msgstr "Mettre à jour le profil"
+
+#: lib/trays_web/live/user_live/settings.ex:23
+#, elixir-autogen, elixir-format
+msgid "Update your name and phone number"
+msgstr "Mettre à jour votre nom et numéro de téléphone"
+
+#: lib/trays_web/live/user_live/settings.ex:74
+#, elixir-autogen, elixir-format
+msgid "Update your password to keep your account secure"
+msgstr "Mettre à jour votre mot de passe pour sécuriser votre compte"
