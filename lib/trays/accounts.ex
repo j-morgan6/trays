@@ -327,4 +327,40 @@ defmodule Trays.Accounts do
       end
     end)
   end
+
+  ## Authorization
+
+  @doc """
+  Checks if a user can perform an action on a resource.
+
+  Returns `true` if the user is authorized, `false` otherwise.
+
+  ## Examples
+
+      iex> can?(%User{type: :admin}, :manage, :users)
+      true
+
+      iex> can?(%User{type: :customer}, :manage, :menu)
+      false
+
+  """
+  def can?(user, action, resource \\ nil)
+
+  # Admins can do anything
+  def can?(%User{type: :admin}, _action, _resource), do: true
+
+  # Merchants can manage menus and view/manage orders
+  def can?(%User{type: :merchant}, :manage, :menu), do: true
+  def can?(%User{type: :merchant}, :view, :menu), do: true
+  def can?(%User{type: :merchant}, :view, :orders), do: true
+  def can?(%User{type: :merchant}, :manage, :orders), do: true
+
+  # Customers can create and view their own orders
+  def can?(%User{type: :customer}, :create, :order), do: true
+  def can?(%User{type: :customer, id: user_id}, :view, {:order, order_user_id})
+      when user_id == order_user_id,
+      do: true
+
+  # Deny everything else
+  def can?(_user, _action, _resource), do: false
 end

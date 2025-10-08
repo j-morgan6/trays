@@ -51,6 +51,18 @@ defmodule TraysWeb.Router do
     end
   end
 
+  # Test routes - only available in test environment
+  if Mix.env() == :test do
+    scope "/", TraysWeb do
+      pipe_through [:browser, :require_authenticated_user]
+
+      live_session :test_authorize,
+        on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
+        live "/test-authorize", TestLive
+      end
+    end
+  end
+
   ## Authentication routes
 
   scope "/", TraysWeb do
@@ -78,4 +90,28 @@ defmodule TraysWeb.Router do
     post "/users/log-in", UserSessionController, :create
     delete "/users/log-out", UserSessionController, :delete
   end
+
+  ## Merchant routes
+
+  # scope "/merchant", TraysWeb do
+  #   pipe_through [:browser, :require_authenticated_user, :require_merchant]
+  #
+  #   live_session :require_merchant,
+  #     on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
+  #     # Example: live "/menu", MenuLive.Index, :index
+  #     # Example: live "/orders", MerchantOrderLive.Index, :index
+  #   end
+  # end
+
+  ## Admin routes
+
+  # scope "/admin", TraysWeb do
+  #   pipe_through [:browser, :require_authenticated_user, :require_admin]
+  #
+  #   live_session :require_admin,
+  #     on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
+  #     # Example: live "/users", AdminUserLive.Index, :index
+  #     # Example: live "/dashboard", AdminDashboardLive.Index, :index
+  #   end
+  # end
 end

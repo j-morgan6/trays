@@ -279,6 +279,42 @@ defmodule TraysWeb.UserAuth do
     end
   end
 
+  @doc """
+  Requires the user to be a merchant.
+
+  Used for protecting merchant-only routes.
+  """
+  def require_merchant(conn, _opts) do
+    user = conn.assigns.current_scope && conn.assigns.current_scope.user
+
+    if user && user.type == :merchant do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Merchant access required.")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
+  @doc """
+  Requires the user to be an admin.
+
+  Used for protecting admin-only routes.
+  """
+  def require_admin(conn, _opts) do
+    user = conn.assigns.current_scope && conn.assigns.current_scope.user
+
+    if user && user.type == :admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Admin access required.")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
   defp maybe_store_return_to(%{method: "GET"} = conn) do
     put_session(conn, :user_return_to, current_path(conn))
   end
