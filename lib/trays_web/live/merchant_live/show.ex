@@ -30,9 +30,11 @@ defmodule TraysWeb.MerchantLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
+    user_id = socket.assigns.current_scope.user.id
+
     {:ok,
      socket
      |> assign(:page_title, "Show Merchant")
-     |> assign(:merchant, Merchants.get_merchant!(id))}
+     |> assign(:merchant, Merchants.get_merchant!(id, user_id))}
   end
 end

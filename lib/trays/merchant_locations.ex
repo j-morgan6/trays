@@ -9,19 +9,27 @@ defmodule Trays.MerchantLocations do
   alias Trays.MerchantLocations.MerchantLocation
 
   @doc """
-  Returns the list of merchant_locations.
+  Returns the list of merchant_locations for a specific user.
+  Preloads the merchant association.
   """
-  def list_merchant_locations do
-    Repo.all(MerchantLocation)
+  def list_merchant_locations(user_id) do
+    MerchantLocation
+    |> where([ml], ml.user_id == ^user_id)
+    |> preload(:merchant)
+    |> Repo.all()
   end
 
   @doc """
-  Gets a single merchant_location.
+  Gets a single merchant_location for a specific user.
+  Preloads the merchant association.
 
-  Raises `Ecto.NoResultsError` if the Merchant location does not exist.
+  Raises `Ecto.NoResultsError` if the Merchant location does not exist or doesn't belong to the user.
   """
-  def get_merchant_location!(id) do
-    Repo.get!(MerchantLocation, id)
+  def get_merchant_location!(id, user_id) do
+    MerchantLocation
+    |> where([ml], ml.id == ^id and ml.user_id == ^user_id)
+    |> preload(:merchant)
+    |> Repo.one!()
   end
 
   @doc """
@@ -54,5 +62,16 @@ defmodule Trays.MerchantLocations do
   """
   def change_merchant_location(%MerchantLocation{} = merchant_location, attrs \\ %{}) do
     MerchantLocation.changeset(merchant_location, attrs)
+  end
+
+  @doc """
+  Returns the list of merchant_locations for a specific merchant.
+  Ensures the merchant belongs to the user.
+  """
+  def list_merchant_locations_by_merchant(merchant_id, user_id) do
+    MerchantLocation
+    |> where([ml], ml.merchant_id == ^merchant_id and ml.user_id == ^user_id)
+    |> preload(:merchant)
+    |> Repo.all()
   end
 end

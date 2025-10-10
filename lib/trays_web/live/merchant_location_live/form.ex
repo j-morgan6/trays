@@ -41,7 +41,8 @@ defmodule TraysWeb.MerchantLocationLive.Form do
   defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    merchant_location = MerchantLocations.get_merchant_location!(id)
+    user_id = socket.assigns.current_scope.user.id
+    merchant_location = MerchantLocations.get_merchant_location!(id, user_id)
 
     socket
     |> assign(:page_title, "Edit Merchant location")

@@ -9,19 +9,23 @@ defmodule Trays.Merchants do
   alias Trays.Merchants.Merchant
 
   @doc """
-  Returns the list of merchants.
+  Returns the list of merchants for a specific user.
   """
-  def list_merchants do
-    Repo.all(Merchant)
+  def list_merchants(user_id) do
+    Merchant
+    |> where([m], m.user_id == ^user_id)
+    |> Repo.all()
   end
 
   @doc """
-  Gets a single merchant.
+  Gets a single merchant for a specific user.
 
-  Raises `Ecto.NoResultsError` if the Merchant does not exist.
+  Raises `Ecto.NoResultsError` if the Merchant does not exist or doesn't belong to the user.
   """
-  def get_merchant!(id) do
-    Repo.get!(Merchant, id)
+  def get_merchant!(id, user_id) do
+    Merchant
+    |> where([m], m.id == ^id and m.user_id == ^user_id)
+    |> Repo.one!()
   end
 
   @doc """
@@ -74,5 +78,17 @@ defmodule Trays.Merchants do
       merchant ->
         merchant
     end
+  end
+
+  @doc """
+  Returns a list of {name, id} tuples for merchant dropdowns.
+  Only returns merchants belonging to the specified user.
+  """
+  def get_merchants_for_select(user_id) do
+    Merchant
+    |> where([m], m.user_id == ^user_id)
+    |> select([m], {m.name, m.id})
+    |> order_by([m], m.name)
+    |> Repo.all()
   end
 end

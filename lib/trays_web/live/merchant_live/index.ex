@@ -44,21 +44,24 @@ defmodule TraysWeb.MerchantLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    user_id = socket.assigns.current_scope.user.id
+
     {:ok,
      socket
      |> assign(:page_title, "Listing Merchants")
-     |> stream(:merchants, list_merchants())}
+     |> stream(:merchants, list_merchants(user_id))}
   end
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    merchant = Merchants.get_merchant!(id)
+    user_id = socket.assigns.current_scope.user.id
+    merchant = Merchants.get_merchant!(id, user_id)
     {:ok, _} = Merchants.delete_merchant(merchant)
 
     {:noreply, stream_delete(socket, :merchants, merchant)}
   end
 
-  defp list_merchants do
-    Merchants.list_merchants()
+  defp list_merchants(user_id) do
+    Merchants.list_merchants(user_id)
   end
 end

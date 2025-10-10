@@ -10,8 +10,8 @@ defmodule TraysWeb.MerchantLiveTest do
 
   setup :register_and_log_in_user
 
-  defp create_merchant(_context) do
-    merchant = merchant_fixture()
+  defp create_merchant(%{user: user}) do
+    merchant = merchant_fixture(%{user: user})
 
     %{merchant: merchant}
   end

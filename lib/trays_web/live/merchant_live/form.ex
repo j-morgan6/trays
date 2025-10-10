@@ -37,7 +37,8 @@ defmodule TraysWeb.MerchantLive.Form do
   defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    merchant = Merchants.get_merchant!(id)
+    user_id = socket.assigns.current_scope.user.id
+    merchant = Merchants.get_merchant!(id, user_id)
 
     socket
     |> assign(:page_title, "Edit Merchant")

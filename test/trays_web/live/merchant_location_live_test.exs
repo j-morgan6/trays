@@ -31,8 +31,8 @@ defmodule TraysWeb.MerchantLocationLiveTest do
 
   setup :register_and_log_in_user
 
-  defp create_merchant_location(_context) do
-    merchant_location = merchant_location_fixture()
+  defp create_merchant_location(%{user: user}) do
+    merchant_location = merchant_location_fixture(%{user: user})
 
     %{merchant_location: merchant_location}
   end
