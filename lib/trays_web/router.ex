@@ -51,6 +51,11 @@ defmodule TraysWeb.Router do
     end
   end
 
+  scope path: "/feature-flags" do
+    pipe_through [:browser, :require_authenticated_user, :require_admin]
+    forward "/", FunWithFlags.UI.Router, namespace: "feature-flags"
+  end
+
   # Test routes - only available in test environment
   if Mix.env() == :test do
     scope "/", TraysWeb do
