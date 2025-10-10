@@ -92,8 +92,10 @@ defmodule TraysWeb.MerchantLiveTest do
     test "displays merchant", %{conn: conn, merchant: merchant} do
       {:ok, _show_live, html} = live(conn, ~p"/merchants/#{merchant}")
 
-      assert html =~ "Show Merchant"
+      assert html =~ "Back to Merchants"
       assert html =~ merchant.name
+      assert html =~ merchant.description
+      assert html =~ "Locations"
     end
 
     test "updates merchant and returns to show", %{conn: conn, merchant: merchant} do
