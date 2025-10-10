@@ -1,4 +1,4 @@
-Authorization System Overview
+# Authorization System Overview
 
 We have a role-based authorization system for your Trays application with three components:
 
@@ -35,4 +35,3 @@ Handles authorization during LiveView mount, redirecting unauthorized users.
 Session management with remember-me cookies
 
 Sudo mode for sensitive operations
-
