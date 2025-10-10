@@ -22,7 +22,7 @@ defmodule TraysWeb.MerchantLiveTest do
     test "lists all merchants", %{conn: conn, merchant: merchant} do
       {:ok, _index_live, html} = live(conn, ~p"/merchants")
 
-      assert html =~ "Listing Merchants"
+      assert html =~ "Your Merchants"
       assert html =~ merchant.name
     end
 
@@ -57,7 +57,7 @@ defmodule TraysWeb.MerchantLiveTest do
 
       assert {:ok, form_live, _html} =
                index_live
-               |> element("#merchants-#{merchant.id} a", "Edit")
+               |> element("#merchant-#{merchant.id} a", "Edit")
                |> render_click()
                |> follow_redirect(conn, ~p"/merchants/#{merchant}/edit")
 
@@ -81,7 +81,7 @@ defmodule TraysWeb.MerchantLiveTest do
     test "deletes merchant in listing", %{conn: conn, merchant: merchant} do
       {:ok, index_live, _html} = live(conn, ~p"/merchants")
 
-      assert index_live |> element("#merchants-#{merchant.id} a", "Delete") |> render_click()
+      assert index_live |> element("#merchant-#{merchant.id} a", "Delete") |> render_click()
       refute has_element?(index_live, "#merchants-#{merchant.id}")
     end
   end

@@ -91,4 +91,16 @@ defmodule Trays.Merchants do
     |> order_by([m], m.name)
     |> Repo.all()
   end
+
+  @doc """
+  Returns merchants with their location counts for the specified user.
+  """
+  def list_merchants_with_location_counts(user_id) do
+    Merchant
+    |> where([m], m.user_id == ^user_id)
+    |> join(:left, [m], ml in assoc(m, :merchant_locations))
+    |> group_by([m], m.id)
+    |> select([m, ml], %{merchant: m, location_count: count(ml.id)})
+    |> Repo.all()
+  end
 end
