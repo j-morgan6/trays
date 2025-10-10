@@ -44,7 +44,7 @@ defmodule TraysWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through [:browser, :require_authenticated_user, :require_admin]
 
       live_dashboard "/dashboard", metrics: TraysWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
