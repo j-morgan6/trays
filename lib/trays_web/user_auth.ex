@@ -34,10 +34,11 @@ defmodule TraysWeb.UserAuth do
   """
   def log_in_user(conn, user, params \\ %{}) do
     user_return_to = get_session(conn, :user_return_to)
+    already_logged_in = !!(conn.assigns[:current_scope] && conn.assigns.current_scope.user)
 
     conn
     |> create_or_extend_session(user, params)
-    |> redirect(to: user_return_to || signed_in_path(user))
+    |> redirect(to: user_return_to || signed_in_path(user, already_logged_in))
   end
 
   @doc """
@@ -257,19 +258,23 @@ defmodule TraysWeb.UserAuth do
   end
 
   @doc "Returns the path to redirect to after log in."
-  def signed_in_path(%Accounts.User{type: :merchant}) do
-    ~p"/merchants"
-  end
-
-  def signed_in_path(%Accounts.User{type: :customer}) do
-    ~p"/"
-  end
-
-  def signed_in_path(%Accounts.User{}) do
+  def signed_in_path(_user, true = _already_logged_in) do
     ~p"/users/settings"
   end
 
-  def signed_in_path(_), do: ~p"/"
+  def signed_in_path(%Accounts.User{type: :merchant}, _already_logged_in) do
+    ~p"/merchants"
+  end
+
+  def signed_in_path(%Accounts.User{type: :customer}, _already_logged_in) do
+    ~p"/"
+  end
+
+  def signed_in_path(%Accounts.User{}, _already_logged_in) do
+    ~p"/users/settings"
+  end
+
+  def signed_in_path(_, _), do: ~p"/"
 
   @doc """
   Plug for routes that require the user to be authenticated.

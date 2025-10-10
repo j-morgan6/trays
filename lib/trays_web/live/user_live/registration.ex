@@ -99,7 +99,7 @@ defmodule TraysWeb.UserLive.Registration do
   @impl true
   def mount(_params, _session, %{assigns: %{current_scope: %{user: user}}} = socket)
       when not is_nil(user) do
-    {:ok, redirect(socket, to: TraysWeb.UserAuth.signed_in_path(socket))}
+    {:ok, redirect(socket, to: TraysWeb.UserAuth.signed_in_path(user, true))}
   end
 
   def mount(_params, _session, socket) do
