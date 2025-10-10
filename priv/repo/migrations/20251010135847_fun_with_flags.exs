@@ -18,10 +18,10 @@ defmodule Trays.Repo.Migrations.FunWithFlags do
     end
 
     create index(
-      :fun_with_flags_toggles,
-      [:flag_name, :gate_type, :target],
-      [unique: true, name: "fwf_flag_name_gate_target_idx"]
-    )
+             :fun_with_flags_toggles,
+             [:flag_name, :gate_type, :target],
+             unique: true,
+             name: "fwf_flag_name_gate_target_idx"
+           )
   end
-
 end

@@ -6,6 +6,8 @@ defmodule Trays.Merchants.Merchant do
     field :name, :string
     field :description, :string
 
+    has_many :merchant_locations, Trays.MerchantLocations.MerchantLocation
+
     timestamps(type: :utc_datetime)
   end
 

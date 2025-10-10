@@ -10,13 +10,16 @@ defmodule Trays.MerchantLocations.MerchantLocation do
     field :postal_code, :string
     field :country, :string
 
+    belongs_to :merchant, Trays.Merchants.Merchant
+
     timestamps(type: :utc_datetime)
   end
 
   @doc false
   def changeset(merchant_location, attrs) do
     merchant_location
-    |> cast(attrs, [:street1, :street2, :city, :province, :postal_code, :country])
-    |> validate_required([:street1, :city, :province, :postal_code, :country])
+    |> cast(attrs, [:street1, :street2, :city, :province, :postal_code, :country, :merchant_id])
+    |> validate_required([:street1, :city, :province, :postal_code, :country, :merchant_id])
+    |> foreign_key_constraint(:merchant_id)
   end
 end

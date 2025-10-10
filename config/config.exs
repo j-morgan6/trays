@@ -78,10 +78,12 @@ config :fun_with_flags, :cache, enabled: false
 config :fun_with_flags, :persistence,
   adapter: FunWithFlags.Store.Persistent.Ecto,
   repo: Trays.Repo,
-  ecto_table_name: "fun_with_flags_toggles", # optional, defaults to "fun_with_flags_toggles"
-  ecto_primary_key_type: :id # optional, defaults to :id
-  # For the primary key type, see also: https://hexdocs.pm/ecto/3.10.3/Ecto.Schema.html#module-schema-attributes
+  # optional, defaults to "fun_with_flags_toggles"
+  ecto_table_name: "fun_with_flags_toggles",
+  # optional, defaults to :id
+  ecto_primary_key_type: :id
 
+# For the primary key type, see also: https://hexdocs.pm/ecto/3.10.3/Ecto.Schema.html#module-schema-attributes
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
