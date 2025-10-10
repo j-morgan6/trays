@@ -1,5 +1,3 @@
-This is a web application written using the Phoenix web framework.
-
 ## Project guidelines
 
 - Use the HexDoc mcp server to read the documentation about project dependencies
