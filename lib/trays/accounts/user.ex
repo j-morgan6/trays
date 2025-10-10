@@ -12,6 +12,9 @@ defmodule Trays.Accounts.User do
     field :phone_number, :string
     field :type, Ecto.Enum, values: [:customer, :merchant, :admin]
 
+    has_many :merchants, Trays.Merchants.Merchant
+    has_many :merchant_locations, Trays.MerchantLocations.MerchantLocation
+
     timestamps(type: :utc_datetime)
   end
 

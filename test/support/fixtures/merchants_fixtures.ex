@@ -10,10 +10,18 @@ defmodule Trays.MerchantsFixtures do
   Generate a merchant.
   """
   def merchant_fixture(attrs \\ %{}) do
+    user =
+      Map.get_lazy(attrs, :user, fn ->
+        Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+      end)
+
     attrs =
-      Enum.into(attrs, %{
+      attrs
+      |> Map.delete(:user)
+      |> Enum.into(%{
         name: "Test Merchant",
-        description: "A test merchant description"
+        description: "A test merchant description",
+        user_id: user.id
       })
 
     {:ok, merchant} = Merchants.create_merchant(attrs)

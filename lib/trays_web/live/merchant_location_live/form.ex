@@ -90,6 +90,15 @@ defmodule TraysWeb.MerchantLocationLive.Form do
   end
 
   defp save_merchant_location(socket, :new, merchant_location_params) do
+    user_id = socket.assigns.current_scope.user.id
+
+    merchant = Trays.Merchants.get_or_create_default_merchant(user_id)
+
+    merchant_location_params =
+      merchant_location_params
+      |> Map.put("user_id", user_id)
+      |> Map.put("merchant_id", merchant.id)
+
     case MerchantLocations.create_merchant_location(merchant_location_params) do
       {:ok, merchant_location} ->
         {:noreply,

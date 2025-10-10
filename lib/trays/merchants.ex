@@ -55,4 +55,24 @@ defmodule Trays.Merchants do
   def change_merchant(%Merchant{} = merchant, attrs \\ %{}) do
     Merchant.changeset(merchant, attrs)
   end
+
+  @doc """
+  Gets or creates a default merchant for the given user.
+  """
+  def get_or_create_default_merchant(user_id) do
+    case Repo.get_by(Merchant, user_id: user_id) do
+      nil ->
+        {:ok, merchant} =
+          create_merchant(%{
+            user_id: user_id,
+            name: "Default Merchant",
+            description: "Default merchant account"
+          })
+
+        merchant
+
+      merchant ->
+        merchant
+    end
+  end
 end

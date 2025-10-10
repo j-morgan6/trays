@@ -78,6 +78,8 @@ defmodule TraysWeb.MerchantLive.Form do
   end
 
   defp save_merchant(socket, :new, merchant_params) do
+    merchant_params = Map.put(merchant_params, "user_id", socket.assigns.current_scope.user.id)
+
     case Merchants.create_merchant(merchant_params) do
       {:ok, merchant} ->
         {:noreply,

@@ -123,7 +123,14 @@ defmodule Trays.MixProject do
         "phx.digest"
       ],
       security: ["deps.audit", "sobelow --config sobelow.exs --exit"],
-      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "security"]
+      precommit: [
+        "compile --warning-as-errors",
+        "deps.unlock --unused",
+        "format",
+        "test",
+        "credo --strict",
+        "security"
+      ]
     ]
   end
 end
