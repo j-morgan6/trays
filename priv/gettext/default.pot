@@ -335,6 +335,7 @@ msgid "Save Password"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/form.ex:32
+#: lib/trays_web/live/merchant_location_live/form.ex:26
 #: lib/trays_web/live/user_live/settings.ex:54
 #: lib/trays_web/live/user_live/settings.ex:130
 #, elixir-autogen, elixir-format
@@ -412,6 +413,7 @@ msgid "Account number"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/index.ex:45
+#: lib/trays_web/live/merchant_location_live/index.ex:59
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr ""
@@ -432,16 +434,19 @@ msgid "Bank account updated successfully"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/form.ex:36
+#: lib/trays_web/live/merchant_location_live/form.ex:30
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/index.ex:47
+#: lib/trays_web/live/merchant_location_live/index.ex:61
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/index.ex:40
+#: lib/trays_web/live/merchant_location_live/index.ex:53
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr ""
@@ -486,6 +491,7 @@ msgid "Save Bank account"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/index.ex:38
+#: lib/trays_web/live/merchant_location_live/index.ex:49
 #, elixir-autogen, elixir-format
 msgid "Show"
 msgstr ""
@@ -515,4 +521,103 @@ msgstr ""
 #: lib/trays_web/live/bank_account_live/form.ex:14
 #, elixir-autogen, elixir-format
 msgid "Use this form to manage bank_account records in your database."
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:21
+#: lib/trays_web/live/merchant_location_live/index.ex:34
+#: lib/trays_web/live/merchant_location_live/show.ex:31
+#, elixir-autogen, elixir-format
+msgid "City"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:24
+#: lib/trays_web/live/merchant_location_live/index.ex:43
+#: lib/trays_web/live/merchant_location_live/show.ex:34
+#, elixir-autogen, elixir-format
+msgid "Country"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:54
+#, elixir-autogen, elixir-format
+msgid "Edit Merchant location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/show.ex:23
+#, elixir-autogen, elixir-format
+msgid "Edit merchant_location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/index.ex:11
+#: lib/trays_web/live/merchant_location_live/index.ex:75
+#, elixir-autogen, elixir-format
+msgid "Listing Merchant locations"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/show.ex:11
+#, elixir-autogen, elixir-format
+msgid "Merchant location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:113
+#, elixir-autogen, elixir-format
+msgid "Merchant location created successfully"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:91
+#, elixir-autogen, elixir-format
+msgid "Merchant location updated successfully"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:63
+#: lib/trays_web/live/merchant_location_live/index.ex:14
+#, elixir-autogen, elixir-format
+msgid "New Merchant location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:23
+#: lib/trays_web/live/merchant_location_live/index.ex:40
+#: lib/trays_web/live/merchant_location_live/show.ex:33
+#, elixir-autogen, elixir-format
+msgid "Postal code"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:22
+#: lib/trays_web/live/merchant_location_live/index.ex:37
+#: lib/trays_web/live/merchant_location_live/show.ex:32
+#, elixir-autogen, elixir-format
+msgid "Province"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:27
+#, elixir-autogen, elixir-format
+msgid "Save Merchant location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/show.ex:46
+#, elixir-autogen, elixir-format
+msgid "Show Merchant location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:19
+#: lib/trays_web/live/merchant_location_live/index.ex:28
+#: lib/trays_web/live/merchant_location_live/show.ex:29
+#, elixir-autogen, elixir-format
+msgid "Street1"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:20
+#: lib/trays_web/live/merchant_location_live/index.ex:31
+#: lib/trays_web/live/merchant_location_live/show.ex:30
+#, elixir-autogen, elixir-format
+msgid "Street2"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/show.ex:13
+#, elixir-autogen, elixir-format
+msgid "This is a merchant_location record from your database."
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/form.ex:14
+#, elixir-autogen, elixir-format
+msgid "Use this form to manage merchant_location records in your database."
 msgstr ""

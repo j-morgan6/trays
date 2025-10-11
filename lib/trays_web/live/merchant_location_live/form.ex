@@ -10,19 +10,25 @@ defmodule TraysWeb.MerchantLocationLive.Form do
     <Layouts.app flash={@flash} current_scope={@current_scope}>
       <.header>
         {@page_title}
-        <:subtitle>Use this form to manage merchant_location records in your database.</:subtitle>
+        <:subtitle>
+          {gettext("Use this form to manage merchant_location records in your database.")}
+        </:subtitle>
       </.header>
 
       <.form for={@form} id="merchant_location-form" phx-change="validate" phx-submit="save">
-        <.input field={@form[:street1]} type="text" label="Street1" />
-        <.input field={@form[:street2]} type="text" label="Street2" />
-        <.input field={@form[:city]} type="text" label="City" />
-        <.input field={@form[:province]} type="text" label="Province" />
-        <.input field={@form[:postal_code]} type="text" label="Postal code" />
-        <.input field={@form[:country]} type="text" label="Country" />
+        <.input field={@form[:street1]} type="text" label={gettext("Street1")} />
+        <.input field={@form[:street2]} type="text" label={gettext("Street2")} />
+        <.input field={@form[:city]} type="text" label={gettext("City")} />
+        <.input field={@form[:province]} type="text" label={gettext("Province")} />
+        <.input field={@form[:postal_code]} type="text" label={gettext("Postal code")} />
+        <.input field={@form[:country]} type="text" label={gettext("Country")} />
         <footer>
-          <.button phx-disable-with="Saving..." variant="primary">Save Merchant location</.button>
-          <.button navigate={return_path(@return_to, @merchant_location)}>Cancel</.button>
+          <.button phx-disable-with={gettext("Saving...")} variant="primary">
+            {gettext("Save Merchant location")}
+          </.button>
+          <.button navigate={return_path(@return_to, @merchant_location)}>
+            {gettext("Cancel")}
+          </.button>
         </footer>
       </.form>
     </Layouts.app>
@@ -45,7 +51,7 @@ defmodule TraysWeb.MerchantLocationLive.Form do
     merchant_location = MerchantLocations.get_merchant_location!(id, user_id)
 
     socket
-    |> assign(:page_title, "Edit Merchant location")
+    |> assign(:page_title, gettext("Edit Merchant location"))
     |> assign(:merchant_location, merchant_location)
     |> assign(:form, to_form(MerchantLocations.change_merchant_location(merchant_location)))
   end
@@ -54,7 +60,7 @@ defmodule TraysWeb.MerchantLocationLive.Form do
     merchant_location = %MerchantLocation{}
 
     socket
-    |> assign(:page_title, "New Merchant location")
+    |> assign(:page_title, gettext("New Merchant location"))
     |> assign(:merchant_location, merchant_location)
     |> assign(:form, to_form(MerchantLocations.change_merchant_location(merchant_location)))
   end
@@ -82,7 +88,7 @@ defmodule TraysWeb.MerchantLocationLive.Form do
       {:ok, merchant_location} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Merchant location updated successfully")
+         |> put_flash(:info, gettext("Merchant location updated successfully"))
          |> push_navigate(to: return_path(socket.assigns.return_to, merchant_location))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -104,7 +110,7 @@ defmodule TraysWeb.MerchantLocationLive.Form do
       {:ok, merchant_location} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Merchant location created successfully")
+         |> put_flash(:info, gettext("Merchant location created successfully"))
          |> push_navigate(to: return_path(socket.assigns.return_to, merchant_location))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
