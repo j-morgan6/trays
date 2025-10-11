@@ -317,7 +317,7 @@ defmodule TraysWeb.UserAuth do
   def require_store_manager(conn, _opts) do
     user = conn.assigns.current_scope && conn.assigns.current_scope.user
 
-    if user && user.type == :store_manager do
+    if user && (user.type == :store_manager || user.type == :merchant) do
       conn
     else
       conn
