@@ -88,6 +88,8 @@ defmodule Trays.MixProject do
         Trays.DataCase,
         Trays.Repo,
         Trays.TestHelpers,
+        Trays,MerchantLocationsFixtures,
+        Trays.MerchantsFixtures,
         TraysWeb.ConnCase,
         TraysWeb.CoreComponents,
         TraysWeb.ErrorHTML,

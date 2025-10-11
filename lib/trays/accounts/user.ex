@@ -10,7 +10,7 @@ defmodule Trays.Accounts.User do
     field :authenticated_at, :utc_datetime, virtual: true
     field :name, :string
     field :phone_number, :string
-    field :type, Ecto.Enum, values: [:customer, :merchant, :admin]
+    field :type, Ecto.Enum, values: [:customer, :merchant, :store_manager, :admin]
 
     has_many :merchants, Trays.Merchants.Merchant
     has_many :merchant_locations, Trays.MerchantLocations.MerchantLocation

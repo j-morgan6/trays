@@ -310,6 +310,24 @@ defmodule TraysWeb.UserAuth do
   end
 
   @doc """
+  Requires the user to be a store manager.
+
+  Used for protecting store manager-only routes.
+  """
+  def require_store_manager(conn, _opts) do
+    user = conn.assigns.current_scope && conn.assigns.current_scope.user
+
+    if user && user.type == :store_manager do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Store manager access required.")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
+  @doc """
   Requires the user to be an admin.
 
   Used for protecting admin-only routes.

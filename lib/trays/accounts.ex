@@ -355,6 +355,12 @@ defmodule Trays.Accounts do
   def can?(%User{type: :merchant}, :view, :orders), do: true
   def can?(%User{type: :merchant}, :manage, :orders), do: true
 
+  # Store managers can manage menus and view/manage orders
+  def can?(%User{type: :store_manager}, :manage, :menu), do: true
+  def can?(%User{type: :store_manager}, :view, :menu), do: true
+  def can?(%User{type: :store_manager}, :view, :orders), do: true
+  def can?(%User{type: :store_manager}, :manage, :orders), do: true
+
   # Customers can create and view their own orders
   def can?(%User{type: :customer}, :create, :order), do: true
 

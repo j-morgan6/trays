@@ -68,6 +68,7 @@ defmodule TraysWeb.UserLive.Registration do
                 label={gettext("Account Type")}
                 options={[
                   {gettext("Customer"), :customer},
+                  {gettext("Store Manager"), :store_manager},
                   {gettext("Merchant"), :merchant}
                 ]}
                 prompt={gettext("Select account type")}

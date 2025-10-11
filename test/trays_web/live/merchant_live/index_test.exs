@@ -36,8 +36,7 @@ defmodule TraysWeb.MerchantLive.IndexTest do
     test "shows existing merchant if user already has one", %{conn: conn} do
       user = user_fixture(%{type: :merchant})
 
-      merchant =
-        merchant_fixture(%{user: user, name: "Existing Business", description: "My description"})
+      merchant_fixture(%{user: user, name: "Existing Business", description: "My description"})
 
       conn = log_in_user(conn, user)
 
