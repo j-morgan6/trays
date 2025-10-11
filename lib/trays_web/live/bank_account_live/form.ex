@@ -10,18 +10,30 @@ defmodule TraysWeb.BankAccountLive.Form do
     <Layouts.app flash={@flash} current_scope={@current_scope}>
       <.header>
         {@page_title}
-        <:subtitle>Use this form to manage bank_account records in your database.</:subtitle>
+        <:subtitle>
+          {gettext("Use this form to manage bank_account records in your database.")}
+        </:subtitle>
       </.header>
 
       <.form for={@form} id="bank_account-form" phx-change="validate" phx-submit="save">
-        <input type="hidden" name="bank_account[merchant_location_id]" value={@merchant_location_id} />
-        <.input field={@form[:account_number]} type="text" label="Account number" />
-        <.input field={@form[:transit_number]} type="text" label="Transit number" />
-        <.input field={@form[:institution_number]} type="text" label="Institution number" />
+        <input
+          type="hidden"
+          name="bank_account[merchant_location_id]"
+          value={@merchant_location_id}
+        />
+        <.input field={@form[:account_number]} type="text" label={gettext("Account number")} />
+        <.input field={@form[:transit_number]} type="text" label={gettext("Transit number")} />
+        <.input
+          field={@form[:institution_number]}
+          type="text"
+          label={gettext("Institution number")}
+        />
         <footer>
-          <.button phx-disable-with="Saving..." variant="primary">Save Bank account</.button>
+          <.button phx-disable-with={gettext("Saving...")} variant="primary">
+            {gettext("Save Bank account")}
+          </.button>
           <.button navigate={return_path(@merchant_location_id, @return_to, @bank_account)}>
-            Cancel
+            {gettext("Cancel")}
           </.button>
         </footer>
       </.form>
@@ -44,7 +56,7 @@ defmodule TraysWeb.BankAccountLive.Form do
     bank_account = BankAccounts.get_bank_account!(id)
 
     socket
-    |> assign(:page_title, "Edit Bank account")
+    |> assign(:page_title, gettext("Edit Bank account"))
     |> assign(:bank_account, bank_account)
     |> assign(:merchant_location_id, bank_account.merchant_location_id)
     |> assign(:form, to_form(BankAccounts.change_bank_account(bank_account)))
@@ -54,7 +66,7 @@ defmodule TraysWeb.BankAccountLive.Form do
     bank_account = %BankAccount{merchant_location_id: String.to_integer(merchant_location_id)}
 
     socket
-    |> assign(:page_title, "New Bank account")
+    |> assign(:page_title, gettext("New Bank account"))
     |> assign(:bank_account, bank_account)
     |> assign(:merchant_location_id, String.to_integer(merchant_location_id))
     |> assign(:form, to_form(BankAccounts.change_bank_account(bank_account)))
@@ -77,7 +89,7 @@ defmodule TraysWeb.BankAccountLive.Form do
       {:ok, bank_account} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Bank account updated successfully")
+         |> put_flash(:info, gettext("Bank account updated successfully"))
          |> push_navigate(
            to:
              return_path(
@@ -97,7 +109,7 @@ defmodule TraysWeb.BankAccountLive.Form do
       {:ok, bank_account} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Bank account created successfully")
+         |> put_flash(:info, gettext("Bank account created successfully"))
          |> push_navigate(
            to:
              return_path(

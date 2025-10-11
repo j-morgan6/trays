@@ -8,13 +8,13 @@ defmodule TraysWeb.BankAccountLive.Index do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
       <.header>
-        Listing Bank accounts
+        {gettext("Listing Bank accounts")}
         <:actions>
           <.button
             variant="primary"
             navigate={~p"/merchant_locations/#{@merchant_location_id}/bank_accounts/new"}
           >
-            <.icon name="hero-plus" /> New Bank account
+            <.icon name="hero-plus" /> {gettext("New Bank account")}
           </.button>
         </:actions>
       </.header>
@@ -24,21 +24,27 @@ defmodule TraysWeb.BankAccountLive.Index do
         rows={@streams.bank_accounts}
         row_click={fn {_id, bank_account} -> JS.navigate(~p"/bank_accounts/#{bank_account}") end}
       >
-        <:col :let={{_id, bank_account}} label="Account number">{bank_account.account_number}</:col>
-        <:col :let={{_id, bank_account}} label="Transit number">{bank_account.transit_number}</:col>
-        <:col :let={{_id, bank_account}} label="Institution number">{bank_account.institution_number}</:col>
+        <:col :let={{_id, bank_account}} label={gettext("Account number")}>
+          {bank_account.account_number}
+        </:col>
+        <:col :let={{_id, bank_account}} label={gettext("Transit number")}>
+          {bank_account.transit_number}
+        </:col>
+        <:col :let={{_id, bank_account}} label={gettext("Institution number")}>
+          {bank_account.institution_number}
+        </:col>
         <:action :let={{_id, bank_account}}>
           <div class="sr-only">
-            <.link navigate={~p"/bank_accounts/#{bank_account}"}>Show</.link>
+            <.link navigate={~p"/bank_accounts/#{bank_account}"}>{gettext("Show")}</.link>
           </div>
-          <.link navigate={~p"/bank_accounts/#{bank_account}/edit"}>Edit</.link>
+          <.link navigate={~p"/bank_accounts/#{bank_account}/edit"}>{gettext("Edit")}</.link>
         </:action>
         <:action :let={{id, bank_account}}>
           <.link
             phx-click={JS.push("delete", value: %{id: bank_account.id}) |> hide("##{id}")}
-            data-confirm="Are you sure?"
+            data-confirm={gettext("Are you sure?")}
           >
-            Delete
+            {gettext("Delete")}
           </.link>
         </:action>
       </.table>
@@ -54,7 +60,7 @@ defmodule TraysWeb.BankAccountLive.Index do
     {:ok,
      socket
      |> assign(:merchant_location_id, merchant_location_id)
-     |> assign(:page_title, "Listing Bank accounts")
+     |> assign(:page_title, gettext("Listing Bank accounts"))
      |> stream(:bank_accounts, bank_accounts)}
   end
 

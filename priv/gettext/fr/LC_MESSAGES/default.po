@@ -87,23 +87,23 @@ msgstr "Rationalisez les commandes de restauration, les horaires et les livraiso
 msgid "Welcome to"
 msgstr "Bienvenue à"
 
-#: lib/trays_web/components/layouts/root.html.heex:69
-#: lib/trays_web/live/user_live/confirmation.ex:50
+#: lib/trays_web/components/layouts/root.html.heex:77
+#: lib/trays_web/live/user_live/confirmation.ex:53
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "Se connecter"
 
-#: lib/trays_web/components/layouts/root.html.heex:62
+#: lib/trays_web/components/layouts/root.html.heex:70
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: lib/trays_web/components/layouts/root.html.heex:55
+#: lib/trays_web/components/layouts/root.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "Paramètres"
 
-#: lib/trays_web/components/layouts/root.html.heex:75
+#: lib/trays_web/components/layouts/root.html.heex:83
 #: lib/trays_web/live/user_live/login.ex:24
 #, elixir-autogen, elixir-format
 msgid "Sign up"
@@ -119,17 +119,17 @@ msgstr "Type de compte"
 msgid "Already registered?"
 msgstr "Déjà inscrit ?"
 
-#: lib/trays_web/live/user_live/registration.ex:125
+#: lib/trays_web/live/user_live/registration.ex:126
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr "Un e-mail a été envoyé à %{email}, veuillez y accéder pour confirmer votre compte."
 
-#: lib/trays_web/live/user_live/registration.ex:87
+#: lib/trays_web/live/user_live/registration.ex:88
 #, elixir-autogen, elixir-format
 msgid "By creating an account, you agree to our Terms of Service and Privacy Policy."
 msgstr "En créant un compte, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité."
 
-#: lib/trays_web/live/user_live/registration.ex:82
+#: lib/trays_web/live/user_live/registration.ex:83
 #, elixir-autogen, elixir-format
 msgid "Create account"
 msgstr "Créer un compte"
@@ -139,7 +139,7 @@ msgstr "Créer un compte"
 msgid "Create your account"
 msgstr "Créez votre compte"
 
-#: lib/trays_web/live/user_live/registration.ex:79
+#: lib/trays_web/live/user_live/registration.ex:80
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr "Création du compte..."
@@ -150,9 +150,9 @@ msgid "Customer"
 msgstr "Client"
 
 #: lib/trays_web/live/user_live/login.ex:63
-#: lib/trays_web/live/user_live/login.ex:100
+#: lib/trays_web/live/user_live/login.ex:101
 #: lib/trays_web/live/user_live/registration.ex:40
-#: lib/trays_web/live/user_live/settings.ex:61
+#: lib/trays_web/live/user_live/settings.ex:78
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "E-mail"
@@ -162,18 +162,18 @@ msgstr "E-mail"
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: lib/trays_web/live/user_live/registration.ex:71
+#: lib/trays_web/live/user_live/registration.ex:72
 #, elixir-autogen, elixir-format
 msgid "Merchant"
 msgstr "Commerçant"
 
 #: lib/trays_web/live/user_live/registration.ex:59
-#: lib/trays_web/live/user_live/settings.ex:42
+#: lib/trays_web/live/user_live/settings.ex:48
 #, elixir-autogen, elixir-format
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: lib/trays_web/live/user_live/registration.ex:73
+#: lib/trays_web/live/user_live/registration.ex:74
 #, elixir-autogen, elixir-format
 msgid "Select account type"
 msgstr "Sélectionnez le type de compte"
@@ -203,8 +203,8 @@ msgstr "Vous n'avez pas de compte ?"
 msgid "Magic Link Login"
 msgstr "Connexion par lien magique"
 
-#: lib/trays_web/live/user_live/login.ex:108
-#: lib/trays_web/live/user_live/settings.ex:73
+#: lib/trays_web/live/user_live/login.ex:109
+#: lib/trays_web/live/user_live/settings.ex:93
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr "Mot de passe"
@@ -214,12 +214,12 @@ msgstr "Mot de passe"
 msgid "Send magic link"
 msgstr "Envoyer le lien magique"
 
-#: lib/trays_web/live/user_live/login.ex:118
+#: lib/trays_web/live/user_live/login.ex:119
 #, elixir-autogen, elixir-format
 msgid "Sign in and stay signed in"
 msgstr "Se connecter et rester connecté"
 
-#: lib/trays_web/live/user_live/login.ex:121
+#: lib/trays_web/live/user_live/login.ex:123
 #, elixir-autogen, elixir-format
 msgid "Sign in for this session only"
 msgstr "Se connecter pour cette session uniquement"
@@ -239,7 +239,7 @@ msgstr "Bon retour"
 msgid "You need to reauthenticate to perform sensitive actions on your account."
 msgstr "Vous devez vous authentifier à nouveau pour effectuer des actions sensibles sur votre compte."
 
-#: lib/trays_web/live/user_live/login.ex:81
+#: lib/trays_web/live/user_live/login.ex:82
 #, elixir-autogen, elixir-format
 msgid "or continue with password"
 msgstr "ou continuer avec le mot de passe"
@@ -249,12 +249,12 @@ msgstr "ou continuer avec le mot de passe"
 msgid "the mailbox page"
 msgstr "la page de la boîte aux lettres"
 
-#: lib/trays_web/live/user_live/login.ex:158
+#: lib/trays_web/live/user_live/login.ex:160
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr "Si votre e-mail est dans notre système, vous recevrez sous peu des instructions pour vous connecter."
 
-#: lib/trays_web/live/user_live/settings.ex:202
+#: lib/trays_web/live/user_live/settings.ex:227
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Un lien pour confirmer votre changement d'e-mail a été envoyé à la nouvelle adresse."
@@ -264,93 +264,94 @@ msgstr "Un lien pour confirmer votre changement d'e-mail a été envoyé à la n
 msgid "Account Settings"
 msgstr "Paramètres du compte"
 
-#: lib/trays_web/live/user_live/settings.ex:66
+#: lib/trays_web/live/user_live/settings.ex:86
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr "Modifier l'e-mail"
 
-#: lib/trays_web/live/user_live/settings.ex:55
+#: lib/trays_web/live/user_live/settings.ex:65
 #, elixir-autogen, elixir-format
 msgid "Change your email address (requires confirmation)"
 msgstr "Modifier votre adresse e-mail (confirmation requise)"
 
-#: lib/trays_web/live/user_live/settings.ex:65
+#: lib/trays_web/live/user_live/settings.ex:84
 #, elixir-autogen, elixir-format
 msgid "Changing..."
 msgstr "Modification..."
 
-#: lib/trays_web/live/user_live/settings.ex:103
+#: lib/trays_web/live/user_live/settings.ex:125
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr "Confirmer le nouveau mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:54
+#: lib/trays_web/live/user_live/settings.ex:63
 #, elixir-autogen, elixir-format
 msgid "Email Address"
 msgstr "Adresse e-mail"
 
-#: lib/trays_web/live/user_live/settings.ex:126
+#: lib/trays_web/live/user_live/settings.ex:151
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr "Le lien de modification d'e-mail est invalide ou a expiré."
 
-#: lib/trays_web/live/user_live/settings.ex:123
+#: lib/trays_web/live/user_live/settings.ex:148
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "E-mail modifié avec succès."
 
-#: lib/trays_web/live/user_live/settings.ex:16
+#: lib/trays_web/live/user_live/settings.ex:17
 #, elixir-autogen, elixir-format
 msgid "Manage your account profile, email address and password settings"
 msgstr "Gérez votre profil de compte, votre adresse e-mail et vos paramètres de mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:35
+#: lib/trays_web/live/user_live/settings.ex:41
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr "Nom"
 
-#: lib/trays_web/live/user_live/settings.ex:96
+#: lib/trays_web/live/user_live/settings.ex:118
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:22
+#: lib/trays_web/live/user_live/settings.ex:25
 #, elixir-autogen, elixir-format
 msgid "Profile Information"
 msgstr "Informations de profil"
 
-#: lib/trays_web/live/user_live/settings.ex:169
+#: lib/trays_web/live/user_live/settings.ex:194
 #, elixir-autogen, elixir-format
 msgid "Profile updated successfully."
 msgstr "Profil mis à jour avec succès."
 
-#: lib/trays_web/live/user_live/settings.ex:107
+#: lib/trays_web/live/user_live/settings.ex:132
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr "Enregistrer le mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:46
-#: lib/trays_web/live/user_live/settings.ex:106
+#: lib/trays_web/live/bank_account_live/form.ex:32
+#: lib/trays_web/live/user_live/settings.ex:54
+#: lib/trays_web/live/user_live/settings.ex:130
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Enregistrement..."
 
-#: lib/trays_web/live/user_live/settings.ex:47
+#: lib/trays_web/live/user_live/settings.ex:56
 #, elixir-autogen, elixir-format
 msgid "Update Profile"
 msgstr "Mettre à jour le profil"
 
-#: lib/trays_web/live/user_live/settings.ex:23
+#: lib/trays_web/live/user_live/settings.ex:28
 #, elixir-autogen, elixir-format
 msgid "Update your name and phone number"
 msgstr "Mettre à jour votre nom et numéro de téléphone"
 
-#: lib/trays_web/live/user_live/settings.ex:74
+#: lib/trays_web/live/user_live/settings.ex:95
 #, elixir-autogen, elixir-format
 msgid "Update your password to keep your account secure"
 msgstr "Mettre à jour votre mot de passe pour sécuriser votre compte"
 
-#: lib/trays_web/live/user_live/confirmation.ex:34
+#: lib/trays_web/live/user_live/confirmation.ex:37
 #, elixir-autogen, elixir-format
 msgid "Confirm and log in only this time"
 msgstr "Confirmer et se connecter uniquement cette fois"
@@ -361,34 +362,34 @@ msgid "Confirm and stay logged in"
 msgstr "Confirmer et rester connecté"
 
 #: lib/trays_web/live/user_live/confirmation.ex:28
-#: lib/trays_web/live/user_live/confirmation.ex:33
+#: lib/trays_web/live/user_live/confirmation.ex:34
 #, elixir-autogen, elixir-format
 msgid "Confirming..."
 msgstr "Confirmation..."
 
-#: lib/trays_web/live/user_live/confirmation.ex:59
+#: lib/trays_web/live/user_live/confirmation.ex:62
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in on this device"
 msgstr "Me garder connecté sur cet appareil"
 
-#: lib/trays_web/live/user_live/confirmation.ex:62
+#: lib/trays_web/live/user_live/confirmation.ex:68
 #, elixir-autogen, elixir-format
 msgid "Log me in only this time"
 msgstr "Me connecter uniquement cette fois"
 
-#: lib/trays_web/live/user_live/confirmation.ex:49
-#: lib/trays_web/live/user_live/confirmation.ex:56
-#: lib/trays_web/live/user_live/confirmation.ex:61
+#: lib/trays_web/live/user_live/confirmation.ex:52
+#: lib/trays_web/live/user_live/confirmation.ex:59
+#: lib/trays_web/live/user_live/confirmation.ex:65
 #, elixir-autogen, elixir-format
 msgid "Logging in..."
 msgstr "Connexion..."
 
-#: lib/trays_web/live/user_live/confirmation.ex:85
+#: lib/trays_web/live/user_live/confirmation.ex:91
 #, elixir-autogen, elixir-format
 msgid "Magic link is invalid or it has expired."
 msgstr "Le lien magique est invalide ou a expiré."
 
-#: lib/trays_web/live/user_live/confirmation.ex:68
+#: lib/trays_web/live/user_live/confirmation.ex:74
 #, elixir-autogen, elixir-format
 msgid "Tip: If you prefer passwords, you can enable them in the user settings."
 msgstr "Conseil : Si vous préférez les mots de passe, vous pouvez les activer dans les paramètres utilisateur."
@@ -397,3 +398,116 @@ msgstr "Conseil : Si vous préférez les mots de passe, vous pouvez les activer 
 #, elixir-autogen, elixir-format
 msgid "Welcome"
 msgstr "Bienvenue"
+
+#: lib/trays_web/live/bank_account_live/form.ex:24
+#: lib/trays_web/live/bank_account_live/index.ex:27
+#: lib/trays_web/live/bank_account_live/show.ex:27
+#, elixir-autogen, elixir-format
+msgid "Account number"
+msgstr "Numéro de compte"
+
+#: lib/trays_web/live/bank_account_live/index.ex:45
+#, elixir-autogen, elixir-format
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr?"
+
+#: lib/trays_web/live/bank_account_live/show.ex:11
+#, elixir-autogen, elixir-format
+msgid "Bank account"
+msgstr "Compte bancaire"
+
+#: lib/trays_web/live/bank_account_live/form.ex:112
+#, elixir-autogen, elixir-format
+msgid "Bank account created successfully"
+msgstr "Compte bancaire créé avec succès"
+
+#: lib/trays_web/live/bank_account_live/form.ex:92
+#, elixir-autogen, elixir-format
+msgid "Bank account updated successfully"
+msgstr "Compte bancaire mis à jour avec succès"
+
+#: lib/trays_web/live/bank_account_live/form.ex:36
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr "Annuler"
+
+#: lib/trays_web/live/bank_account_live/index.ex:47
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr "Supprimer"
+
+#: lib/trays_web/live/bank_account_live/index.ex:40
+#, elixir-autogen, elixir-format
+msgid "Edit"
+msgstr "Modifier"
+
+#: lib/trays_web/live/bank_account_live/form.ex:59
+#, elixir-autogen, elixir-format
+msgid "Edit Bank account"
+msgstr "Modifier le compte bancaire"
+
+#: lib/trays_web/live/bank_account_live/show.ex:21
+#, elixir-autogen, elixir-format
+msgid "Edit bank_account"
+msgstr "Modifier le compte bancaire"
+
+#: lib/trays_web/live/bank_account_live/form.ex:29
+#: lib/trays_web/live/bank_account_live/index.ex:33
+#: lib/trays_web/live/bank_account_live/show.ex:29
+#, elixir-autogen, elixir-format
+msgid "Institution number"
+msgstr "Numéro d'institution"
+
+#: lib/trays_web/live/bank_account_live/index.ex:11
+#: lib/trays_web/live/bank_account_live/index.ex:63
+#, elixir-autogen, elixir-format
+msgid "Listing Bank accounts"
+msgstr "Liste des comptes bancaires"
+
+#: lib/trays_web/components/layouts/root.html.heex:49
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Merchants"
+msgstr "Commerçant"
+
+#: lib/trays_web/live/bank_account_live/form.ex:69
+#: lib/trays_web/live/bank_account_live/index.ex:17
+#, elixir-autogen, elixir-format
+msgid "New Bank account"
+msgstr "Nouveau compte bancaire"
+
+#: lib/trays_web/live/bank_account_live/form.ex:33
+#, elixir-autogen, elixir-format
+msgid "Save Bank account"
+msgstr "Enregistrer le compte bancaire"
+
+#: lib/trays_web/live/bank_account_live/index.ex:38
+#, elixir-autogen, elixir-format
+msgid "Show"
+msgstr "Afficher"
+
+#: lib/trays_web/live/bank_account_live/show.ex:41
+#, elixir-autogen, elixir-format
+msgid "Show Bank account"
+msgstr "Afficher le compte bancaire"
+
+#: lib/trays_web/live/user_live/registration.ex:71
+#, elixir-autogen, elixir-format
+msgid "Store Manager"
+msgstr "Gérant de magasin"
+
+#: lib/trays_web/live/bank_account_live/show.ex:12
+#, elixir-autogen, elixir-format
+msgid "This is a bank_account record from your database."
+msgstr "Ceci est un enregistrement de compte bancaire de votre base de données."
+
+#: lib/trays_web/live/bank_account_live/form.ex:25
+#: lib/trays_web/live/bank_account_live/index.ex:30
+#: lib/trays_web/live/bank_account_live/show.ex:28
+#, elixir-autogen, elixir-format
+msgid "Transit number"
+msgstr "Numéro de transit"
+
+#: lib/trays_web/live/bank_account_live/form.ex:14
+#, elixir-autogen, elixir-format
+msgid "Use this form to manage bank_account records in your database."
+msgstr "Utilisez ce formulaire pour gérer les enregistrements de compte bancaire dans votre base de données."

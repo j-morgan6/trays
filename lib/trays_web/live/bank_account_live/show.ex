@@ -8,8 +8,8 @@ defmodule TraysWeb.BankAccountLive.Show do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
       <.header>
-        Bank account {@bank_account.id}
-        <:subtitle>This is a bank_account record from your database.</:subtitle>
+        {gettext("Bank account")} {@bank_account.id}
+        <:subtitle>{gettext("This is a bank_account record from your database.")}</:subtitle>
         <:actions>
           <.button navigate={~p"/merchant_locations/#{@merchant_location_id}/bank_accounts"}>
             <.icon name="hero-arrow-left" />
@@ -18,15 +18,15 @@ defmodule TraysWeb.BankAccountLive.Show do
             variant="primary"
             navigate={~p"/bank_accounts/#{@bank_account}/edit?return_to=show"}
           >
-            <.icon name="hero-pencil-square" /> Edit bank_account
+            <.icon name="hero-pencil-square" /> {gettext("Edit bank_account")}
           </.button>
         </:actions>
       </.header>
 
       <.list>
-        <:item title="Account number">{@bank_account.account_number}</:item>
-        <:item title="Transit number">{@bank_account.transit_number}</:item>
-        <:item title="Institution number">{@bank_account.institution_number}</:item>
+        <:item title={gettext("Account number")}>{@bank_account.account_number}</:item>
+        <:item title={gettext("Transit number")}>{@bank_account.transit_number}</:item>
+        <:item title={gettext("Institution number")}>{@bank_account.institution_number}</:item>
       </.list>
     </Layouts.app>
     """
@@ -38,7 +38,7 @@ defmodule TraysWeb.BankAccountLive.Show do
 
     {:ok,
      socket
-     |> assign(:page_title, "Show Bank account")
+     |> assign(:page_title, gettext("Show Bank account"))
      |> assign(:bank_account, bank_account)
      |> assign(:merchant_location_id, bank_account.merchant_location_id)}
   end
