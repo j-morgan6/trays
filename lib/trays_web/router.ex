@@ -85,8 +85,6 @@ defmodule TraysWeb.Router do
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
       live "/merchants", MerchantLive.Index, :index
-      live "/merchants/new", MerchantLive.Form, :new
-      live "/merchants/:id", MerchantLive.Show, :show
       live "/merchants/:id/edit", MerchantLive.Form, :edit
 
       live "/merchant_locations", MerchantLocationLive.Index, :index

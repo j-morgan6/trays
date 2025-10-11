@@ -94,5 +94,5 @@ defmodule TraysWeb.MerchantLive.Form do
   end
 
   defp return_path("index", _merchant), do: ~p"/merchants"
-  defp return_path("show", merchant), do: ~p"/merchants/#{merchant}"
+  defp return_path(_, _merchant), do: ~p"/merchants"
 end

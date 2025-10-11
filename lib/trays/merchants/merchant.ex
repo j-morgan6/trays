@@ -17,6 +17,7 @@ defmodule Trays.Merchants.Merchant do
     merchant
     |> cast(attrs, [:name, :description, :user_id])
     |> validate_required([:name, :description, :user_id])
+    |> unique_constraint(:user_id, message: "You can only have one business")
     |> foreign_key_constraint(:user_id)
   end
 end

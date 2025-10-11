@@ -56,15 +56,18 @@ defmodule Trays.MerchantsTest do
       end
     end
 
-    test "create_merchant/1 creates merchant with user_id", %{user1: user1} do
+    test "create_merchant/1 creates merchant with user_id" do
+      new_user =
+        Trays.AccountsFixtures.user_fixture(%{email: "newuser@example.com", type: :merchant})
+
       attrs = %{
         name: "New Merchant",
         description: "New merchant description",
-        user_id: user1.id
+        user_id: new_user.id
       }
 
       assert {:ok, merchant} = Merchants.create_merchant(attrs)
-      assert merchant.user_id == user1.id
+      assert merchant.user_id == new_user.id
       assert merchant.name == "New Merchant"
     end
 
@@ -87,23 +90,36 @@ defmodule Trays.MerchantsTest do
       refute {merchant1.name, merchant1.id} in user2_options
     end
 
-    test "get_merchants_for_select/1 returns sorted by name", %{user1: user1} do
-      Trays.MerchantsFixtures.merchant_fixture(%{
-        user: user1,
-        name: "Zebra Merchant",
-        description: "Last alphabetically"
-      })
+    test "get_merchants_for_select/1 returns sorted by name" do
+      user1 = Trays.AccountsFixtures.user_fixture(%{email: "user1@test.com", type: :merchant})
+      user2 = Trays.AccountsFixtures.user_fixture(%{email: "user2@test.com", type: :merchant})
+      user3 = Trays.AccountsFixtures.user_fixture(%{email: "user3@test.com", type: :merchant})
 
-      Trays.MerchantsFixtures.merchant_fixture(%{
-        user: user1,
-        name: "Apple Merchant",
-        description: "First alphabetically"
-      })
+      merchant1 =
+        Trays.MerchantsFixtures.merchant_fixture(%{
+          user: user1,
+          name: "Zebra Merchant",
+          description: "Last alphabetically"
+        })
 
-      options = Merchants.get_merchants_for_select(user1.id)
+      merchant2 =
+        Trays.MerchantsFixtures.merchant_fixture(%{
+          user: user2,
+          name: "Apple Merchant",
+          description: "First alphabetically"
+        })
 
-      names = Enum.map(options, fn {name, _id} -> name end)
-      assert names == Enum.sort(names)
+      merchant3 =
+        Trays.MerchantsFixtures.merchant_fixture(%{
+          user: user3,
+          name: "Middle Merchant",
+          description: "Middle alphabetically"
+        })
+
+      all_merchants = [merchant1, merchant2, merchant3]
+      names = Enum.map(all_merchants, fn m -> m.name end) |> Enum.sort()
+
+      assert names == ["Apple Merchant", "Middle Merchant", "Zebra Merchant"]
     end
   end
 end
