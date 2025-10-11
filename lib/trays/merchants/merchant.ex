@@ -17,6 +17,12 @@ defmodule Trays.Merchants.Merchant do
     merchant
     |> cast(attrs, [:name, :description, :user_id])
     |> validate_required([:name, :description, :user_id])
+    |> validate_length(:name, min: 2, max: 100, message: "must be between 2 and 100 characters")
+    |> validate_length(:description,
+      min: 10,
+      max: 500,
+      message: "must be between 10 and 500 characters"
+    )
     |> unique_constraint(:user_id, message: "You can only have one business")
     |> foreign_key_constraint(:user_id)
   end
