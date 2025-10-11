@@ -23,7 +23,7 @@ front = %MerchantLocation{
   province: "ON",
   postal_code: "M5E 1B8",
   country: "Canada",
-  user: marry,
+  manager: marry,
   merchant: apd
 }
 |> Repo.insert!()
@@ -42,7 +42,7 @@ bay = %MerchantLocation{
   province: "ON",
   postal_code: "M5K 1E5",
   country: "Canada",
-  user: marry,
+  manager: marry,
   merchant: apd,
 }
 |> Repo.insert!()

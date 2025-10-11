@@ -10,7 +10,7 @@ defmodule Trays.MerchantLocations.MerchantLocation do
     field :postal_code, :string
     field :country, :string
 
-    belongs_to :user, Trays.Accounts.User
+    belongs_to :manager, Trays.Accounts.User, foreign_key: :user_id
     belongs_to :merchant, Trays.Merchants.Merchant
 
     timestamps(type: :utc_datetime)
