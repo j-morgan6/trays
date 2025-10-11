@@ -1,9 +1,14 @@
 export default {
   mounted() {
-    setTimeout(() => {
-      this.el.style.transition = "opacity 0.5s";
-      this.el.style.opacity = "0";
-      setTimeout(() => this.el.remove(), 500);
-    }, 5000); // Wait 5 seconds before starting to fade out
+    this.timer = setTimeout(() => {
+      // Simulate a click to trigger the existing phx-click handler
+      // which properly clears the flash and hides the element
+      this.el.click();
+    }, 5000); // Wait 5 seconds before auto-dismissing
+  },
+  destroyed() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
   },
 };
