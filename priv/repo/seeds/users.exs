@@ -34,6 +34,14 @@ Accounts.register_user(%{
 })
 
 Accounts.register_user(%{
+  name: "Mary Manager",
+  email: "mary@trays.ca",
+  phone_number: "123-456-7890",
+  password: "Mary@123Trays",
+  type: :store_manager
+})
+
+Accounts.register_user(%{
   name: "Curious Customer",
   email: "Customer@trays.ca",
   phone_number: "123-456-7890",
