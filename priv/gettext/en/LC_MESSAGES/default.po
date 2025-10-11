@@ -7,6 +7,7 @@ msgstr ""
 "Language: en\n"
 
 #: lib/trays_web/components/core_components.ex:342
+#: lib/trays_web/live/merchant_live/index.ex:98
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -330,6 +331,7 @@ msgid "Save Password"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/form.ex:32
+#: lib/trays_web/live/merchant_live/form.ex:139
 #: lib/trays_web/live/merchant_location_live/form.ex:26
 #: lib/trays_web/live/user_live/settings.ex:54
 #: lib/trays_web/live/user_live/settings.ex:130
@@ -429,18 +431,22 @@ msgid "Bank account updated successfully"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/form.ex:36
+#: lib/trays_web/live/merchant_live/form.ex:134
 #: lib/trays_web/live/merchant_location_live/form.ex:30
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/index.ex:47
+#: lib/trays_web/live/merchant_live/index.ex:150
 #: lib/trays_web/live/merchant_location_live/index.ex:61
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr ""
 
 #: lib/trays_web/live/bank_account_live/index.ex:40
+#: lib/trays_web/live/merchant_live/index.ex:30
+#: lib/trays_web/live/merchant_live/index.ex:143
 #: lib/trays_web/live/merchant_location_live/index.ex:53
 #, elixir-autogen, elixir-format
 msgid "Edit"
@@ -518,6 +524,7 @@ msgstr ""
 msgid "Use this form to manage bank_account records in your database."
 msgstr ""
 
+#: lib/trays_web/live/merchant_live/index.ex:92
 #: lib/trays_web/live/merchant_location_live/form.ex:21
 #: lib/trays_web/live/merchant_location_live/index.ex:34
 #: lib/trays_web/live/merchant_location_live/show.ex:31
@@ -576,6 +583,7 @@ msgstr ""
 msgid "Postal code"
 msgstr ""
 
+#: lib/trays_web/live/merchant_live/index.ex:95
 #: lib/trays_web/live/merchant_location_live/form.ex:22
 #: lib/trays_web/live/merchant_location_live/index.ex:37
 #: lib/trays_web/live/merchant_location_live/show.ex:32
@@ -615,4 +623,124 @@ msgstr ""
 #: lib/trays_web/live/merchant_location_live/form.ex:14
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Use this form to manage merchant_location records in your database."
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:79
+#, elixir-autogen, elixir-format
+msgid "Add First Location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:61
+#, elixir-autogen, elixir-format
+msgid "Add Location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:72
+#, elixir-autogen, elixir-format
+msgid "Add your first location to start managing this business"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:89
+#, elixir-autogen, elixir-format
+msgid "Address"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:147
+#, elixir-autogen, elixir-format
+msgid "Are you sure you want to delete this location?"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:17
+#, elixir-autogen, elixir-format
+msgid "Back to Dashboard"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:92
+#, elixir-autogen, elixir-format
+msgid "Business Description"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:48
+#, elixir-autogen, elixir-format
+msgid "Business Name"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:238
+#, elixir-autogen, elixir-format
+msgid "Business created successfully"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:223
+#, elixir-autogen, elixir-format
+msgid "Business updated successfully"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:108
+#, elixir-autogen, elixir-format
+msgid "Describe your business in a few sentences. Include what makes it unique, the type of products or services you offer, and any other key details..."
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:179
+#, elixir-autogen, elixir-format
+msgid "Edit Business"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:192
+#, elixir-autogen, elixir-format
+msgid "Location deleted successfully"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:54
+#, elixir-autogen, elixir-format
+msgid "Locations"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:208
+#, elixir-autogen, elixir-format
+msgid "Manage your business and locations"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:207
+#, elixir-autogen, elixir-format
+msgid "My Business"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:190
+#, elixir-autogen, elixir-format
+msgid "New Business"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:69
+#, elixir-autogen, elixir-format
+msgid "No locations yet"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:150
+#, elixir-autogen, elixir-format
+msgid "Save Changes"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:83
+#, elixir-autogen, elixir-format
+msgid "This is your main business name displayed throughout the dashboard."
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:43
+#, elixir-autogen, elixir-format
+msgid "Total Locations"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/index.ex:197
+#, elixir-autogen, elixir-format
+msgid "Unable to delete location"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:30
+#, elixir-autogen, elixir-format
+msgid "Update your business information"
+msgstr ""
+
+#: lib/trays_web/live/merchant_live/form.ex:63
+#, elixir-autogen, elixir-format
+msgid "e.g., Pizza Palace, Joe's Coffee Shop, Sunset Bakery"
 msgstr ""

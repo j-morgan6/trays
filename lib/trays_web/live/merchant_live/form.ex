@@ -14,7 +14,7 @@ defmodule TraysWeb.MerchantLive.Form do
             navigate={~p"/merchants"}
             class="inline-flex items-center gap-2 text-sm text-base-content/70 hover:text-[#85b4cf] transition-colors"
           >
-            <.icon name="hero-arrow-left" class="size-4" /> Back to Dashboard
+            <.icon name="hero-arrow-left" class="size-4" /> {gettext("Back to Dashboard")}
           </.link>
         </div>
 
@@ -27,7 +27,7 @@ defmodule TraysWeb.MerchantLive.Form do
               <div class="text-white">
                 <h1 class="text-2xl font-bold">{@page_title}</h1>
                 <p class="text-white/90 text-sm mt-1">
-                  Update your business information
+                  {gettext("Update your business information")}
                 </p>
               </div>
             </div>
@@ -45,7 +45,7 @@ defmodule TraysWeb.MerchantLive.Form do
                 <div>
                   <div class="flex items-center justify-between mb-2">
                     <label class="block text-sm font-semibold text-base-content">
-                      Business Name <span class="text-red-500 ml-1">*</span>
+                      {gettext("Business Name")} <span class="text-red-500 ml-1">*</span>
                     </label>
                     <span class={[
                       "text-xs font-medium transition-colors",
@@ -59,7 +59,9 @@ defmodule TraysWeb.MerchantLive.Form do
                     name="merchant[name]"
                     id="merchant_name"
                     value={@form[:name].value}
-                    placeholder="e.g., Pizza Palace, Joe's Coffee Shop, Sunset Bakery"
+                    placeholder={
+                      gettext("e.g., Pizza Palace, Joe's Coffee Shop, Sunset Bakery")
+                    }
                     phx-debounce="300"
                     maxlength="100"
                     class={[
@@ -77,7 +79,9 @@ defmodule TraysWeb.MerchantLive.Form do
                   <% else %>
                     <p class="mt-2 text-sm text-base-content/60 flex items-start gap-2">
                       <.icon name="hero-information-circle" class="size-4 mt-0.5 flex-shrink-0" />
-                      <span>This is your main business name displayed throughout the dashboard.</span>
+                      <span>
+                        {gettext("This is your main business name displayed throughout the dashboard.")}
+                      </span>
                     </p>
                   <% end %>
                 </div>
@@ -85,7 +89,7 @@ defmodule TraysWeb.MerchantLive.Form do
                 <div>
                   <div class="flex items-center justify-between mb-2">
                     <label class="block text-sm font-semibold text-base-content">
-                      Business Description <span class="text-red-500 ml-1">*</span>
+                      {gettext("Business Description")} <span class="text-red-500 ml-1">*</span>
                     </label>
                     <span class={[
                       "text-xs font-medium transition-colors",
@@ -100,7 +104,11 @@ defmodule TraysWeb.MerchantLive.Form do
                     rows="4"
                     phx-debounce="300"
                     maxlength="500"
-                    placeholder="Describe your business in a few sentences. Include what makes it unique, the type of products or services you offer, and any other key details..."
+                    placeholder={
+                      gettext(
+                        "Describe your business in a few sentences. Include what makes it unique, the type of products or services you offer, and any other key details..."
+                      )
+                    }
                     class={[
                       "block w-full rounded-lg border transition-all duration-200",
                       "px-4 py-3 text-base-content placeholder:text-base-content/40",
@@ -123,12 +131,12 @@ defmodule TraysWeb.MerchantLive.Form do
                   navigate={~p"/merchants"}
                   class="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-base-content/70 hover:text-base-content hover:bg-base-content/5 border border-base-content/20 rounded-lg transition-all duration-200"
                 >
-                  <.icon name="hero-arrow-left" class="size-4" /> Cancel
+                  <.icon name="hero-arrow-left" class="size-4" /> {gettext("Cancel")}
                 </.link>
                 <button
                   type="submit"
                   disabled={!@form.source.valid?}
-                  phx-disable-with="Saving..."
+                  phx-disable-with={gettext("Saving...")}
                   class={[
                     "inline-flex items-center gap-2 px-8 py-3 text-sm font-semibold rounded-lg transition-all duration-200",
                     "focus:outline-none focus:ring-2 focus:ring-[#e88e19] focus:ring-offset-2",
@@ -139,7 +147,7 @@ defmodule TraysWeb.MerchantLive.Form do
                     )
                   ]}
                 >
-                  <.icon name="hero-check-circle" class="size-5" /> Save Changes
+                  <.icon name="hero-check-circle" class="size-5" /> {gettext("Save Changes")}
                 </button>
               </div>
             </.form>
@@ -168,7 +176,7 @@ defmodule TraysWeb.MerchantLive.Form do
     merchant = Merchants.get_merchant!(id, user_id)
 
     socket
-    |> assign(:page_title, "Edit Business")
+    |> assign(:page_title, gettext("Edit Business"))
     |> assign(:merchant, merchant)
     |> assign(:name_length, String.length(merchant.name || ""))
     |> assign(:description_length, String.length(merchant.description || ""))
@@ -179,7 +187,7 @@ defmodule TraysWeb.MerchantLive.Form do
     merchant = %Merchant{}
 
     socket
-    |> assign(:page_title, "New Business")
+    |> assign(:page_title, gettext("New Business"))
     |> assign(:merchant, merchant)
     |> assign(:name_length, 0)
     |> assign(:description_length, 0)
@@ -212,7 +220,7 @@ defmodule TraysWeb.MerchantLive.Form do
       {:ok, _merchant} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Business updated successfully")
+         |> put_flash(:info, gettext("Business updated successfully"))
          |> push_navigate(to: ~p"/merchants")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -227,7 +235,7 @@ defmodule TraysWeb.MerchantLive.Form do
       {:ok, _merchant} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Business created successfully")
+         |> put_flash(:info, gettext("Business created successfully"))
          |> push_navigate(to: ~p"/merchants")}
 
       {:error, %Ecto.Changeset{} = changeset} ->

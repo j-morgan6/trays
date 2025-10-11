@@ -27,7 +27,7 @@ defmodule TraysWeb.MerchantLive.Index do
                     navigate={~p"/merchants/#{@merchant}/edit"}
                     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 border border-white/50 rounded-lg transition-all duration-200"
                   >
-                    <.icon name="hero-pencil-square" class="size-4" /> Edit
+                    <.icon name="hero-pencil-square" class="size-4" /> {gettext("Edit")}
                   </.link>
                 </div>
               </div>
@@ -40,7 +40,7 @@ defmodule TraysWeb.MerchantLive.Index do
                     <.icon name="hero-map-pin" class="size-6 text-[#85b4cf]" />
                   </div>
                   <div>
-                    <p class="text-sm text-base-content/70">Total Locations</p>
+                    <p class="text-sm text-base-content/70">{gettext("Total Locations")}</p>
                     <p class="text-2xl font-bold text-base-content">{@location_count}</p>
                   </div>
                 </div>
@@ -51,30 +51,32 @@ defmodule TraysWeb.MerchantLive.Index do
           <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
             <div class="px-6 py-4 border-b border-base-content/10 flex items-center justify-between">
               <h2 class="text-lg font-semibold text-base-content">
-                Locations
+                {gettext("Locations")}
                 <span class="ml-2 text-base-content/60 font-normal">({@location_count})</span>
               </h2>
               <.link
                 navigate={~p"/merchant_locations/new?merchant_id=#{@merchant.id}"}
                 class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] rounded-lg hover:shadow-lg transition-all duration-200"
               >
-                <.icon name="hero-plus" class="size-4" /> Add Location
+                <.icon name="hero-plus" class="size-4" /> {gettext("Add Location")}
               </.link>
             </div>
 
             <%= if @location_count == 0 do %>
               <div class="px-6 py-12 text-center">
                 <.icon name="hero-map-pin" class="mx-auto size-12 text-base-content/30" />
-                <h3 class="mt-4 text-lg font-semibold text-base-content">No locations yet</h3>
+                <h3 class="mt-4 text-lg font-semibold text-base-content">
+                  {gettext("No locations yet")}
+                </h3>
                 <p class="mt-2 text-sm text-base-content/70">
-                  Add your first location to start managing this business
+                  {gettext("Add your first location to start managing this business")}
                 </p>
                 <div class="mt-6">
                   <.link
                     navigate={~p"/merchant_locations/new?merchant_id=#{@merchant.id}"}
                     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] rounded-lg hover:shadow-lg transition-all duration-200"
                   >
-                    <.icon name="hero-plus" class="size-4" /> Add First Location
+                    <.icon name="hero-plus" class="size-4" /> {gettext("Add First Location")}
                   </.link>
                 </div>
               </div>
@@ -84,16 +86,16 @@ defmodule TraysWeb.MerchantLive.Index do
                   <thead>
                     <tr class="border-b border-base-content/10 bg-base-content">
                       <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
-                        Address
+                        {gettext("Address")}
                       </th>
                       <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
-                        City
+                        {gettext("City")}
                       </th>
                       <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
-                        Province
+                        {gettext("Province")}
                       </th>
                       <th class="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">
-                        Actions
+                        {gettext("Actions")}
                       </th>
                     </tr>
                   </thead>
@@ -138,14 +140,14 @@ defmodule TraysWeb.MerchantLive.Index do
                             navigate={~p"/merchant_locations/#{location}/edit"}
                             class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#85b4cf] hover:text-white hover:bg-[#85b4cf] border border-[#85b4cf] rounded-lg transition-all duration-200"
                           >
-                            <.icon name="hero-pencil-square" class="size-3.5" /> Edit
+                            <.icon name="hero-pencil-square" class="size-3.5" /> {gettext("Edit")}
                           </.link>
                           <.link
                             phx-click={JS.push("delete_location", value: %{id: location.id})}
-                            data-confirm="Are you sure you want to delete this location?"
+                            data-confirm={gettext("Are you sure you want to delete this location?")}
                             class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 hover:text-white hover:bg-red-600 border border-red-600 rounded-lg transition-all duration-200"
                           >
-                            <.icon name="hero-trash" class="size-3.5" /> Delete
+                            <.icon name="hero-trash" class="size-3.5" /> {gettext("Delete")}
                           </.link>
                         </div>
                       </td>
@@ -187,12 +189,12 @@ defmodule TraysWeb.MerchantLive.Index do
       {:ok, _location} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Location deleted successfully")
+         |> put_flash(:info, gettext("Location deleted successfully"))
          |> stream_delete(:locations, location)
          |> assign(:location_count, socket.assigns.location_count - 1)}
 
       {:error, _changeset} ->
-        {:noreply, put_flash(socket, :error, "Unable to delete location")}
+        {:noreply, put_flash(socket, :error, gettext("Unable to delete location"))}
     end
   end
 
@@ -202,8 +204,8 @@ defmodule TraysWeb.MerchantLive.Index do
         {:ok, merchant} =
           Merchants.create_merchant(%{
             user_id: user_id,
-            name: "My Business",
-            description: "Manage your business and locations"
+            name: gettext("My Business"),
+            description: gettext("Manage your business and locations")
           })
 
         merchant
