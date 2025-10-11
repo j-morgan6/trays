@@ -167,7 +167,7 @@ defmodule TraysWeb.MerchantLive.Index do
   def mount(_params, _session, socket) do
     user_id = socket.assigns.current_scope.user.id
     merchant = get_or_create_merchant(user_id)
-    locations = MerchantLocations.list_merchant_locations_by_merchant(merchant.id, user_id)
+    locations = MerchantLocations.list_merchant_locations_by_merchant(merchant.id)
 
     {:ok,
      socket

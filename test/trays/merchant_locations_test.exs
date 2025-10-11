@@ -127,12 +127,10 @@ defmodule Trays.MerchantLocationsTest do
       assert {:ok, _location} = MerchantLocations.create_merchant_location(attrs)
     end
 
-    test "list_merchant_locations_by_merchant/2 only returns locations for that merchant and user",
+    test "list_merchant_locations_by_merchant/2 only returns locations for that merchant",
          %{
            user1: user1,
-           user2: user2,
-           merchant1: merchant1,
-           merchant2: merchant2
+           merchant1: merchant1
          } do
       Trays.MerchantLocationsFixtures.merchant_location_fixture(%{
         user: user1,
@@ -147,26 +145,15 @@ defmodule Trays.MerchantLocationsTest do
       })
 
       user1_merchant1_locations =
-        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id, user1.id)
+        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id)
 
       assert length(user1_merchant1_locations) == 3
-
-      user2_merchant1_locations =
-        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id, user2.id)
-
-      assert Enum.empty?(user2_merchant1_locations)
-
-      user1_merchant2_locations =
-        MerchantLocations.list_merchant_locations_by_merchant(merchant2.id, user1.id)
-
-      assert Enum.empty?(user1_merchant2_locations)
     end
 
     test "list_merchant_locations_by_merchant/2 preloads merchant association", %{
-      user1: user1,
       merchant1: merchant1
     } do
-      locations = MerchantLocations.list_merchant_locations_by_merchant(merchant1.id, user1.id)
+      locations = MerchantLocations.list_merchant_locations_by_merchant(merchant1.id)
       location = hd(locations)
 
       assert %Trays.Merchants.Merchant{} = location.merchant
