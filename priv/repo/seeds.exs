@@ -12,7 +12,15 @@
 
 alias Trays.Repo
 alias Trays.Accounts.User
+alias Trays.Merchants.Merchant
+alias Trays.MerchantLocations.MerchantLocation
+alias Trays.BankAccounts.BankAccount
 
+Repo.delete_all(BankAccount)
+Repo.delete_all(MerchantLocation)
+Repo.delete_all(Merchant)
 Repo.delete_all(User)
 
+
 Code.require_file("seeds/users.exs", __DIR__)
+Code.require_file("seeds/merchants.exs", __DIR__)
