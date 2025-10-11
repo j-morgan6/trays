@@ -6,7 +6,7 @@ defmodule Trays.Merchants.Merchant do
     field :name, :string
     field :description, :string
 
-    belongs_to :user, Trays.Accounts.User
+    belongs_to :contact, Trays.Accounts.User, foreign_key: :user_id
     has_many :merchant_locations, Trays.MerchantLocations.MerchantLocation
 
     timestamps(type: :utc_datetime)

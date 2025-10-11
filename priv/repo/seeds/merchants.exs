@@ -13,7 +13,7 @@ apd =
     name: "Au Pain Doré",
     description:
       "Bakery location offering fresh bread, pastries & other sweets, plus a cafe with sandwiches & coffee.",
-    user: debbie
+    contact: debbie
   }
   |> Repo.insert!()
 
