@@ -5,37 +5,6 @@ defmodule TraysWeb.MerchantLocationLive.Form do
   alias Trays.MerchantLocations.MerchantLocation
 
   @impl true
-  def render(assigns) do
-    ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <.header>
-        {@page_title}
-        <:subtitle>
-          {gettext("Use this form to manage merchant_location records in your database.")}
-        </:subtitle>
-      </.header>
-
-      <.form for={@form} id="merchant_location-form" phx-change="validate" phx-submit="save">
-        <.input field={@form[:street1]} type="text" label={gettext("Street1")} />
-        <.input field={@form[:street2]} type="text" label={gettext("Street2")} />
-        <.input field={@form[:city]} type="text" label={gettext("City")} />
-        <.input field={@form[:province]} type="text" label={gettext("Province")} />
-        <.input field={@form[:postal_code]} type="text" label={gettext("Postal code")} />
-        <.input field={@form[:country]} type="text" label={gettext("Country")} />
-        <footer>
-          <.button phx-disable-with={gettext("Saving...")} variant="primary">
-            {gettext("Save Merchant location")}
-          </.button>
-          <.button navigate={return_path(@return_to, @merchant_location)}>
-            {gettext("Cancel")}
-          </.button>
-        </footer>
-      </.form>
-    </Layouts.app>
-    """
-  end
-
-  @impl true
   def mount(params, _session, socket) do
     {:ok,
      socket
