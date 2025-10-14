@@ -262,8 +262,13 @@ defmodule TraysWeb.UserAuth do
     ~p"/users/settings"
   end
 
-  def signed_in_path(%Accounts.User{type: :merchant}, _already_logged_in) do
+  def signed_in_path(%Accounts.User{type: :admin}, _already_logged_in) do
     ~p"/merchants"
+  end
+
+  def signed_in_path(%Accounts.User{type: :merchant} = user, _already_logged_in) do
+    merchant = Trays.Merchants.get_or_create_default_merchant(user.id)
+    ~p"/merchants/#{merchant}"
   end
 
   def signed_in_path(%Accounts.User{type: :customer}, _already_logged_in) do

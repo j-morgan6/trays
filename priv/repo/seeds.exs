@@ -21,6 +21,5 @@ Repo.delete_all(MerchantLocation)
 Repo.delete_all(Merchant)
 Repo.delete_all(User)
 
-
 Code.require_file("seeds/users.exs", __DIR__)
 Code.require_file("seeds/merchants.exs", __DIR__)

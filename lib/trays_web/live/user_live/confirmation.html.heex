@@ -1,69 +1,69 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
-    <div class="mx-auto max-w-sm">
+  <div class="mx-auto max-w-sm">
     <div class="text-center">
-        <.header>{gettext("Welcome")} {@user.email}</.header>
+      <.header>{gettext("Welcome")} {@user.email}</.header>
     </div>
 
     <.form
-        :if={!@user.confirmed_at}
-        for={@form}
-        id="confirmation_form"
-        phx-mounted={JS.focus_first()}
-        phx-submit="submit"
-        action={~p"/users/log-in?_action=confirmed"}
-        phx-trigger-action={@trigger_submit}
+      :if={!@user.confirmed_at}
+      for={@form}
+      id="confirmation_form"
+      phx-mounted={JS.focus_first()}
+      phx-submit="submit"
+      action={~p"/users/log-in?_action=confirmed"}
+      phx-trigger-action={@trigger_submit}
     >
-        <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
-        <.button
+      <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
+      <.button
         name={@form[:remember_me].name}
         value="true"
         phx-disable-with={gettext("Confirming...")}
         class="btn btn-primary w-full"
-        >
+      >
         {gettext("Confirm and stay logged in")}
-        </.button>
-        <.button
+      </.button>
+      <.button
         phx-disable-with={gettext("Confirming...")}
         class="btn btn-primary btn-soft w-full mt-2"
-        >
+      >
         {gettext("Confirm and log in only this time")}
-        </.button>
+      </.button>
     </.form>
 
     <.form
-        :if={@user.confirmed_at}
-        for={@form}
-        id="login_form"
-        phx-submit="submit"
-        phx-mounted={JS.focus_first()}
-        action={~p"/users/log-in"}
-        phx-trigger-action={@trigger_submit}
+      :if={@user.confirmed_at}
+      for={@form}
+      id="login_form"
+      phx-submit="submit"
+      phx-mounted={JS.focus_first()}
+      action={~p"/users/log-in"}
+      phx-trigger-action={@trigger_submit}
     >
-        <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
-        <%= if @current_scope do %>
+      <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
+      <%= if @current_scope do %>
         <.button phx-disable-with={gettext("Logging in...")} class="btn btn-primary w-full">
-            {gettext("Log in")}
+          {gettext("Log in")}
         </.button>
-        <% else %>
+      <% else %>
         <.button
-            name={@form[:remember_me].name}
-            value="true"
-            phx-disable-with={gettext("Logging in...")}
-            class="btn btn-primary w-full"
+          name={@form[:remember_me].name}
+          value="true"
+          phx-disable-with={gettext("Logging in...")}
+          class="btn btn-primary w-full"
         >
-            {gettext("Keep me logged in on this device")}
+          {gettext("Keep me logged in on this device")}
         </.button>
         <.button
-            phx-disable-with={gettext("Logging in...")}
-            class="btn btn-primary btn-soft w-full mt-2"
+          phx-disable-with={gettext("Logging in...")}
+          class="btn btn-primary btn-soft w-full mt-2"
         >
-            {gettext("Log me in only this time")}
+          {gettext("Log me in only this time")}
         </.button>
-        <% end %>
+      <% end %>
     </.form>
 
     <p :if={!@user.confirmed_at} class="alert alert-outline mt-8">
-        {gettext("Tip: If you prefer passwords, you can enable them in the user settings.")}
+      {gettext("Tip: If you prefer passwords, you can enable them in the user settings.")}
     </p>
-    </div>
+  </div>
 </Layouts.app>

@@ -1,57 +1,57 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
-    <.header>
+  <.header>
     {gettext("Listing Merchant locations")}
     <:actions>
-        <.button variant="primary" navigate={~p"/merchant_locations/new"}>
+      <.button variant="primary" navigate={~p"/merchant_locations/new"}>
         <.icon name="hero-plus" /> {gettext("New Merchant location")}
-        </.button>
+      </.button>
     </:actions>
-    </.header>
+  </.header>
 
-    <.table
+  <.table
     id="merchant_locations"
     rows={@streams.merchant_locations}
     row_click={
-        fn {_id, merchant_location} ->
+      fn {_id, merchant_location} ->
         JS.navigate(~p"/merchant_locations/#{merchant_location}")
-        end
+      end
     }
-    >
+  >
     <:col :let={{_id, merchant_location}} label={gettext("Street1")}>
-        {merchant_location.street1}
+      {merchant_location.street1}
     </:col>
     <:col :let={{_id, merchant_location}} label={gettext("Street2")}>
-        {merchant_location.street2}
+      {merchant_location.street2}
     </:col>
     <:col :let={{_id, merchant_location}} label={gettext("City")}>
-        {merchant_location.city}
+      {merchant_location.city}
     </:col>
     <:col :let={{_id, merchant_location}} label={gettext("Province")}>
-        {merchant_location.province}
+      {merchant_location.province}
     </:col>
     <:col :let={{_id, merchant_location}} label={gettext("Postal code")}>
-        {merchant_location.postal_code}
+      {merchant_location.postal_code}
     </:col>
     <:col :let={{_id, merchant_location}} label={gettext("Country")}>
-        {merchant_location.country}
+      {merchant_location.country}
     </:col>
     <:action :let={{_id, merchant_location}}>
-        <div class="sr-only">
+      <div class="sr-only">
         <.link navigate={~p"/merchant_locations/#{merchant_location}"}>
-            {gettext("Show")}
+          {gettext("Show")}
         </.link>
-        </div>
-        <.link navigate={~p"/merchant_locations/#{merchant_location}/edit"}>
+      </div>
+      <.link navigate={~p"/merchant_locations/#{merchant_location}/edit"}>
         {gettext("Edit")}
-        </.link>
+      </.link>
     </:action>
     <:action :let={{id, merchant_location}}>
-        <.link
+      <.link
         phx-click={JS.push("delete", value: %{id: merchant_location.id}) |> hide("##{id}")}
         data-confirm={gettext("Are you sure?")}
-        >
+      >
         {gettext("Delete")}
-        </.link>
+      </.link>
     </:action>
-    </.table>
+  </.table>
 </Layouts.app>

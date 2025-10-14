@@ -103,4 +103,15 @@ defmodule Trays.Merchants do
     |> select([m, ml], %{merchant: m, location_count: count(ml.id)})
     |> Repo.all()
   end
+
+  @doc """
+  Returns all merchants with their location counts (for admin view).
+  """
+  def list_all_merchants_with_location_counts do
+    Merchant
+    |> join(:left, [m], ml in assoc(m, :merchant_locations))
+    |> group_by([m], m.id)
+    |> select([m, ml], %{merchant: m, location_count: count(ml.id)})
+    |> Repo.all()
+  end
 end

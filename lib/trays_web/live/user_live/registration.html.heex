@@ -1,31 +1,31 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
-    <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-white py-12 px-4 sm:px-6 lg:px-8">
     <div class="w-full max-w-md">
-        <div class="text-center space-y-3 mb-8">
+      <div class="text-center space-y-3 mb-8">
         <h2 class="text-3xl font-bold text-base-content">
-            {gettext("Create your account")}
+          {gettext("Create your account")}
         </h2>
         <p class="text-base-content/70">
-            {gettext("Already registered?")}
-            <.link
+          {gettext("Already registered?")}
+          <.link
             navigate={~p"/users/log-in"}
             class="font-semibold text-[#85b4cf] hover:text-[#6a94ab] transition-colors"
-            >
+          >
             {gettext("Sign in")}
-            </.link>
-            {gettext("to your account.")}
+          </.link>
+          {gettext("to your account.")}
         </p>
-        </div>
+      </div>
 
-        <div class="bg-white shadow-2xl rounded-xl p-8 border-2 border-[#85b4cf]/20">
+      <div class="bg-white shadow-2xl rounded-xl p-8 border-2 border-[#85b4cf]/20">
         <.form
-            for={@form}
-            id="registration_form"
-            phx-submit="save"
-            phx-change="validate"
-            class="space-y-5"
+          for={@form}
+          id="registration_form"
+          phx-submit="save"
+          phx-change="validate"
+          class="space-y-5"
         >
-            <.input
+          <.input
             field={@form[:email]}
             type="email"
             label={gettext("Email")}
@@ -33,55 +33,55 @@
             autocomplete="username"
             required
             phx-mounted={JS.focus()}
-            />
+          />
 
-            <.input
+          <.input
             field={@form[:name]}
             type="text"
             label={gettext("Full Name")}
             placeholder="John Doe"
             autocomplete="name"
             required
-            />
+          />
 
-            <.input
+          <.input
             field={@form[:phone_number]}
             type="tel"
             label={gettext("Phone Number")}
             placeholder="+1 (555) 000-0000"
             autocomplete="tel"
             required
-            />
+          />
 
-            <.input
+          <.input
             field={@form[:type]}
             type="select"
             label={gettext("Account Type")}
             options={[
-                {gettext("Customer"), :customer},
-                {gettext("Store Manager"), :store_manager},
-                {gettext("Merchant"), :merchant}
+              {gettext("Customer"), :customer},
+              {gettext("Store Manager"), :store_manager},
+              {gettext("Merchant"), :merchant}
             ]}
             prompt={gettext("Select account type")}
             required
-            />
+          />
 
-            <div class="pt-2">
+          <div class="pt-2">
             <.button
-                phx-disable-with={gettext("Creating account...")}
-                class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200"
+              phx-disable-with={gettext("Creating account...")}
+              class="w-full px-6 py-3 bg-[#e88e19] text-white font-semibold rounded-lg hover:bg-[#d17d15] hover:shadow-lg transition-all duration-200"
             >
-                {gettext("Create account")} <.icon name="hero-arrow-right" class="size-4 inline" />
+              {gettext("Create account")} <.icon name="hero-arrow-right" class="size-4 inline" />
             </.button>
-            </div>
+          </div>
 
-            <p class="text-xs text-center text-base-content pt-2">
+          <p class="text-xs text-center text-base-content pt-2">
             {gettext(
-                "By creating an account, you agree to our Terms of Service and Privacy Policy."
+              "By creating an account, you agree to our Terms of Service and Privacy Policy."
             )}
-            </p>
+          </p>
         </.form>
-        </div>
+      </div>
     </div>
-    </div>
+  </div>
 </Layouts.app>

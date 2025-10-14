@@ -11,7 +11,11 @@ defmodule TraysWeb.BankAccountLiveTest do
   }
   @invalid_attrs %{account_number: nil, transit_number: nil, institution_number: nil}
 
-  setup :register_and_log_in_user
+  setup do
+    user = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+    conn = Phoenix.ConnTest.build_conn()
+    %{conn: TraysWeb.ConnCase.log_in_user(conn, user), user: user}
+  end
 
   defp create_bank_account(_context) do
     bank_account = bank_account_fixture()
@@ -24,7 +28,11 @@ defmodule TraysWeb.BankAccountLiveTest do
       merchant_location_id: merchant_location.id
     }
 
-    %{bank_account: bank_account, merchant_location: merchant_location, create_attrs: create_attrs}
+    %{
+      bank_account: bank_account,
+      merchant_location: merchant_location,
+      create_attrs: create_attrs
+    }
   end
 
   describe "Index" do
@@ -69,7 +77,10 @@ defmodule TraysWeb.BankAccountLiveTest do
                form_live
                |> form("#bank_account-form", bank_account: create_attrs)
                |> render_submit()
-               |> follow_redirect(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts")
+               |> follow_redirect(
+                 conn,
+                 ~p"/merchant_locations/#{merchant_location}/bank_accounts"
+               )
 
       html = render(index_live)
       assert html =~ "Bank account created successfully"
@@ -100,7 +111,10 @@ defmodule TraysWeb.BankAccountLiveTest do
                form_live
                |> form("#bank_account-form", bank_account: @update_attrs)
                |> render_submit()
-               |> follow_redirect(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts")
+               |> follow_redirect(
+                 conn,
+                 ~p"/merchant_locations/#{merchant_location}/bank_accounts"
+               )
 
       html = render(index_live)
       assert html =~ "Bank account updated successfully"

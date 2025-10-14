@@ -83,19 +83,6 @@ defmodule TraysWeb.Router do
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
-
-      live "/merchants", MerchantLive.Index, :index
-      live "/merchants/:id/edit", MerchantLive.Form, :edit
-
-      live "/merchant_locations", MerchantLocationLive.Index, :index
-      live "/merchant_locations/new", MerchantLocationLive.Form, :new
-      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
-      live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
-
-      live "/merchant_locations/:merchant_location_id/bank_accounts", BankAccountLive.Index, :index
-      live "/merchant_locations/:merchant_location_id/bank_accounts/new", BankAccountLive.Form, :new
-      live "/bank_accounts/:id", BankAccountLive.Show, :show
-      live "/bank_accounts/:id/edit", BankAccountLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password
@@ -129,25 +116,40 @@ defmodule TraysWeb.Router do
 
   ## Merchant routes
 
-  scope "/merchant", TraysWeb do
+  scope "/", TraysWeb do
     pipe_through [:browser, :require_authenticated_user, :require_merchant]
 
     live_session :require_merchant,
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-      # Example: live "/menu", MenuLive.Index, :index
-      # Example: live "/orders", MerchantOrderLive.Index, :index
+      live "/merchants/:id", MerchantLive.Show, :show
+      live "/merchants/:id/edit", MerchantLive.Form, :edit
+
+      live "/merchant_locations", MerchantLocationLive.Index, :index
+      live "/merchant_locations/new", MerchantLocationLive.Form, :new
+      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
+      live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
+
+      live "/merchant_locations/:merchant_location_id/bank_accounts",
+           BankAccountLive.Index,
+           :index
+
+      live "/merchant_locations/:merchant_location_id/bank_accounts/new",
+           BankAccountLive.Form,
+           :new
+
+      live "/bank_accounts/:id", BankAccountLive.Show, :show
+      live "/bank_accounts/:id/edit", BankAccountLive.Form, :edit
     end
   end
 
   # Admin routes
 
-  scope "/admin", TraysWeb do
+  scope "/", TraysWeb do
     pipe_through [:browser, :require_authenticated_user, :require_admin]
 
     live_session :require_admin,
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-      # Example: live "/users", AdminUserLive.Index, :index
-      # Example: live "/dashboard", AdminDashboardLive.Index, :index
+      live "/merchants", MerchantLive.Index, :index
     end
   end
 end

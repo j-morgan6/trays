@@ -16,7 +16,12 @@ defmodule Trays.BankAccounts.BankAccount do
   def changeset(bank_account, attrs) do
     bank_account
     |> cast(attrs, [:account_number, :transit_number, :institution_number, :merchant_location_id])
-    |> validate_required([:account_number, :transit_number, :institution_number, :merchant_location_id])
+    |> validate_required([
+      :account_number,
+      :transit_number,
+      :institution_number,
+      :merchant_location_id
+    ])
     |> foreign_key_constraint(:merchant_location_id)
   end
 end

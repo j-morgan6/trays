@@ -29,7 +29,11 @@ defmodule TraysWeb.MerchantLocationLiveTest do
     country: nil
   }
 
-  setup :register_and_log_in_user
+  setup do
+    user = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+    conn = Phoenix.ConnTest.build_conn()
+    %{conn: TraysWeb.ConnCase.log_in_user(conn, user), user: user}
+  end
 
   defp create_merchant_location(%{user: user}) do
     merchant_location = merchant_location_fixture(%{user: user})

@@ -1,12 +1,12 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
-    <.header>
+  <.header>
     {@page_title}
     <:subtitle>
-        {gettext("Use this form to manage merchant_location records in your database.")}
+      {gettext("Use this form to manage merchant_location records in your database.")}
     </:subtitle>
-    </.header>
+  </.header>
 
-    <.form for={@form} id="merchant_location-form" phx-change="validate" phx-submit="save">
+  <.form for={@form} id="merchant_location-form" phx-change="validate" phx-submit="save">
     <.input field={@form[:street1]} type="text" label={gettext("Street1")} />
     <.input field={@form[:street2]} type="text" label={gettext("Street2")} />
     <.input field={@form[:city]} type="text" label={gettext("City")} />
@@ -14,12 +14,12 @@
     <.input field={@form[:postal_code]} type="text" label={gettext("Postal code")} />
     <.input field={@form[:country]} type="text" label={gettext("Country")} />
     <footer>
-        <.button phx-disable-with={gettext("Saving...")} variant="primary">
+      <.button phx-disable-with={gettext("Saving...")} variant="primary">
         {gettext("Save Merchant location")}
-        </.button>
-        <.button navigate={return_path(@return_to, @merchant_location)}>
+      </.button>
+      <.button navigate={return_path(@return_to, @merchant_location)}>
         {gettext("Cancel")}
-        </.button>
+      </.button>
     </footer>
-    </.form>
+  </.form>
 </Layouts.app>
