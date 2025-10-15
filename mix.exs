@@ -73,7 +73,6 @@ defmodule Trays.MixProject do
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
       {:tidewave, "~> 0.5", only: :dev},
       {:usage_rules, "~> 0.1"},
-      {:hexdocs_mcp, "~> 0.5.0", only: :dev, runtime: false},
       {:phoenix_pubsub, "~> 2.1"},
       {:fun_with_flags, "~> 1.13.0"},
       {:fun_with_flags_ui, "~> 1.1"}
