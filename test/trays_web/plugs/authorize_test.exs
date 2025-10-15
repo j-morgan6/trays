@@ -29,7 +29,7 @@ defmodule TraysWeb.Plugs.AuthorizeTest do
       conn =
         conn
         |> assign(:current_user, merchant)
-        |> Authorize.call(action: :manage, resource: :menu)
+        |> Authorize.call(action: :manage, resource: :merchant)
 
       refute conn.halted
     end
@@ -40,7 +40,7 @@ defmodule TraysWeb.Plugs.AuthorizeTest do
         |> Plug.Test.init_test_session(%{})
         |> Phoenix.ConnTest.fetch_flash()
         |> assign(:current_user, customer)
-        |> Authorize.call(action: :manage, resource: :menu)
+        |> Authorize.call(action: :manage, resource: :merchant)
 
       assert conn.halted
       assert redirected_to(conn) == "/"
@@ -54,7 +54,7 @@ defmodule TraysWeb.Plugs.AuthorizeTest do
         conn
         |> Plug.Test.init_test_session(%{})
         |> Phoenix.ConnTest.fetch_flash()
-        |> Authorize.call(action: :manage, resource: :menu)
+        |> Authorize.call(action: :manage, resource: :merchant)
 
       assert conn.halted
       assert redirected_to(conn) == "/"

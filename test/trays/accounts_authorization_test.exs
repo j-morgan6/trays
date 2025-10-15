@@ -41,14 +41,9 @@ defmodule Trays.AccountsAuthorizationTest do
       assert Accounts.can?(admin, :delete, :anything)
     end
 
-    test "merchant can manage menus", %{merchant: merchant} do
-      assert Accounts.can?(merchant, :manage, :menu)
-      assert Accounts.can?(merchant, :view, :menu)
-    end
-
     test "merchant can view and manage orders", %{merchant: merchant} do
-      assert Accounts.can?(merchant, :view, :orders)
-      assert Accounts.can?(merchant, :manage, :orders)
+      assert Accounts.can?(merchant, :view, :merchant)
+      assert Accounts.can?(merchant, :manage, :merchant)
     end
 
     test "merchant cannot manage users", %{merchant: merchant} do

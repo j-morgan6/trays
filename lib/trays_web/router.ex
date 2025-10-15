@@ -56,24 +56,6 @@ defmodule TraysWeb.Router do
     forward "/", FunWithFlags.UI.Router, namespace: "feature-flags"
   end
 
-  # Test routes - only available in test environment
-  if Mix.env() == :test do
-    scope "/", TraysWeb do
-      pipe_through [:browser, :require_authenticated_user]
-
-      live_session :test_authorize,
-        on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-        live "/test-authorize", TestLive
-        live "/test-view-orders", TestViewOrdersLive
-        live "/test-create-order", TestCreateOrderLive
-        live "/test-view-menu", TestViewMenuLive
-        live "/test-manage-orders", TestManageOrdersLive
-        live "/test-current-user", TestCurrentUserLive
-        live "/test-no-user", TestNoUserLive
-      end
-    end
-  end
-
   ## Authentication routes
 
   scope "/", TraysWeb do

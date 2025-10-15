@@ -3,6 +3,8 @@ defmodule TraysWeb.MerchantLive.Index do
 
   alias Trays.Merchants
 
+  on_mount {TraysWeb.Hooks.Authorize, {:list, :merchants}}
+
   @impl true
   def mount(_params, _session, socket) do
     merchants_with_counts = Merchants.list_all_merchants_with_location_counts()

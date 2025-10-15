@@ -4,6 +4,8 @@ defmodule TraysWeb.MerchantLive.Show do
   alias Trays.MerchantLocations
   alias Trays.Merchants
 
+  on_mount {TraysWeb.Hooks.Authorize, {:view, :merchant}}
+
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     user_id = socket.assigns.current_scope.user.id

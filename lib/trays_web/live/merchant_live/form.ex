@@ -4,6 +4,8 @@ defmodule TraysWeb.MerchantLive.Form do
   alias Trays.Merchants
   alias Trays.Merchants.Merchant
 
+  on_mount {TraysWeb.Hooks.Authorize, {:manage, :merchant}}
+
   @impl true
   def mount(params, _session, socket) do
     {:ok,
