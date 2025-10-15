@@ -97,7 +97,7 @@ defmodule TraysWeb.MerchantLive.IndexTest do
     test "shows zero location count for merchants without locations", %{conn: conn} do
       user = user_fixture(%{type: :admin})
       merchant_user = user_fixture(%{email: "merchant@example.com", type: :merchant})
-      merchant = merchant_fixture(%{user: merchant_user, name: "No Locations"})
+      merchant_fixture(%{user: merchant_user, name: "No Locations"})
       conn = log_in_user(conn, user)
 
       assert {:ok, view, html} = live(conn, ~p"/merchants")
@@ -140,7 +140,7 @@ defmodule TraysWeb.MerchantLive.IndexTest do
 
       {:ok, view, _html} = live(conn, ~p"/merchants")
 
-      html = render_click(view, "delete_merchant", %{id: merchant.id})
+      render_click(view, "delete_merchant", %{id: merchant.id})
 
       html = render(view)
       refute html =~ "To Delete"

@@ -224,7 +224,7 @@ defmodule TraysWeb.MerchantLive.ShowTest do
 
       {:ok, view, _html} = live(conn, ~p"/merchants/#{merchant}")
 
-      html = render_click(view, "delete_location", %{id: location.id})
+      render_click(view, "delete_location", %{id: location.id})
 
       html = render(view)
       refute html =~ "123 Main St"
