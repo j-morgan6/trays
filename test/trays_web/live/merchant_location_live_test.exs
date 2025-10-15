@@ -162,4 +162,133 @@ defmodule TraysWeb.MerchantLocationLiveTest do
       assert html =~ "some updated street1"
     end
   end
+
+  describe "Form validation and error handling" do
+    setup [:create_merchant_location]
+
+    test "validates merchant_location on input change", %{conn: conn} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      # Test that invalid data shows validation errors
+      assert form_live
+             |> form("#merchant_location-form", merchant_location: @invalid_attrs)
+             |> render_change() =~ "can&#39;t be blank"
+
+      # Test that valid data doesn't show errors
+      refute form_live
+             |> form("#merchant_location-form", merchant_location: @create_attrs)
+             |> render_change() =~ "can&#39;t be blank"
+    end
+
+    test "handles validation errors when creating merchant_location", %{conn: conn} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      # Submit with invalid data
+      html =
+        form_live
+        |> form("#merchant_location-form", merchant_location: @invalid_attrs)
+        |> render_submit()
+
+      # Should stay on the form and show errors
+      assert html =~ "can&#39;t be blank"
+      assert html =~ "New Merchant location"
+    end
+
+    test "handles validation errors when updating merchant_location", %{
+      conn: conn,
+      merchant_location: merchant_location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/edit")
+
+      # Submit with invalid data
+      html =
+        form_live
+        |> form("#merchant_location-form", merchant_location: @invalid_attrs)
+        |> render_submit()
+
+      # Should stay on the form and show errors
+      assert html =~ "can&#39;t be blank"
+      assert html =~ "Edit Merchant location"
+    end
+  end
+
+  describe "Return path handling" do
+    setup [:create_merchant_location]
+
+    test "new form redirects to index by default", %{conn: conn} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      assert {:ok, index_live, _html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: @create_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations")
+
+      assert render(index_live) =~ "Merchant location created successfully"
+    end
+
+    test "edit form redirects to index by default", %{
+      conn: conn,
+      merchant_location: merchant_location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/edit")
+
+      assert {:ok, index_live, _html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations")
+
+      assert render(index_live) =~ "Merchant location updated successfully"
+    end
+
+    test "edit form redirects to show when return_to=show", %{
+      conn: conn,
+      merchant_location: merchant_location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/edit?return_to=show")
+
+      assert {:ok, show_live, _html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert render(show_live) =~ "Merchant location updated successfully"
+    end
+
+    test "edit form redirects to index when return_to is invalid value", %{
+      conn: conn,
+      merchant_location: merchant_location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/edit?return_to=invalid")
+
+      assert {:ok, index_live, _html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations")
+
+      assert render(index_live) =~ "Merchant location updated successfully"
+    end
+  end
+
+  describe "Merchant creation on first location" do
+    test "creates default merchant when user has no merchant", %{conn: conn} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      assert {:ok, _index_live, html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: @create_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations")
+
+      assert html =~ "Merchant location created successfully"
+      assert html =~ @create_attrs.street1
+    end
+  end
 end
