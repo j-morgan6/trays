@@ -12,6 +12,7 @@ defmodule Trays.MerchantLocations.MerchantLocation do
 
     belongs_to :manager, Trays.Accounts.User, foreign_key: :user_id
     belongs_to :merchant, Trays.Merchants.Merchant
+    has_one :bank_account, Trays.BankAccounts.BankAccount
 
     timestamps(type: :utc_datetime)
   end
