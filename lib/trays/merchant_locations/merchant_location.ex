@@ -36,8 +36,7 @@ defmodule Trays.MerchantLocations.MerchantLocation do
       :province,
       :postal_code,
       :country,
-      :merchant_id,
-      :user_id
+      :merchant_id
     ])
     |> foreign_key_constraint(:merchant_id)
     |> foreign_key_constraint(:user_id)

@@ -6,8 +6,9 @@ msgid ""
 msgstr ""
 "Language: fr\n"
 
-#: lib/trays_web/components/core_components.ex:342
-#: lib/trays_web/live/merchant_live/index.ex:98
+#: lib/trays_web/components/core_components.ex:343
+#: lib/trays_web/live/merchant_live/index.html.heex:69
+#: lib/trays_web/live/merchant_live/show.html.heex:89
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Actions"
@@ -28,7 +29,7 @@ msgstr "Quelque chose s'est mal passé !"
 msgid "We can't find the internet"
 msgstr "Nous ne trouvons pas Internet"
 
-#: lib/trays_web/components/core_components.ex:74
+#: lib/trays_web/components/core_components.ex:75
 #, elixir-autogen, elixir-format
 msgid "close"
 msgstr "fermer"
@@ -88,316 +89,317 @@ msgstr "Rationalisez les commandes de restauration, les horaires et les livraiso
 msgid "Welcome to"
 msgstr "Bienvenue à"
 
-#: lib/trays_web/components/layouts/root.html.heex:77
-#: lib/trays_web/live/user_live/confirmation.ex:53
+#: lib/trays_web/components/layouts/root.html.heex:69
+#: lib/trays_web/live/user_live/confirmation.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "Se connecter"
 
-#: lib/trays_web/components/layouts/root.html.heex:70
+#: lib/trays_web/components/layouts/root.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: lib/trays_web/components/layouts/root.html.heex:63
+#: lib/trays_web/components/layouts/root.html.heex:55
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "Paramètres"
 
-#: lib/trays_web/components/layouts/root.html.heex:83
-#: lib/trays_web/live/user_live/login.ex:24
+#: lib/trays_web/components/layouts/root.html.heex:75
+#: lib/trays_web/live/user_live/login.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr "S'inscrire"
 
-#: lib/trays_web/live/user_live/registration.ex:68
+#: lib/trays_web/live/user_live/registration.html.heex:59
 #, elixir-autogen, elixir-format
 msgid "Account Type"
 msgstr "Type de compte"
 
-#: lib/trays_web/live/user_live/registration.ex:18
+#: lib/trays_web/live/user_live/registration.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
 msgstr "Déjà inscrit ?"
 
-#: lib/trays_web/live/user_live/registration.ex:126
+#: lib/trays_web/live/user_live/registration.ex:33
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr "Un e-mail a été envoyé à %{email}, veuillez y accéder pour confirmer votre compte."
 
-#: lib/trays_web/live/user_live/registration.ex:88
+#: lib/trays_web/live/user_live/registration.html.heex:79
 #, elixir-autogen, elixir-format
 msgid "By creating an account, you agree to our Terms of Service and Privacy Policy."
 msgstr "En créant un compte, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité."
 
-#: lib/trays_web/live/user_live/registration.ex:83
+#: lib/trays_web/live/user_live/registration.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Create account"
 msgstr "Créer un compte"
 
-#: lib/trays_web/live/user_live/registration.ex:15
+#: lib/trays_web/live/user_live/registration.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Create your account"
 msgstr "Créez votre compte"
 
-#: lib/trays_web/live/user_live/registration.ex:80
+#: lib/trays_web/live/user_live/registration.html.heex:71
 #, elixir-autogen, elixir-format
 msgid "Creating account..."
 msgstr "Création du compte..."
 
-#: lib/trays_web/live/user_live/registration.ex:70
+#: lib/trays_web/live/user_live/registration.html.heex:61
 #, elixir-autogen, elixir-format
 msgid "Customer"
 msgstr "Client"
 
-#: lib/trays_web/live/user_live/login.ex:63
-#: lib/trays_web/live/user_live/login.ex:101
-#: lib/trays_web/live/user_live/registration.ex:40
-#: lib/trays_web/live/user_live/settings.ex:78
+#: lib/trays_web/live/user_live/login.html.heex:55
+#: lib/trays_web/live/user_live/login.html.heex:93
+#: lib/trays_web/live/user_live/registration.html.heex:31
+#: lib/trays_web/live/user_live/settings.html.heex:68
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "E-mail"
 
-#: lib/trays_web/live/user_live/registration.ex:50
+#: lib/trays_web/live/user_live/registration.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: lib/trays_web/live/user_live/registration.ex:72
+#: lib/trays_web/live/merchant_live/index.html.heex:60
+#: lib/trays_web/live/user_live/registration.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Merchant"
 msgstr "Commerçant"
 
-#: lib/trays_web/live/user_live/registration.ex:59
-#: lib/trays_web/live/user_live/settings.ex:48
+#: lib/trays_web/live/user_live/registration.html.heex:50
+#: lib/trays_web/live/user_live/settings.html.heex:38
 #, elixir-autogen, elixir-format
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: lib/trays_web/live/user_live/registration.ex:74
+#: lib/trays_web/live/user_live/registration.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "Select account type"
 msgstr "Sélectionnez le type de compte"
 
-#: lib/trays_web/live/user_live/registration.ex:23
+#: lib/trays_web/live/user_live/registration.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Sign in"
 msgstr "Se connecter"
 
-#: lib/trays_web/live/user_live/registration.ex:25
+#: lib/trays_web/live/user_live/registration.html.heex:16
 #, elixir-autogen, elixir-format
 msgid "to your account."
 msgstr "à votre compte."
 
-#: lib/trays_web/live/user_live/login.ex:39
+#: lib/trays_web/live/user_live/login.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Development Mode"
 msgstr "Mode développement"
 
-#: lib/trays_web/live/user_live/login.ex:20
+#: lib/trays_web/live/user_live/login.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Don't have an account?"
 msgstr "Vous n'avez pas de compte ?"
 
-#: lib/trays_web/live/user_live/login.ex:50
+#: lib/trays_web/live/user_live/login.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Magic Link Login"
 msgstr "Connexion par lien magique"
 
-#: lib/trays_web/live/user_live/login.ex:109
-#: lib/trays_web/live/user_live/settings.ex:93
+#: lib/trays_web/live/user_live/login.html.heex:101
+#: lib/trays_web/live/user_live/settings.html.heex:83
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr "Mot de passe"
 
-#: lib/trays_web/live/user_live/login.ex:70
+#: lib/trays_web/live/user_live/login.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Send magic link"
 msgstr "Envoyer le lien magique"
 
-#: lib/trays_web/live/user_live/login.ex:119
+#: lib/trays_web/live/user_live/login.html.heex:111
 #, elixir-autogen, elixir-format
 msgid "Sign in and stay signed in"
 msgstr "Se connecter et rester connecté"
 
-#: lib/trays_web/live/user_live/login.ex:123
+#: lib/trays_web/live/user_live/login.html.heex:115
 #, elixir-autogen, elixir-format
 msgid "Sign in for this session only"
 msgstr "Se connecter pour cette session uniquement"
 
-#: lib/trays_web/live/user_live/login.ex:41
+#: lib/trays_web/live/user_live/login.html.heex:33
 #, elixir-autogen, elixir-format
 msgid "View emails at"
 msgstr "Voir les e-mails à"
 
-#: lib/trays_web/live/user_live/login.ex:14
+#: lib/trays_web/live/user_live/login.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "Welcome back"
 msgstr "Bon retour"
 
-#: lib/trays_web/live/user_live/login.ex:18
+#: lib/trays_web/live/user_live/login.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "You need to reauthenticate to perform sensitive actions on your account."
 msgstr "Vous devez vous authentifier à nouveau pour effectuer des actions sensibles sur votre compte."
 
-#: lib/trays_web/live/user_live/login.ex:82
+#: lib/trays_web/live/user_live/login.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "or continue with password"
 msgstr "ou continuer avec le mot de passe"
 
-#: lib/trays_web/live/user_live/login.ex:44
+#: lib/trays_web/live/user_live/login.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "the mailbox page"
 msgstr "la page de la boîte aux lettres"
 
-#: lib/trays_web/live/user_live/login.ex:160
+#: lib/trays_web/live/user_live/login.ex:31
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr "Si votre e-mail est dans notre système, vous recevrez sous peu des instructions pour vous connecter."
 
-#: lib/trays_web/live/user_live/settings.ex:227
+#: lib/trays_web/live/user_live/settings.ex:92
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "Un lien pour confirmer votre changement d'e-mail a été envoyé à la nouvelle adresse."
 
-#: lib/trays_web/live/user_live/settings.ex:15
+#: lib/trays_web/live/user_live/settings.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "Account Settings"
 msgstr "Paramètres du compte"
 
-#: lib/trays_web/live/user_live/settings.ex:86
+#: lib/trays_web/live/user_live/settings.html.heex:76
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr "Modifier l'e-mail"
 
-#: lib/trays_web/live/user_live/settings.ex:65
+#: lib/trays_web/live/user_live/settings.html.heex:55
 #, elixir-autogen, elixir-format
 msgid "Change your email address (requires confirmation)"
 msgstr "Modifier votre adresse e-mail (confirmation requise)"
 
-#: lib/trays_web/live/user_live/settings.ex:84
+#: lib/trays_web/live/user_live/settings.html.heex:74
 #, elixir-autogen, elixir-format
 msgid "Changing..."
 msgstr "Modification..."
 
-#: lib/trays_web/live/user_live/settings.ex:125
+#: lib/trays_web/live/user_live/settings.html.heex:115
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr "Confirmer le nouveau mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:63
+#: lib/trays_web/live/user_live/settings.html.heex:53
 #, elixir-autogen, elixir-format
 msgid "Email Address"
 msgstr "Adresse e-mail"
 
-#: lib/trays_web/live/user_live/settings.ex:151
+#: lib/trays_web/live/user_live/settings.ex:16
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr "Le lien de modification d'e-mail est invalide ou a expiré."
 
-#: lib/trays_web/live/user_live/settings.ex:148
+#: lib/trays_web/live/user_live/settings.ex:13
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "E-mail modifié avec succès."
 
-#: lib/trays_web/live/user_live/settings.ex:17
+#: lib/trays_web/live/user_live/settings.html.heex:7
 #, elixir-autogen, elixir-format
 msgid "Manage your account profile, email address and password settings"
 msgstr "Gérez votre profil de compte, votre adresse e-mail et vos paramètres de mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:41
+#: lib/trays_web/live/user_live/settings.html.heex:31
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr "Nom"
 
-#: lib/trays_web/live/user_live/settings.ex:118
+#: lib/trays_web/live/user_live/settings.html.heex:108
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: lib/trays_web/live/user_live/settings.ex:25
+#: lib/trays_web/live/user_live/settings.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Profile Information"
 msgstr "Informations de profil"
 
-#: lib/trays_web/live/user_live/settings.ex:194
+#: lib/trays_web/live/user_live/settings.ex:59
 #, elixir-autogen, elixir-format
 msgid "Profile updated successfully."
 msgstr "Profil mis à jour avec succès."
 
-#: lib/trays_web/live/user_live/settings.ex:132
+#: lib/trays_web/live/user_live/settings.html.heex:122
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr "Enregistrer le mot de passe"
 
 #: lib/trays_web/live/bank_account_live/form.ex:32
-#: lib/trays_web/live/merchant_live/form.ex:139
-#: lib/trays_web/live/merchant_location_live/form.ex:26
-#: lib/trays_web/live/user_live/settings.ex:54
-#: lib/trays_web/live/user_live/settings.ex:130
+#: lib/trays_web/live/merchant_live/form.html.heex:130
+#: lib/trays_web/live/merchant_location_live/form.html.heex:24
+#: lib/trays_web/live/user_live/settings.html.heex:44
+#: lib/trays_web/live/user_live/settings.html.heex:120
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Enregistrement..."
 
-#: lib/trays_web/live/user_live/settings.ex:56
+#: lib/trays_web/live/user_live/settings.html.heex:46
 #, elixir-autogen, elixir-format
 msgid "Update Profile"
 msgstr "Mettre à jour le profil"
 
-#: lib/trays_web/live/user_live/settings.ex:28
+#: lib/trays_web/live/user_live/settings.html.heex:18
 #, elixir-autogen, elixir-format
 msgid "Update your name and phone number"
 msgstr "Mettre à jour votre nom et numéro de téléphone"
 
-#: lib/trays_web/live/user_live/settings.ex:95
+#: lib/trays_web/live/user_live/settings.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "Update your password to keep your account secure"
 msgstr "Mettre à jour votre mot de passe pour sécuriser votre compte"
 
-#: lib/trays_web/live/user_live/confirmation.ex:37
+#: lib/trays_web/live/user_live/confirmation.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Confirm and log in only this time"
 msgstr "Confirmer et se connecter uniquement cette fois"
 
-#: lib/trays_web/live/user_live/confirmation.ex:31
+#: lib/trays_web/live/user_live/confirmation.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Confirm and stay logged in"
 msgstr "Confirmer et rester connecté"
 
-#: lib/trays_web/live/user_live/confirmation.ex:28
-#: lib/trays_web/live/user_live/confirmation.ex:34
+#: lib/trays_web/live/user_live/confirmation.html.heex:20
+#: lib/trays_web/live/user_live/confirmation.html.heex:26
 #, elixir-autogen, elixir-format
 msgid "Confirming..."
 msgstr "Confirmation..."
 
-#: lib/trays_web/live/user_live/confirmation.ex:62
+#: lib/trays_web/live/user_live/confirmation.html.heex:54
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in on this device"
 msgstr "Me garder connecté sur cet appareil"
 
-#: lib/trays_web/live/user_live/confirmation.ex:68
+#: lib/trays_web/live/user_live/confirmation.html.heex:60
 #, elixir-autogen, elixir-format
 msgid "Log me in only this time"
 msgstr "Me connecter uniquement cette fois"
 
-#: lib/trays_web/live/user_live/confirmation.ex:52
-#: lib/trays_web/live/user_live/confirmation.ex:59
-#: lib/trays_web/live/user_live/confirmation.ex:65
+#: lib/trays_web/live/user_live/confirmation.html.heex:44
+#: lib/trays_web/live/user_live/confirmation.html.heex:51
+#: lib/trays_web/live/user_live/confirmation.html.heex:57
 #, elixir-autogen, elixir-format
 msgid "Logging in..."
 msgstr "Connexion..."
 
-#: lib/trays_web/live/user_live/confirmation.ex:91
+#: lib/trays_web/live/user_live/confirmation.ex:16
 #, elixir-autogen, elixir-format
 msgid "Magic link is invalid or it has expired."
 msgstr "Le lien magique est invalide ou a expiré."
 
-#: lib/trays_web/live/user_live/confirmation.ex:74
+#: lib/trays_web/live/user_live/confirmation.html.heex:66
 #, elixir-autogen, elixir-format
 msgid "Tip: If you prefer passwords, you can enable them in the user settings."
 msgstr "Conseil : Si vous préférez les mots de passe, vous pouvez les activer dans les paramètres utilisateur."
 
-#: lib/trays_web/live/user_live/confirmation.ex:12
+#: lib/trays_web/live/user_live/confirmation.html.heex:4
 #, elixir-autogen, elixir-format
 msgid "Welcome"
 msgstr "Bienvenue"
@@ -410,7 +412,7 @@ msgid "Account number"
 msgstr "Numéro de compte"
 
 #: lib/trays_web/live/bank_account_live/index.ex:45
-#: lib/trays_web/live/merchant_location_live/index.ex:59
+#: lib/trays_web/live/merchant_location_live/index.html.heex:51
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr?"
@@ -431,23 +433,25 @@ msgid "Bank account updated successfully"
 msgstr "Compte bancaire mis à jour avec succès"
 
 #: lib/trays_web/live/bank_account_live/form.ex:36
-#: lib/trays_web/live/merchant_live/form.ex:134
-#: lib/trays_web/live/merchant_location_live/form.ex:30
+#: lib/trays_web/live/merchant_live/form.html.heex:125
+#: lib/trays_web/live/merchant_location_live/form.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr "Annuler"
 
 #: lib/trays_web/live/bank_account_live/index.ex:47
-#: lib/trays_web/live/merchant_live/index.ex:150
-#: lib/trays_web/live/merchant_location_live/index.ex:61
+#: lib/trays_web/live/merchant_live/index.html.heex:122
+#: lib/trays_web/live/merchant_live/show.html.heex:141
+#: lib/trays_web/live/merchant_location_live/index.html.heex:53
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr "Supprimer"
 
 #: lib/trays_web/live/bank_account_live/index.ex:40
-#: lib/trays_web/live/merchant_live/index.ex:30
-#: lib/trays_web/live/merchant_live/index.ex:143
-#: lib/trays_web/live/merchant_location_live/index.ex:53
+#: lib/trays_web/live/merchant_live/index.html.heex:115
+#: lib/trays_web/live/merchant_live/show.html.heex:21
+#: lib/trays_web/live/merchant_live/show.html.heex:134
+#: lib/trays_web/live/merchant_location_live/index.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr "Modifier"
@@ -475,10 +479,11 @@ msgstr "Numéro d'institution"
 msgid "Listing Bank accounts"
 msgstr "Liste des comptes bancaires"
 
-#: lib/trays_web/components/layouts/root.html.heex:49
-#, elixir-autogen, elixir-format, fuzzy
+#: lib/trays_web/live/merchant_live/index.ex:14
+#: lib/trays_web/live/merchant_live/index.html.heex:39
+#, elixir-autogen, elixir-format
 msgid "Merchants"
-msgstr "Commerçant"
+msgstr "Commerçants"
 
 #: lib/trays_web/live/bank_account_live/form.ex:69
 #: lib/trays_web/live/bank_account_live/index.ex:17
@@ -492,7 +497,7 @@ msgid "Save Bank account"
 msgstr "Enregistrer le compte bancaire"
 
 #: lib/trays_web/live/bank_account_live/index.ex:38
-#: lib/trays_web/live/merchant_location_live/index.ex:49
+#: lib/trays_web/live/merchant_location_live/index.html.heex:41
 #, elixir-autogen, elixir-format
 msgid "Show"
 msgstr "Afficher"
@@ -502,7 +507,7 @@ msgstr "Afficher"
 msgid "Show Bank account"
 msgstr "Afficher le compte bancaire"
 
-#: lib/trays_web/live/user_live/registration.ex:71
+#: lib/trays_web/live/user_live/registration.html.heex:62
 #, elixir-autogen, elixir-format
 msgid "Store Manager"
 msgstr "Gérant de magasin"
@@ -524,223 +529,269 @@ msgstr "Numéro de transit"
 msgid "Use this form to manage bank_account records in your database."
 msgstr "Utilisez ce formulaire pour gérer les enregistrements de compte bancaire dans votre base de données."
 
-#: lib/trays_web/live/merchant_live/index.ex:92
-#: lib/trays_web/live/merchant_location_live/form.ex:21
-#: lib/trays_web/live/merchant_location_live/index.ex:34
-#: lib/trays_web/live/merchant_location_live/show.ex:31
+#: lib/trays_web/live/merchant_live/show.html.heex:83
+#: lib/trays_web/live/merchant_location_live/form.html.heex:12
+#: lib/trays_web/live/merchant_location_live/index.html.heex:26
+#: lib/trays_web/live/merchant_location_live/show.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "City"
 msgstr "Ville"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:24
-#: lib/trays_web/live/merchant_location_live/index.ex:43
-#: lib/trays_web/live/merchant_location_live/show.ex:34
+#: lib/trays_web/live/merchant_location_live/form.html.heex:15
+#: lib/trays_web/live/merchant_location_live/index.html.heex:35
+#: lib/trays_web/live/merchant_location_live/show.html.heex:26
 #, elixir-autogen, elixir-format
 msgid "Country"
 msgstr "Pays"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:54
+#: lib/trays_web/live/merchant_location_live/form.ex:26
 #, elixir-autogen, elixir-format
 msgid "Edit Merchant location"
 msgstr "Modifier l'emplacement du commerçant"
 
-#: lib/trays_web/live/merchant_location_live/show.ex:23
+#: lib/trays_web/live/merchant_location_live/show.html.heex:15
 #, elixir-autogen, elixir-format
 msgid "Edit merchant_location"
 msgstr "Modifier l'emplacement du commerçant"
 
-#: lib/trays_web/live/merchant_location_live/index.ex:11
-#: lib/trays_web/live/merchant_location_live/index.ex:75
+#: lib/trays_web/live/merchant_location_live/index.ex:12
+#: lib/trays_web/live/merchant_location_live/index.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Listing Merchant locations"
 msgstr "Liste des emplacements de commerçants"
 
-#: lib/trays_web/live/merchant_location_live/show.ex:11
+#: lib/trays_web/live/merchant_location_live/show.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Merchant location"
 msgstr "Emplacement du commerçant"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:113
+#: lib/trays_web/live/merchant_location_live/form.ex:92
 #, elixir-autogen, elixir-format
 msgid "Merchant location created successfully"
 msgstr "Emplacement du commerçant créé avec succès"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:91
+#: lib/trays_web/live/merchant_location_live/form.ex:69
 #, elixir-autogen, elixir-format
 msgid "Merchant location updated successfully"
 msgstr "Emplacement du commerçant mis à jour avec succès"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:63
-#: lib/trays_web/live/merchant_location_live/index.ex:14
+#: lib/trays_web/live/merchant_location_live/form.ex:35
+#: lib/trays_web/live/merchant_location_live/index.html.heex:6
 #, elixir-autogen, elixir-format
 msgid "New Merchant location"
 msgstr "Nouvel emplacement de commerçant"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:23
-#: lib/trays_web/live/merchant_location_live/index.ex:40
-#: lib/trays_web/live/merchant_location_live/show.ex:33
+#: lib/trays_web/live/merchant_location_live/form.html.heex:14
+#: lib/trays_web/live/merchant_location_live/index.html.heex:32
+#: lib/trays_web/live/merchant_location_live/show.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Postal code"
 msgstr "Code postal"
 
-#: lib/trays_web/live/merchant_live/index.ex:95
-#: lib/trays_web/live/merchant_location_live/form.ex:22
-#: lib/trays_web/live/merchant_location_live/index.ex:37
-#: lib/trays_web/live/merchant_location_live/show.ex:32
+#: lib/trays_web/live/merchant_live/show.html.heex:86
+#: lib/trays_web/live/merchant_location_live/form.html.heex:13
+#: lib/trays_web/live/merchant_location_live/index.html.heex:29
+#: lib/trays_web/live/merchant_location_live/show.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Province"
 msgstr "Province"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:27
+#: lib/trays_web/live/merchant_location_live/form.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Save Merchant location"
 msgstr "Enregistrer l'emplacement du commerçant"
 
-#: lib/trays_web/live/merchant_location_live/show.ex:46
+#: lib/trays_web/live/merchant_location_live/show.ex:12
 #, elixir-autogen, elixir-format
 msgid "Show Merchant location"
 msgstr "Afficher l'emplacement du commerçant"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:19
-#: lib/trays_web/live/merchant_location_live/index.ex:28
-#: lib/trays_web/live/merchant_location_live/show.ex:29
+#: lib/trays_web/live/merchant_location_live/form.html.heex:10
+#: lib/trays_web/live/merchant_location_live/index.html.heex:20
+#: lib/trays_web/live/merchant_location_live/show.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Street1"
 msgstr "Rue 1"
 
-#: lib/trays_web/live/merchant_location_live/form.ex:20
-#: lib/trays_web/live/merchant_location_live/index.ex:31
-#: lib/trays_web/live/merchant_location_live/show.ex:30
+#: lib/trays_web/live/merchant_location_live/form.html.heex:11
+#: lib/trays_web/live/merchant_location_live/index.html.heex:23
+#: lib/trays_web/live/merchant_location_live/show.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Street2"
 msgstr "Rue 2"
 
-#: lib/trays_web/live/merchant_location_live/show.ex:13
+#: lib/trays_web/live/merchant_location_live/show.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "This is a merchant_location record from your database."
 msgstr "Ceci est un enregistrement d'emplacement de commerçant de votre base de données."
 
-#: lib/trays_web/live/merchant_location_live/form.ex:14
+#: lib/trays_web/live/merchant_location_live/form.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "Use this form to manage merchant_location records in your database."
 msgstr "Utilisez ce formulaire pour gérer les enregistrements d'emplacement de commerçant dans votre base de données."
 
-#: lib/trays_web/live/merchant_live/index.ex:79
+#: lib/trays_web/live/merchant_live/show.html.heex:70
 #, elixir-autogen, elixir-format
 msgid "Add First Location"
 msgstr "Ajouter le premier emplacement"
 
-#: lib/trays_web/live/merchant_live/index.ex:61
+#: lib/trays_web/live/merchant_live/show.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "Add Location"
 msgstr "Ajouter un emplacement"
 
-#: lib/trays_web/live/merchant_live/index.ex:72
+#: lib/trays_web/live/merchant_live/show.html.heex:63
 #, elixir-autogen, elixir-format
 msgid "Add your first location to start managing this business"
 msgstr "Ajoutez votre premier emplacement pour commencer à gérer cette entreprise"
 
-#: lib/trays_web/live/merchant_live/index.ex:89
+#: lib/trays_web/live/merchant_live/show.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Address"
 msgstr "Adresse"
 
-#: lib/trays_web/live/merchant_live/index.ex:147
+#: lib/trays_web/live/merchant_live/show.html.heex:138
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this location?"
 msgstr "Êtes-vous sûr de vouloir supprimer cet emplacement?"
 
-#: lib/trays_web/live/merchant_live/form.ex:17
+#: lib/trays_web/live/merchant_live/form.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Back to Dashboard"
 msgstr "Retour au tableau de bord"
 
-#: lib/trays_web/live/merchant_live/form.ex:92
+#: lib/trays_web/live/merchant_live/form.html.heex:83
 #, elixir-autogen, elixir-format
 msgid "Business Description"
 msgstr "Description de l'entreprise"
 
-#: lib/trays_web/live/merchant_live/form.ex:48
+#: lib/trays_web/live/merchant_live/form.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Business Name"
 msgstr "Nom de l'entreprise"
 
-#: lib/trays_web/live/merchant_live/form.ex:238
+#: lib/trays_web/live/merchant_live/form.ex:86
 #, elixir-autogen, elixir-format
 msgid "Business created successfully"
 msgstr "Entreprise créée avec succès"
 
-#: lib/trays_web/live/merchant_live/form.ex:223
+#: lib/trays_web/live/merchant_live/form.ex:71
 #, elixir-autogen, elixir-format
 msgid "Business updated successfully"
 msgstr "Entreprise mise à jour avec succès"
 
-#: lib/trays_web/live/merchant_live/form.ex:108
+#: lib/trays_web/live/merchant_live/form.html.heex:99
 #, elixir-autogen, elixir-format
 msgid "Describe your business in a few sentences. Include what makes it unique, the type of products or services you offer, and any other key details..."
 msgstr "Décrivez votre entreprise en quelques phrases. Incluez ce qui la rend unique, le type de produits ou services que vous offrez, et tout autre détail important..."
 
-#: lib/trays_web/live/merchant_live/form.ex:179
+#: lib/trays_web/live/merchant_live/form.ex:27
 #, elixir-autogen, elixir-format
 msgid "Edit Business"
 msgstr "Modifier l'entreprise"
 
-#: lib/trays_web/live/merchant_live/index.ex:192
+#: lib/trays_web/live/merchant_live/show.ex:35
 #, elixir-autogen, elixir-format
 msgid "Location deleted successfully"
 msgstr "Emplacement supprimé avec succès"
 
-#: lib/trays_web/live/merchant_live/index.ex:54
+#: lib/trays_web/live/merchant_live/index.html.heex:66
+#: lib/trays_web/live/merchant_live/show.html.heex:45
 #, elixir-autogen, elixir-format
 msgid "Locations"
 msgstr "Emplacements"
 
-#: lib/trays_web/live/merchant_live/index.ex:208
-#, elixir-autogen, elixir-format
-msgid "Manage your business and locations"
-msgstr "Gérez votre entreprise et vos emplacements"
-
-#: lib/trays_web/live/merchant_live/index.ex:207
-#, elixir-autogen, elixir-format
-msgid "My Business"
-msgstr "Mon entreprise"
-
-#: lib/trays_web/live/merchant_live/form.ex:190
+#: lib/trays_web/live/merchant_live/form.ex:38
 #, elixir-autogen, elixir-format
 msgid "New Business"
 msgstr "Nouvelle entreprise"
 
-#: lib/trays_web/live/merchant_live/index.ex:69
+#: lib/trays_web/live/merchant_live/show.html.heex:60
 #, elixir-autogen, elixir-format
 msgid "No locations yet"
 msgstr "Aucun emplacement pour le moment"
 
-#: lib/trays_web/live/merchant_live/form.ex:150
+#: lib/trays_web/live/merchant_live/form.html.heex:141
 #, elixir-autogen, elixir-format
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
-#: lib/trays_web/live/merchant_live/form.ex:83
+#: lib/trays_web/live/merchant_live/form.html.heex:72
 #, elixir-autogen, elixir-format
 msgid "This is your main business name displayed throughout the dashboard."
 msgstr "Ceci est le nom principal de votre entreprise affiché dans tout le tableau de bord."
 
-#: lib/trays_web/live/merchant_live/index.ex:43
+#: lib/trays_web/live/merchant_live/show.html.heex:34
 #, elixir-autogen, elixir-format
 msgid "Total Locations"
 msgstr "Total des emplacements"
 
-#: lib/trays_web/live/merchant_live/index.ex:197
+#: lib/trays_web/live/merchant_live/show.ex:40
 #, elixir-autogen, elixir-format
 msgid "Unable to delete location"
 msgstr "Impossible de supprimer l'emplacement"
 
-#: lib/trays_web/live/merchant_live/form.ex:30
+#: lib/trays_web/live/merchant_live/form.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Update your business information"
 msgstr "Mettez à jour les informations de votre entreprise"
 
-#: lib/trays_web/live/merchant_live/form.ex:63
+#: lib/trays_web/live/merchant_live/form.html.heex:53
 #, elixir-autogen, elixir-format
 msgid "e.g., Pizza Palace, Joe's Coffee Shop, Sunset Bakery"
 msgstr "ex. : Pizzeria Palace, Café de Joe, Boulangerie Sunset"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:12
+#, elixir-autogen, elixir-format
+msgid "All Merchants"
+msgstr "Tous les commerçants"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:119
+#, elixir-autogen, elixir-format
+msgid "Are you sure you want to delete this merchant?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce commerçant?"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:63
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr "Description"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Manage all merchant accounts"
+msgstr "Gérer tous les comptes commerçants"
+
+#: lib/trays_web/live/merchant_live/index.ex:32
+#, elixir-autogen, elixir-format
+msgid "Merchant deleted successfully"
+msgstr "Commerçant supprimé avec succès"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Merchants will appear here once they register"
+msgstr "Les commerçants apparaîtront ici une fois qu'ils s'inscriront"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "No merchants yet"
+msgstr "Aucun commerçant pour le moment"
+
+#: lib/trays_web/live/merchant_location_live/form.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "No store manager (defaults to merchant)"
+msgstr "Aucun gérant de magasin (par défaut au commerçant)"
+
+#: lib/trays_web/live/merchant_location_live/form.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Store Manager (Optional)"
+msgstr "Gérant de magasin (Optionnel)"
+
+#: lib/trays_web/live/merchant_live/index.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "Total Merchants"
+msgstr "Total des commerçants"
+
+#: lib/trays_web/live/merchant_live/index.ex:37
+#, elixir-autogen, elixir-format
+msgid "Unable to delete merchant"
+msgstr "Impossible de supprimer le commerçant"

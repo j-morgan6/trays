@@ -368,4 +368,16 @@ defmodule Trays.Accounts do
 
   # Deny everything else
   def can?(_user, _action, _resource), do: false
+
+  @doc """
+  Returns a list of store managers for select dropdowns.
+  Returns {name, id} tuples.
+  """
+  def list_store_managers do
+    User
+    |> where([u], u.type == :store_manager)
+    |> order_by([u], u.name)
+    |> select([u], {u.name, u.id})
+    |> Repo.all()
+  end
 end

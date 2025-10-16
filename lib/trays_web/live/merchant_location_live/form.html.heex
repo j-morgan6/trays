@@ -13,6 +13,13 @@
     <.input field={@form[:province]} type="text" label={gettext("Province")} />
     <.input field={@form[:postal_code]} type="text" label={gettext("Postal code")} />
     <.input field={@form[:country]} type="text" label={gettext("Country")} />
+    <.input
+      field={@form[:user_id]}
+      type="select"
+      label={gettext("Store Manager (Optional)")}
+      prompt={gettext("No store manager (defaults to merchant)")}
+      options={@store_managers}
+    />
     <footer>
       <.button phx-disable-with={gettext("Saving...")} variant="primary">
         {gettext("Save Merchant location")}
