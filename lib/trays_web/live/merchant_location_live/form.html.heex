@@ -24,7 +24,7 @@
       <.button phx-disable-with={gettext("Saving...")} variant="primary">
         {gettext("Save Merchant location")}
       </.button>
-      <.button navigate={return_path(@return_to, @merchant_location)}>
+      <.button navigate={~p"/merchants/#{@merchant}"}>
         {gettext("Cancel")}
       </.button>
     </footer>

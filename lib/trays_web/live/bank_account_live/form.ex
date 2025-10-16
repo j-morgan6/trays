@@ -34,7 +34,7 @@ defmodule TraysWeb.BankAccountLive.Form do
           <.button phx-disable-with={gettext("Saving...")} variant="primary">
             {gettext("Save Bank account")}
           </.button>
-          <.button navigate={return_path(@merchant_location_id, @return_to, @bank_account)}>
+          <.button navigate={~p"/merchants/#{@merchant}"}>
             {gettext("Cancel")}
           </.button>
         </footer>
@@ -45,32 +45,41 @@ defmodule TraysWeb.BankAccountLive.Form do
 
   @impl true
   def mount(params, _session, socket) do
-    {:ok,
-     socket
-     |> assign(:return_to, return_to(params["return_to"]))
-     |> apply_action(socket.assigns.live_action, params)}
+    {:ok, apply_action(socket, socket.assigns.live_action, params)}
   end
-
-  defp return_to("show"), do: "show"
-  defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     bank_account = BankAccounts.get_bank_account!(id)
+
+    merchant_location =
+      Trays.Repo.get!(Trays.MerchantLocations.MerchantLocation, bank_account.merchant_location_id)
+
+    merchant_location = Trays.Repo.preload(merchant_location, :merchant)
 
     socket
     |> assign(:page_title, gettext("Edit Bank account"))
     |> assign(:bank_account, bank_account)
     |> assign(:merchant_location_id, bank_account.merchant_location_id)
+    |> assign(:merchant, merchant_location.merchant)
     |> assign(:form, to_form(BankAccounts.change_bank_account(bank_account)))
   end
 
   defp apply_action(socket, :new, %{"merchant_location_id" => merchant_location_id}) do
     bank_account = %BankAccount{merchant_location_id: String.to_integer(merchant_location_id)}
 
+    merchant_location =
+      Trays.Repo.get!(
+        Trays.MerchantLocations.MerchantLocation,
+        String.to_integer(merchant_location_id)
+      )
+
+    merchant_location = Trays.Repo.preload(merchant_location, :merchant)
+
     socket
     |> assign(:page_title, gettext("New Bank account"))
     |> assign(:bank_account, bank_account)
     |> assign(:merchant_location_id, String.to_integer(merchant_location_id))
+    |> assign(:merchant, merchant_location.merchant)
     |> assign(:form, to_form(BankAccounts.change_bank_account(bank_account)))
   end
 
@@ -88,18 +97,11 @@ defmodule TraysWeb.BankAccountLive.Form do
 
   defp save_bank_account(socket, :edit, bank_account_params) do
     case BankAccounts.update_bank_account(socket.assigns.bank_account, bank_account_params) do
-      {:ok, bank_account} ->
+      {:ok, _bank_account} ->
         {:noreply,
          socket
          |> put_flash(:info, gettext("Bank account updated successfully"))
-         |> push_navigate(
-           to:
-             return_path(
-               socket.assigns.merchant_location_id,
-               socket.assigns.return_to,
-               bank_account
-             )
-         )}
+         |> push_navigate(to: ~p"/merchants/#{socket.assigns.merchant}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
@@ -108,29 +110,14 @@ defmodule TraysWeb.BankAccountLive.Form do
 
   defp save_bank_account(socket, :new, bank_account_params) do
     case BankAccounts.create_bank_account(bank_account_params) do
-      {:ok, bank_account} ->
+      {:ok, _bank_account} ->
         {:noreply,
          socket
          |> put_flash(:info, gettext("Bank account created successfully"))
-         |> push_navigate(
-           to:
-             return_path(
-               socket.assigns.merchant_location_id,
-               socket.assigns.return_to,
-               bank_account
-             )
-         )}
+         |> push_navigate(to: ~p"/merchants/#{socket.assigns.merchant}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
-  end
-
-  defp return_path(merchant_location_id, "index", _bank_account) do
-    ~p"/merchant_locations/#{merchant_location_id}/bank_accounts"
-  end
-
-  defp return_path(_merchant_location_id, "show", bank_account) do
-    ~p"/bank_accounts/#{bank_account}"
   end
 end

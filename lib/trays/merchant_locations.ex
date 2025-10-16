@@ -23,11 +23,16 @@ defmodule Trays.MerchantLocations do
   Gets a single merchant_location for a specific user.
   Preloads the merchant association.
 
-  Raises `Ecto.NoResultsError` if the Merchant location does not exist or doesn't belong to the user.
+  The user can access the location if:
+  - They are the direct manager (user_id matches), OR
+  - They own the merchant that the location belongs to
+
+  Raises `Ecto.NoResultsError` if the Merchant location does not exist or user doesn't have access.
   """
   def get_merchant_location!(id, user_id) do
     MerchantLocation
-    |> where([ml], ml.id == ^id and ml.user_id == ^user_id)
+    |> join(:inner, [ml], m in assoc(ml, :merchant))
+    |> where([ml, m], ml.id == ^id and (ml.user_id == ^user_id or m.user_id == ^user_id))
     |> preload(:merchant)
     |> Repo.one!()
   end

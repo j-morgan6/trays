@@ -98,8 +98,7 @@
                 <tr
                   :for={{id, location} <- @streams.locations}
                   id={id}
-                  class="group hover:bg-[#85b4cf]/5 transition-colors cursor-pointer"
-                  phx-click={JS.navigate(~p"/merchant_locations/#{location}")}
+                  class="group hover:bg-[#85b4cf]/5 transition-colors"
                 >
                   <td class="px-6 py-4">
                     <div class="flex items-center gap-3">

@@ -17,9 +17,10 @@ defmodule TraysWeb.BankAccountLiveTest do
     %{conn: TraysWeb.ConnCase.log_in_user(conn, user), user: user}
   end
 
-  defp create_bank_account(_context) do
-    bank_account = bank_account_fixture()
-    merchant_location = Trays.Repo.preload(bank_account, :merchant_location).merchant_location
+  defp create_bank_account(%{user: user}) do
+    merchant_location = Trays.MerchantLocationsFixtures.merchant_location_fixture(%{user: user})
+    bank_account = bank_account_fixture(%{merchant_location: merchant_location})
+    merchant_location = Trays.Repo.preload(merchant_location, :merchant)
 
     create_attrs = %{
       account_number: "some account_number",
@@ -31,146 +32,93 @@ defmodule TraysWeb.BankAccountLiveTest do
     %{
       bank_account: bank_account,
       merchant_location: merchant_location,
+      merchant: merchant_location.merchant,
       create_attrs: create_attrs
     }
   end
 
-  describe "Index" do
+  describe "Form validation and error handling" do
     setup [:create_bank_account]
 
-    test "lists all bank_accounts", %{
+    test "validates bank_account on input change", %{
       conn: conn,
-      bank_account: bank_account,
       merchant_location: merchant_location
     } do
-      {:ok, _index_live, html} =
-        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts")
-
-      assert html =~ "Listing Bank accounts"
-      assert html =~ bank_account.account_number
-    end
-
-    test "saves new bank_account", %{
-      conn: conn,
-      merchant_location: merchant_location,
-      create_attrs: create_attrs
-    } do
-      {:ok, index_live, _html} =
-        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts")
-
-      assert {:ok, form_live, _} =
-               index_live
-               |> element("a", "New Bank account")
-               |> render_click()
-               |> follow_redirect(
-                 conn,
-                 ~p"/merchant_locations/#{merchant_location}/bank_accounts/new"
-               )
-
-      assert render(form_live) =~ "New Bank account"
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts/new")
 
       assert form_live
              |> form("#bank_account-form", bank_account: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
-
-      assert {:ok, index_live, _html} =
-               form_live
-               |> form("#bank_account-form", bank_account: create_attrs)
-               |> render_submit()
-               |> follow_redirect(
-                 conn,
-                 ~p"/merchant_locations/#{merchant_location}/bank_accounts"
-               )
-
-      html = render(index_live)
-      assert html =~ "Bank account created successfully"
-      assert html =~ "some account_number"
     end
 
-    test "updates bank_account in listing", %{
+    test "handles validation errors when creating bank_account", %{
       conn: conn,
-      bank_account: bank_account,
       merchant_location: merchant_location
     } do
-      {:ok, index_live, _html} =
-        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts")
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts/new")
 
-      assert {:ok, form_live, _html} =
-               index_live
-               |> element("#bank_accounts-#{bank_account.id} a", "Edit")
-               |> render_click()
-               |> follow_redirect(conn, ~p"/bank_accounts/#{bank_account}/edit")
+      html =
+        form_live
+        |> form("#bank_account-form", bank_account: @invalid_attrs)
+        |> render_submit()
 
-      assert render(form_live) =~ "Edit Bank account"
-
-      assert form_live
-             |> form("#bank_account-form", bank_account: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      assert {:ok, index_live, _html} =
-               form_live
-               |> form("#bank_account-form", bank_account: @update_attrs)
-               |> render_submit()
-               |> follow_redirect(
-                 conn,
-                 ~p"/merchant_locations/#{merchant_location}/bank_accounts"
-               )
-
-      html = render(index_live)
-      assert html =~ "Bank account updated successfully"
-      assert html =~ "some updated account_number"
+      assert html =~ "can&#39;t be blank"
+      assert html =~ "New Bank account"
     end
 
-    test "deletes bank_account in listing", %{
+    test "handles validation errors when updating bank_account", %{
       conn: conn,
-      bank_account: bank_account,
-      merchant_location: merchant_location
+      bank_account: bank_account
     } do
-      {:ok, index_live, _html} =
-        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts")
+      {:ok, form_live, _html} = live(conn, ~p"/bank_accounts/#{bank_account}/edit")
 
-      assert index_live
-             |> element("#bank_accounts-#{bank_account.id} a", "Delete")
-             |> render_click()
+      html =
+        form_live
+        |> form("#bank_account-form", bank_account: @invalid_attrs)
+        |> render_submit()
 
-      refute has_element?(index_live, "#bank_accounts-#{bank_account.id}")
+      assert html =~ "can&#39;t be blank"
+      assert html =~ "Edit Bank account"
     end
   end
 
-  describe "Show" do
+  describe "Return path handling" do
     setup [:create_bank_account]
 
-    test "displays bank_account", %{conn: conn, bank_account: bank_account} do
-      {:ok, _show_live, html} = live(conn, ~p"/bank_accounts/#{bank_account}")
+    test "new form redirects to merchant show page", %{
+      conn: conn,
+      merchant_location: merchant_location,
+      merchant: merchant,
+      create_attrs: create_attrs
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{merchant_location}/bank_accounts/new")
 
-      assert html =~ "Show Bank account"
-      assert html =~ bank_account.account_number
+      assert {:ok, show_live, _html} =
+               form_live
+               |> form("#bank_account-form", bank_account: create_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchants/#{merchant}")
+
+      assert render(show_live) =~ "Bank account created successfully"
     end
 
-    test "updates bank_account and returns to show", %{conn: conn, bank_account: bank_account} do
-      {:ok, show_live, _html} = live(conn, ~p"/bank_accounts/#{bank_account}")
-
-      assert {:ok, form_live, _} =
-               show_live
-               |> element("a", "Edit")
-               |> render_click()
-               |> follow_redirect(conn, ~p"/bank_accounts/#{bank_account}/edit?return_to=show")
-
-      assert render(form_live) =~ "Edit Bank account"
-
-      assert form_live
-             |> form("#bank_account-form", bank_account: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
+    test "edit form redirects to merchant show page", %{
+      conn: conn,
+      bank_account: bank_account,
+      merchant: merchant
+    } do
+      {:ok, form_live, _html} = live(conn, ~p"/bank_accounts/#{bank_account}/edit")
 
       assert {:ok, show_live, _html} =
                form_live
                |> form("#bank_account-form", bank_account: @update_attrs)
                |> render_submit()
-               |> follow_redirect(conn, ~p"/bank_accounts/#{bank_account}")
+               |> follow_redirect(conn, ~p"/merchants/#{merchant}")
 
-      html = render(show_live)
-      assert html =~ "Bank account updated successfully"
-      assert html =~ "some updated account_number"
+      assert render(show_live) =~ "Bank account updated successfully"
     end
   end
 end

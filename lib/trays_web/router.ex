@@ -106,20 +106,13 @@ defmodule TraysWeb.Router do
       live "/merchants/:id", MerchantLive.Show, :show
       live "/merchants/:id/edit", MerchantLive.Form, :edit
 
-      live "/merchant_locations", MerchantLocationLive.Index, :index
       live "/merchant_locations/new", MerchantLocationLive.Form, :new
-      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
       live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
-
-      live "/merchant_locations/:merchant_location_id/bank_accounts",
-           BankAccountLive.Index,
-           :index
 
       live "/merchant_locations/:merchant_location_id/bank_accounts/new",
            BankAccountLive.Form,
            :new
 
-      live "/bank_accounts/:id", BankAccountLive.Show, :show
       live "/bank_accounts/:id/edit", BankAccountLive.Form, :edit
     end
   end
