@@ -4,6 +4,8 @@ defmodule TraysWeb.BankAccountLive.Form do
   alias Trays.BankAccounts
   alias Trays.BankAccounts.BankAccount
 
+  on_mount {TraysWeb.Hooks.Authorize, {:manage, :bank_account}}
+
   @impl true
   def render(assigns) do
     ~H"""

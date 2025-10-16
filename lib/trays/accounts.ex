@@ -349,15 +349,23 @@ defmodule Trays.Accounts do
   # Admins can do anything
   def can?(%User{type: :admin}, _action, _resource), do: true
 
-  # Merchants can manage menus and view/manage orders
+  # Merchants can view and manage their merchant resources
   def can?(%User{type: :merchant}, :view, :merchant), do: true
   def can?(%User{type: :merchant}, :manage, :merchant), do: true
+  def can?(%User{type: :merchant}, :view, :merchant_location), do: true
+  def can?(%User{type: :merchant}, :manage, :merchant_location), do: true
+  def can?(%User{type: :merchant}, :view, :bank_account), do: true
+  def can?(%User{type: :merchant}, :manage, :bank_account), do: true
 
   # Store managers can manage menus and view/manage orders
   def can?(%User{type: :store_manager}, :manage, :menu), do: true
   def can?(%User{type: :store_manager}, :view, :menu), do: true
   def can?(%User{type: :store_manager}, :view, :orders), do: true
   def can?(%User{type: :store_manager}, :manage, :orders), do: true
+  def can?(%User{type: :store_manager}, :view, :merchant_location), do: true
+  def can?(%User{type: :store_manager}, :manage, :merchant_location), do: true
+  def can?(%User{type: :store_manager}, :view, :bank_account), do: true
+  def can?(%User{type: :store_manager}, :manage, :bank_account), do: true
 
   # Customers can create and view their own orders
   def can?(%User{type: :customer}, :create, :order), do: true

@@ -3,6 +3,8 @@ defmodule TraysWeb.BankAccountLive.Index do
 
   alias Trays.BankAccounts
 
+  on_mount {TraysWeb.Hooks.Authorize, {:view, :bank_account}}
+
   @impl true
   def render(assigns) do
     ~H"""

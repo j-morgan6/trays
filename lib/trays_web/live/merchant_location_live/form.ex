@@ -4,6 +4,8 @@ defmodule TraysWeb.MerchantLocationLive.Form do
   alias Trays.MerchantLocations
   alias Trays.MerchantLocations.MerchantLocation
 
+  on_mount {TraysWeb.Hooks.Authorize, {:manage, :merchant_location}}
+
   @impl true
   def mount(params, _session, socket) do
     store_managers = Trays.Accounts.list_store_managers()

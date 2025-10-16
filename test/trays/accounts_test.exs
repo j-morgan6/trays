@@ -400,4 +400,155 @@ defmodule Trays.AccountsTest do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
     end
   end
+
+  describe "change_user_profile/2" do
+    test "returns a user changeset" do
+      user = user_fixture()
+      assert %Ecto.Changeset{} = changeset = Accounts.change_user_profile(user)
+      # Order doesn't matter, check both are required
+      assert :name in changeset.required
+      assert :phone_number in changeset.required
+    end
+
+    test "allows profile fields to be set" do
+      user = user_fixture()
+
+      changeset =
+        Accounts.change_user_profile(user, %{
+          name: "Updated Name",
+          phone_number: "1234567890"
+        })
+
+      assert changeset.valid?
+      assert get_change(changeset, :name) == "Updated Name"
+      assert get_change(changeset, :phone_number) == "1234567890"
+    end
+  end
+
+  describe "update_user_profile/2" do
+    setup do
+      %{user: user_fixture()}
+    end
+
+    test "updates the user profile with valid data", %{user: user} do
+      {:ok, updated_user} =
+        Accounts.update_user_profile(user, %{
+          name: "New Name",
+          phone_number: "5559999999"
+        })
+
+      assert updated_user.name == "New Name"
+      assert updated_user.phone_number == "5559999999"
+      assert updated_user.email == user.email
+    end
+
+    test "validates required fields", %{user: user} do
+      {:error, changeset} =
+        Accounts.update_user_profile(user, %{
+          name: "",
+          phone_number: ""
+        })
+
+      assert %{
+               name: ["can't be blank"],
+               phone_number: ["can't be blank"]
+             } = errors_on(changeset)
+    end
+
+    test "validates phone number format", %{user: user} do
+      {:error, changeset} =
+        Accounts.update_user_profile(user, %{
+          name: "Valid Name",
+          phone_number: "invalid"
+        })
+
+      assert "must be a 10 digit phone number" in errors_on(changeset).phone_number
+    end
+
+    test "does not change email through profile update", %{user: user} do
+      original_email = user.email
+
+      {:ok, updated_user} =
+        Accounts.update_user_profile(user, %{
+          name: "New Name",
+          phone_number: "5559999999"
+        })
+
+      assert updated_user.email == original_email
+    end
+  end
+
+  describe "list_store_managers/0" do
+    test "returns empty list when no store managers exist" do
+      assert Accounts.list_store_managers() == []
+    end
+
+    test "returns list of store managers with name and id" do
+      {:ok, sm1} =
+        Accounts.register_user(%{
+          email: "sm1@example.com",
+          name: "Zach Manager",
+          phone_number: "5550000001",
+          type: :store_manager
+        })
+
+      {:ok, sm2} =
+        Accounts.register_user(%{
+          email: "sm2@example.com",
+          name: "Alice Manager",
+          phone_number: "5550000002",
+          type: :store_manager
+        })
+
+      # Create non-store-manager users that should not appear
+      {:ok, _merchant} =
+        Accounts.register_user(%{
+          email: "merchant@example.com",
+          name: "Merchant User",
+          phone_number: "5550000003",
+          type: :merchant
+        })
+
+      result = Accounts.list_store_managers()
+
+      # Should return tuples of {name, id}
+      assert length(result) == 2
+      assert {"Alice Manager", sm2.id} in result
+      assert {"Zach Manager", sm1.id} in result
+
+      # Should be ordered by name (Alice before Zach)
+      assert result == [{"Alice Manager", sm2.id}, {"Zach Manager", sm1.id}]
+    end
+
+    test "only returns store managers, not other user types" do
+      {:ok, _admin} =
+        Accounts.register_user(%{
+          email: "admin@example.com",
+          name: "Admin",
+          phone_number: "5550000001",
+          type: :admin
+        })
+
+      {:ok, _customer} =
+        Accounts.register_user(%{
+          email: "customer@example.com",
+          name: "Customer",
+          phone_number: "5550000002",
+          type: :customer
+        })
+
+      {:ok, sm} =
+        Accounts.register_user(%{
+          email: "sm@example.com",
+          name: "Store Manager",
+          phone_number: "5550000003",
+          type: :store_manager
+        })
+
+      result = Accounts.list_store_managers()
+
+      assert length(result) == 1
+      assert result == [{"Store Manager", sm.id}]
+    end
+  end
 end
