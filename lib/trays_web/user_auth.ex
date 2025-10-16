@@ -308,6 +308,7 @@ defmodule TraysWeb.UserAuth do
       conn
     else
       conn
+      |> put_session(:user_return_to, nil)
       |> put_flash(:error, "Merchant access required.")
       |> redirect(to: ~p"/")
       |> halt()
@@ -326,6 +327,7 @@ defmodule TraysWeb.UserAuth do
       conn
     else
       conn
+      |> put_session(:user_return_to, nil)
       |> put_flash(:error, "Store manager access required.")
       |> redirect(to: ~p"/")
       |> halt()
@@ -344,6 +346,7 @@ defmodule TraysWeb.UserAuth do
       conn
     else
       conn
+      |> put_session(:user_return_to, nil)
       |> put_flash(:error, "Admin access required.")
       |> redirect(to: ~p"/")
       |> halt()
