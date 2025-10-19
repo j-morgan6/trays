@@ -64,6 +64,7 @@ end
 ### 3. Use Components in Templates
 
 **Before** (hard to read):
+
 ```heex
 <.link
   href={~p"/users/register"}
@@ -74,6 +75,7 @@ end
 ```
 
 **After** (clean and readable):
+
 ```heex
 <.btn_primary href={~p"/users/register"}>
   Get Started Free
