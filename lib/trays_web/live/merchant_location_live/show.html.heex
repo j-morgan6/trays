@@ -1,0 +1,191 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <.link
+        navigate={~p"/merchants/#{@location.merchant}"}
+        class="inline-flex items-center gap-2 text-sm text-base-content/70 hover:text-base-content transition-colors"
+      >
+        <.icon name="hero-arrow-left" class="size-4" />
+        {gettext("Back to")} {@location.merchant.name}
+      </.link>
+    </div>
+
+    <div class="space-y-6">
+      <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+        <div class="bg-gradient-to-br from-[#e88e19] to-[#d17d15] px-6 py-8">
+          <div class="flex items-start justify-between">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
+                <.icon name="hero-map-pin" class="size-10 text-white" />
+              </div>
+              <div class="text-white">
+                <h1 class="text-3xl font-bold">{gettext("Location Details")}</h1>
+                <p class="mt-2 text-white/90 text-lg">{@location.merchant.name}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <.link
+                navigate={~p"/merchant_locations/#{@location}/edit"}
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 border border-white/50 rounded-lg transition-all duration-200"
+              >
+                <.icon name="hero-pencil-square" class="size-4" /> {gettext("Edit Location")}
+              </.link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+          <div class="px-6 py-4 border-b border-base-content/10 bg-gradient-to-r from-[#85b4cf]/10 to-transparent">
+            <h2 class="text-lg font-semibold text-base-content flex items-center gap-2">
+              <.icon name="hero-map-pin" class="size-5 text-[#85b4cf]" />
+              {gettext("Location Information")}
+            </h2>
+          </div>
+          <div class="p-6 space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-base-content/70 mb-2">
+                {gettext("Address")}
+              </label>
+              <div class="bg-base-content/5 rounded-lg p-4 space-y-1">
+                <p class="text-base-content font-medium">{@location.street1}</p>
+                <p :if={@location.street2} class="text-base-content/80">{@location.street2}</p>
+                <p class="text-base-content/80">
+                  {@location.city}, {@location.province} {@location.postal_code}
+                </p>
+                <p class="text-base-content/80">{@location.country}</p>
+              </div>
+            </div>
+
+            <div :if={@location.manager}>
+              <label class="block text-sm font-medium text-base-content/70 mb-2">
+                {gettext("Location Manager")}
+              </label>
+              <div class="bg-base-content/5 rounded-lg p-4 flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] rounded-full flex items-center justify-center flex-shrink-0">
+                  <.icon name="hero-user" class="size-5 text-white" />
+                </div>
+                <div>
+                  <p class="text-base-content font-medium">{@location.manager.email}</p>
+                  <p class="text-xs text-base-content/60">{gettext("Manager")}</p>
+                </div>
+              </div>
+            </div>
+
+            <div :if={!@location.manager}>
+              <label class="block text-sm font-medium text-base-content/70 mb-2">
+                {gettext("Location Manager")}
+              </label>
+              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p class="text-sm text-yellow-800">
+                  {gettext("No manager assigned to this location")}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+          <div class="px-6 py-4 border-b border-base-content/10 bg-gradient-to-r from-[#e88e19]/10 to-transparent">
+            <h2 class="text-lg font-semibold text-base-content flex items-center gap-2">
+              <.icon name="hero-banknotes" class="size-5 text-[#e88e19]" />
+              {gettext("Bank Account Information")}
+            </h2>
+          </div>
+          <%= if @location.bank_account do %>
+            <div class="p-6 space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-base-content/70 mb-2">
+                  {gettext("Account Number")}
+                </label>
+                <div class="bg-base-content/5 rounded-lg p-4">
+                  <p class="text-base-content font-mono text-lg">
+                    {@location.bank_account.account_number}
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-base-content/70 mb-2">
+                    {gettext("Transit Number")}
+                  </label>
+                  <div class="bg-base-content/5 rounded-lg p-4">
+                    <p class="text-base-content font-mono">
+                      {@location.bank_account.transit_number}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-base-content/70 mb-2">
+                    {gettext("Institution Number")}
+                  </label>
+                  <div class="bg-base-content/5 rounded-lg p-4">
+                    <p class="text-base-content font-mono">
+                      {@location.bank_account.institution_number}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 flex items-center gap-2">
+                <.link
+                  navigate={~p"/bank_accounts/#{@location.bank_account}/edit"}
+                  class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#e88e19] hover:text-white hover:bg-[#e88e19] border border-[#e88e19] rounded-lg transition-all duration-200"
+                >
+                  <.icon name="hero-pencil-square" class="size-4" /> {gettext("Edit")}
+                </.link>
+                <.link
+                  phx-click={
+                    JS.push("delete_bank_account", value: %{id: @location.bank_account.id})
+                  }
+                  data-confirm={gettext("Are you sure you want to delete this bank account?")}
+                  class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:text-white hover:bg-red-600 border border-red-600 rounded-lg transition-all duration-200"
+                >
+                  <.icon name="hero-trash" class="size-4" /> {gettext("Delete")}
+                </.link>
+              </div>
+            </div>
+          <% else %>
+            <div class="p-6">
+              <div class="text-center py-8">
+                <.icon name="hero-banknotes" class="mx-auto size-12 text-base-content/30" />
+                <h3 class="mt-4 text-lg font-semibold text-base-content">
+                  {gettext("No bank account")}
+                </h3>
+                <p class="mt-2 text-sm text-base-content/70">
+                  {gettext("Add a bank account to receive payments for this location")}
+                </p>
+                <div class="mt-6">
+                  <.link
+                    navigate={~p"/merchant_locations/#{@location}/bank_accounts/new"}
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-br from-[#e88e19] to-[#d17d15] rounded-lg hover:shadow-lg transition-all duration-200"
+                  >
+                    <.icon name="hero-plus" class="size-4" /> {gettext("Add Bank Account")}
+                  </.link>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+        <div class="px-6 py-4 border-b border-base-content/10 bg-gradient-to-r from-base-content/5 to-transparent">
+          <h2 class="text-lg font-semibold text-base-content flex items-center gap-2">
+            <.icon name="hero-information-circle" class="size-5 text-base-content/70" />
+            {gettext("Additional Information")}
+          </h2>
+        </div>
+        <div class="p-6">
+          <div class="text-center py-12 text-base-content/50">
+            <.icon name="hero-ellipsis-horizontal-circle" class="mx-auto size-12" />
+            <p class="mt-4">{gettext("More details coming soon")}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layouts.app>

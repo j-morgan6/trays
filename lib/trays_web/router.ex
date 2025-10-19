@@ -107,6 +107,7 @@ defmodule TraysWeb.Router do
       live "/merchants/:id/edit", MerchantLive.Form, :edit
 
       live "/merchant_locations/new", MerchantLocationLive.Form, :new
+      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
       live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
 
       live "/merchant_locations/:merchant_location_id/bank_accounts/new",
