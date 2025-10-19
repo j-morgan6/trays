@@ -152,4 +152,75 @@ defmodule TraysWeb.Layouts do
     </div>
     """
   end
+
+  @doc """
+  Renders a navigation link.
+  """
+  attr :href, :string, required: true
+  attr :method, :string, default: nil
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def nav_link(assigns) do
+    ~H"""
+    <.link
+      href={@href}
+      method={@method}
+      class={[
+        "px-4 py-2 text-sm font-medium",
+        "text-base-content hover:text-[#85b4cf]",
+        "transition-colors",
+        @class
+      ]}
+    >
+      {render_slot(@inner_block)}
+    </.link>
+    """
+  end
+
+  @doc """
+  Renders a primary button for navigation.
+  """
+  attr :href, :string, required: true
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def nav_button_primary(assigns) do
+    ~H"""
+    <.link
+      href={@href}
+      class={[
+        "px-5 py-2 text-sm font-semibold",
+        "bg-[#e88e19] text-white rounded-lg",
+        "hover:bg-[#d17d15] hover:shadow-md",
+        "transition-all duration-200",
+        @class
+      ]}
+    >
+      {render_slot(@inner_block)}
+    </.link>
+    """
+  end
+
+  @doc """
+  Renders the navbar logo link.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def nav_logo(assigns) do
+    ~H"""
+    <.link
+      navigate={~p"/"}
+      class={[
+        "text-2xl font-bold",
+        "text-[#85b4cf] hover:text-[#6a94ab]",
+        "transition-colors",
+        @class
+      ]}
+    >
+      {render_slot(@inner_block)}
+    </.link>
+    """
+  end
 end

@@ -35,12 +35,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center gap-3">
-            <.link
-              navigate={~p"/"}
-              class="text-2xl font-bold text-[#85b4cf] hover:text-[#6a94ab] transition-colors"
-            >
+            <Layouts.nav_logo>
               Trays
-            </.link>
+            </Layouts.nav_logo>
           </div>
 
           <div class="flex items-center gap-4">
@@ -48,32 +45,19 @@
               <span class="text-sm text-base-content/70 font-medium">
                 {@current_scope.user.email}
               </span>
-              <.link
-                href={~p"/users/settings"}
-                class="px-4 py-2 text-sm font-medium text-base-content hover:text-[#85b4cf] transition-colors"
-              >
+              <Layouts.nav_link href={~p"/users/settings"}>
                 {gettext("Settings")}
-              </.link>
-              <.link
-                href={~p"/users/log-out"}
-                method="delete"
-                class="px-4 py-2 text-sm font-medium text-base-content hover:text-[#85b4cf] transition-colors"
-              >
+              </Layouts.nav_link>
+              <Layouts.nav_link href={~p"/users/log-out"} method="delete">
                 {gettext("Log out")}
-              </.link>
+              </Layouts.nav_link>
             <% else %>
-              <.link
-                href={~p"/users/log-in"}
-                class="px-4 py-2 text-sm font-medium text-base-content hover:text-[#85b4cf] transition-colors"
-              >
+              <Layouts.nav_link href={~p"/users/log-in"}>
                 {gettext("Log in")}
-              </.link>
-              <.link
-                href={~p"/users/register"}
-                class="px-5 py-2 text-sm font-semibold bg-[#e88e19] text-white rounded-lg hover:bg-[#d17d15] hover:shadow-md transition-all duration-200"
-              >
+              </Layouts.nav_link>
+              <Layouts.nav_button_primary href={~p"/users/register"}>
                 {gettext("Sign up")}
-              </.link>
+              </Layouts.nav_button_primary>
             <% end %>
             <Layouts.locale_switcher locale={@locale} />
           </div>
