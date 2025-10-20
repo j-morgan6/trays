@@ -10,7 +10,9 @@ defmodule TraysWeb.MerchantLocationLiveTest do
     city: "some city",
     province: "some province",
     postal_code: "some postal_code",
-    country: "some country"
+    country: "some country",
+    email: "test@example.com",
+    phone_number: "555-1234"
   }
   @update_attrs %{
     street1: "some updated street1",
@@ -18,7 +20,9 @@ defmodule TraysWeb.MerchantLocationLiveTest do
     city: "some updated city",
     province: "some updated province",
     postal_code: "some updated postal_code",
-    country: "some updated country"
+    country: "some updated country",
+    email: "updated@example.com",
+    phone_number: "555-5678"
   }
   @invalid_attrs %{
     street1: nil,
@@ -133,6 +137,53 @@ defmodule TraysWeb.MerchantLocationLiveTest do
                |> follow_redirect(conn, ~p"/merchants/#{merchant}")
 
       assert html =~ "Merchant location created successfully"
+    end
+  end
+
+  describe "Email and phone number fields" do
+    test "accepts valid email and phone number", %{conn: conn, user: user} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      merchant = Trays.Merchants.get_or_create_default_merchant(user.id)
+
+      attrs =
+        Map.merge(@create_attrs, %{
+          email: "location@example.com",
+          phone_number: "416-555-1234"
+        })
+
+      assert {:ok, _show_live, _html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchants/#{merchant}")
+    end
+
+    test "validates email format on change", %{conn: conn} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      invalid_attrs = Map.put(@create_attrs, :email, "invalid-email")
+
+      html =
+        form_live
+        |> form("#merchant_location-form", merchant_location: invalid_attrs)
+        |> render_change()
+
+      assert html =~ "must be a valid email"
+    end
+
+    test "allows empty email and phone number", %{conn: conn, user: user} do
+      {:ok, form_live, _html} = live(conn, ~p"/merchant_locations/new")
+
+      merchant = Trays.Merchants.get_or_create_default_merchant(user.id)
+
+      attrs = Map.merge(@create_attrs, %{email: "", phone_number: ""})
+
+      assert {:ok, _show_live, _html} =
+               form_live
+               |> form("#merchant_location-form", merchant_location: attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchants/#{merchant}")
     end
   end
 end
