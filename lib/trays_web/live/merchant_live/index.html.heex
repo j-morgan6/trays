@@ -19,8 +19,8 @@
         </.header_gradient>
 
         <.stats_section>
-          <div class="flex items-center gap-6">
-            <div class="flex items-center gap-3">
+          <.stat_group>
+            <.stat>
               <.stat_icon>
                 <.icon name="hero-building-storefront" class="size-6 text-[#85b4cf]" />
               </.stat_icon>
@@ -28,8 +28,8 @@
                 <p class="text-sm text-base-content/70">{gettext("Total Merchants")}</p>
                 <p class="text-2xl font-bold text-base-content">{@merchant_count}</p>
               </div>
-            </div>
-          </div>
+            </.stat>
+          </.stat_group>
         </.stats_section>
       </.page_header>
 
@@ -67,36 +67,35 @@
                 phx-update="stream"
                 class="divide-y divide-base-content/5"
               >
-                <tr
+                <.table_row
                   :for={
                     {id, %{merchant: merchant, location_count: location_count}} <-
                       @streams.merchants
                   }
                   id={id}
-                  class="group hover:bg-[#85b4cf]/5 transition-colors cursor-pointer"
-                  phx-click={JS.navigate(~p"/merchants/#{merchant}")}
+                  click={JS.navigate(~p"/merchants/#{merchant}")}
                 >
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
+                  <.td>
+                    <.cell_with_avatar>
                       <.avatar color="blue" size="sm">
                         <.icon name="hero-building-storefront" class="size-5 text-white" />
                       </.avatar>
                       <div>
                         <div class="font-medium text-base-content">{merchant.name}</div>
                       </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">
+                    </.cell_with_avatar>
+                  </.td>
+                  <.td>
                     <div class="text-sm text-base-content/70">{merchant.description}</div>
-                  </td>
-                  <td class="px-6 py-4 text-center">
+                  </.td>
+                  <.td align="center">
                     <.badge color="blue">
                       <.icon name="hero-map-pin" class="size-4" />
                       {location_count}
                     </.badge>
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                    <div class="flex items-center justify-end gap-2" phx-click="stop_propagation">
+                  </.td>
+                  <.td align="right">
+                    <.action_buttons>
                       <.btn_action navigate={~p"/merchants/#{merchant}/edit"} color="blue">
                         <.icon name="hero-pencil-square" class="size-3.5" /> {gettext("Edit")}
                       </.btn_action>
@@ -107,9 +106,9 @@
                       >
                         <.icon name="hero-trash" class="size-3.5" /> {gettext("Delete")}
                       </.btn_action>
-                    </div>
-                  </td>
-                </tr>
+                    </.action_buttons>
+                  </.td>
+                </.table_row>
               </tbody>
             </table>
           </div>

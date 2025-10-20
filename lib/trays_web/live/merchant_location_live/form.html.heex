@@ -43,7 +43,7 @@
             options={@store_managers}
           />
 
-          <div class="flex items-center justify-between gap-3 pt-6 border-t border-base-content/10">
+          <.form_actions>
             <.btn_cancel navigate={~p"/merchants/#{@merchant}"}>
               <.icon name="hero-arrow-left" class="size-4" /> {gettext("Cancel")}
             </.btn_cancel>
@@ -51,7 +51,7 @@
               <.icon name="hero-check-circle" class="size-5" />
               {gettext("Save Merchant location")}
             </.btn_submit>
-          </div>
+          </.form_actions>
         </.form>
       </div>
     </.card>

@@ -20,11 +20,11 @@
                 <p class="mt-2 text-white/90 text-lg">{@location.merchant.name}</p>
               </div>
             </div>
-            <div class="flex items-center gap-2">
+            <.header_actions>
               <.btn_secondary navigate={~p"/merchant_locations/#{@location}/edit"}>
                 <.icon name="hero-pencil-square" class="size-4" /> {gettext("Edit Location")}
               </.btn_secondary>
-            </div>
+            </.header_actions>
           </div>
         </.header_gradient>
       </.page_header>
@@ -32,95 +32,87 @@
       <div class="grid grid-cols-2 gap-6">
         <.card>
           <.card_header class="bg-gradient-to-r from-[#85b4cf]/10 to-transparent">
-            <h2 class="text-lg font-semibold text-base-content flex items-center gap-2">
+            <.section_title>
               <.icon name="hero-map-pin" class="size-5 text-[#85b4cf]" />
               {gettext("Location Information")}
-            </h2>
+            </.section_title>
           </.card_header>
           <div class="p-6 space-y-6">
             <div>
-              <label class="block text-sm font-medium text-base-content/70 mb-2">
-                {gettext("Address")}
-              </label>
-              <div class="bg-base-content/5 rounded-lg p-4 space-y-1">
-                <p class="text-base-content font-medium">{@location.street1}</p>
-                <p :if={@location.street2} class="text-base-content/80">{@location.street2}</p>
-                <p class="text-base-content/80">
-                  {@location.city}, {@location.province} {@location.postal_code}
-                </p>
-                <p class="text-base-content/80">{@location.country}</p>
-              </div>
+              <.field_label>{gettext("Address")}</.field_label>
+              <.field_value>
+                <div class="space-y-1">
+                  <p class="text-base-content font-medium">{@location.street1}</p>
+                  <p :if={@location.street2} class="text-base-content/80">{@location.street2}</p>
+                  <p class="text-base-content/80">
+                    {@location.city}, {@location.province} {@location.postal_code}
+                  </p>
+                  <p class="text-base-content/80">{@location.country}</p>
+                </div>
+              </.field_value>
             </div>
 
             <div :if={@location.manager}>
-              <label class="block text-sm font-medium text-base-content/70 mb-2">
-                {gettext("Location Manager")}
-              </label>
-              <div class="bg-base-content/5 rounded-lg p-4 flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] rounded-full flex items-center justify-center flex-shrink-0">
-                  <.icon name="hero-user" class="size-5 text-white" />
+              <.field_label>{gettext("Location Manager")}</.field_label>
+              <.field_value>
+                <div class="flex items-center gap-3">
+                  <.user_avatar>
+                    <.icon name="hero-user" class="size-5 text-white" />
+                  </.user_avatar>
+                  <div>
+                    <p class="text-base-content font-medium">{@location.manager.email}</p>
+                    <p class="text-xs text-base-content/60">{gettext("Manager")}</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-base-content font-medium">{@location.manager.email}</p>
-                  <p class="text-xs text-base-content/60">{gettext("Manager")}</p>
-                </div>
-              </div>
+              </.field_value>
             </div>
 
             <div :if={!@location.manager}>
-              <label class="block text-sm font-medium text-base-content/70 mb-2">
-                {gettext("Location Manager")}
-              </label>
-              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <.field_label>{gettext("Location Manager")}</.field_label>
+              <.warning_box>
                 <p class="text-sm text-yellow-800">
                   {gettext("No manager assigned to this location")}
                 </p>
-              </div>
+              </.warning_box>
             </div>
           </div>
         </.card>
 
         <.card>
           <.card_header class="bg-gradient-to-r from-[#e88e19]/10 to-transparent">
-            <h2 class="text-lg font-semibold text-base-content flex items-center gap-2">
+            <.section_title>
               <.icon name="hero-banknotes" class="size-5 text-[#e88e19]" />
               {gettext("Bank Account Information")}
-            </h2>
+            </.section_title>
           </.card_header>
           <%= if @location.bank_account do %>
             <div class="p-6 space-y-4">
               <div>
-                <label class="block text-sm font-medium text-base-content/70 mb-2">
-                  {gettext("Account Number")}
-                </label>
-                <div class="bg-base-content/5 rounded-lg p-4">
+                <.field_label>{gettext("Account Number")}</.field_label>
+                <.field_value>
                   <p class="text-base-content font-mono text-lg">
                     {@location.bank_account.account_number}
                   </p>
-                </div>
+                </.field_value>
               </div>
 
               <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-base-content/70 mb-2">
-                    {gettext("Transit Number")}
-                  </label>
-                  <div class="bg-base-content/5 rounded-lg p-4">
+                  <.field_label>{gettext("Transit Number")}</.field_label>
+                  <.field_value>
                     <p class="text-base-content font-mono">
                       {@location.bank_account.transit_number}
                     </p>
-                  </div>
+                  </.field_value>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-base-content/70 mb-2">
-                    {gettext("Institution Number")}
-                  </label>
-                  <div class="bg-base-content/5 rounded-lg p-4">
+                  <.field_label>{gettext("Institution Number")}</.field_label>
+                  <.field_value>
                     <p class="text-base-content font-mono">
                       {@location.bank_account.institution_number}
                     </p>
-                  </div>
+                  </.field_value>
                 </div>
               </div>
 
@@ -165,10 +157,10 @@
 
       <.card>
         <.card_header class="bg-gradient-to-r from-base-content/5 to-transparent">
-          <h2 class="text-lg font-semibold text-base-content flex items-center gap-2">
+          <.section_title>
             <.icon name="hero-information-circle" class="size-5 text-base-content/70" />
             {gettext("Additional Information")}
-          </h2>
+          </.section_title>
         </.card_header>
         <div class="p-6">
           <div class="text-center py-12 text-base-content/50">
