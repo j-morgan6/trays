@@ -126,8 +126,10 @@ defmodule TraysWeb.PageHTML do
       "rounded-xl p-8 border-2 space-y-4",
       "hover:shadow-xl transform hover:-translate-y-1",
       "transition-all duration-200",
-      @color == "blue" && "bg-gradient-to-br from-[#85b4cf]/5 to-white border-[#85b4cf]/20 hover:border-[#85b4cf]",
-      @color == "orange" && "bg-gradient-to-br from-[#e88e19]/5 to-white border-[#e88e19]/30 hover:border-[#e88e19]",
+      @color == "blue" &&
+        "bg-gradient-to-br from-[#85b4cf]/5 to-white border-[#85b4cf]/20 hover:border-[#85b4cf]",
+      @color == "orange" &&
+        "bg-gradient-to-br from-[#e88e19]/5 to-white border-[#e88e19]/30 hover:border-[#e88e19]",
       @class
     ]}>
       <div class={[

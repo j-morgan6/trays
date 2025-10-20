@@ -106,7 +106,10 @@
                   </.td>
                   <.td align="right">
                     <.action_buttons>
-                      <.btn_action navigate={~p"/merchant_locations/#{location}/edit"} color="blue">
+                      <.btn_action
+                        navigate={~p"/merchant_locations/#{location}/edit"}
+                        color="blue"
+                      >
                         <.icon name="hero-pencil-square" class="size-3.5" /> {gettext("Edit")}
                       </.btn_action>
                       <.btn_action
