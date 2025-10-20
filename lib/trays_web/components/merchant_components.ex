@@ -1,6 +1,5 @@
 defmodule TraysWeb.MerchantComponents do
   use Phoenix.Component
-  import TraysWeb.CoreComponents
 
   @doc """
   Renders a page header card with gradient.
@@ -336,6 +335,211 @@ defmodule TraysWeb.MerchantComponents do
     >
       {render_slot(@inner_block)}
     </button>
+    """
+  end
+
+  @doc """
+  Renders a table row.
+  """
+  attr :id, :string, required: true
+  attr :click, :any, default: nil
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def table_row(assigns) do
+    ~H"""
+    <tr
+      id={@id}
+      phx-click={@click}
+      class={[
+        "group hover:bg-[#85b4cf]/5 transition-colors",
+        @click && "cursor-pointer",
+        @class
+      ]}
+    >
+      {render_slot(@inner_block)}
+    </tr>
+    """
+  end
+
+  @doc """
+  Renders a table cell.
+  """
+  attr :align, :string, default: "left"
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def td(assigns) do
+    ~H"""
+    <td class={[
+      "px-6 py-4",
+      @align == "center" && "text-center",
+      @align == "right" && "text-right",
+      @class
+    ]}>
+      {render_slot(@inner_block)}
+    </td>
+    """
+  end
+
+  @doc """
+  Renders a cell with avatar and content.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def cell_with_avatar(assigns) do
+    ~H"""
+    <div class={["flex items-center gap-3", @class]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders action buttons container.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def action_buttons(assigns) do
+    ~H"""
+    <div class={["flex items-center justify-end gap-2", @class]} phx-click="stop_propagation">
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a section title with optional icon.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def section_title(assigns) do
+    ~H"""
+    <h2 class={["text-lg font-semibold text-base-content flex items-center gap-2", @class]}>
+      {render_slot(@inner_block)}
+    </h2>
+    """
+  end
+
+  @doc """
+  Renders a field label.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def field_label(assigns) do
+    ~H"""
+    <label class={["block text-sm font-medium text-base-content/70 mb-2", @class]}>
+      {render_slot(@inner_block)}
+    </label>
+    """
+  end
+
+  @doc """
+  Renders a field value container.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def field_value(assigns) do
+    ~H"""
+    <div class={["bg-base-content/5 rounded-lg p-4", @class]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a warning box.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def warning_box(assigns) do
+    ~H"""
+    <div class={["bg-yellow-50 border border-yellow-200 rounded-lg p-4", @class]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a user avatar circle.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def user_avatar(assigns) do
+    ~H"""
+    <div class={[
+      "w-10 h-10 bg-gradient-to-br from-[#85b4cf] to-[#6a94ab]",
+      "rounded-full flex items-center justify-center flex-shrink-0",
+      @class
+    ]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders header actions container.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def header_actions(assigns) do
+    ~H"""
+    <div class={["flex items-center gap-2", @class]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a stat group container.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def stat_group(assigns) do
+    ~H"""
+    <div class={["flex items-center gap-6", @class]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a stat item.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def stat(assigns) do
+    ~H"""
+    <div class={["flex items-center gap-3", @class]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
+  Renders form actions footer.
+  """
+  attr :class, :string, default: ""
+  slot :inner_block, required: true
+
+  def form_actions(assigns) do
+    ~H"""
+    <div class={[
+      "flex items-center justify-between gap-3 pt-6 border-t border-base-content/10",
+      @class
+    ]}>
+      {render_slot(@inner_block)}
+    </div>
     """
   end
 end
