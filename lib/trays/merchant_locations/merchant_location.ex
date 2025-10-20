@@ -9,6 +9,8 @@ defmodule Trays.MerchantLocations.MerchantLocation do
     field :province, :string
     field :postal_code, :string
     field :country, :string
+    field :email, :string
+    field :phone_number, :string
 
     belongs_to :manager, Trays.Accounts.User, foreign_key: :user_id
     belongs_to :merchant, Trays.Merchants.Merchant
@@ -27,6 +29,8 @@ defmodule Trays.MerchantLocations.MerchantLocation do
       :province,
       :postal_code,
       :country,
+      :email,
+      :phone_number,
       :merchant_id,
       :user_id
     ])
@@ -38,6 +42,7 @@ defmodule Trays.MerchantLocations.MerchantLocation do
       :country,
       :merchant_id
     ])
+    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must be a valid email")
     |> foreign_key_constraint(:merchant_id)
     |> foreign_key_constraint(:user_id)
   end

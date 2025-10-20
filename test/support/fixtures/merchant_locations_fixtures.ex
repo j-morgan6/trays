@@ -31,6 +31,8 @@ defmodule Trays.MerchantLocationsFixtures do
         province: "ON",
         postal_code: "M5V 1A1",
         country: "Canada",
+        email: "location@example.com",
+        phone_number: "416-555-1234",
         merchant_id: merchant.id,
         user_id: user.id
       })
