@@ -7,43 +7,6 @@ defmodule TraysWeb.BankAccountLive.Form do
   on_mount {TraysWeb.Hooks.Authorize, {:manage, :bank_account}}
 
   @impl true
-  def render(assigns) do
-    ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <.header>
-        {@page_title}
-        <:subtitle>
-          {gettext("Use this form to manage bank_account records in your database.")}
-        </:subtitle>
-      </.header>
-
-      <.form for={@form} id="bank_account-form" phx-change="validate" phx-submit="save">
-        <input
-          type="hidden"
-          name="bank_account[merchant_location_id]"
-          value={@merchant_location_id}
-        />
-        <.input field={@form[:account_number]} type="text" label={gettext("Account number")} />
-        <.input field={@form[:transit_number]} type="text" label={gettext("Transit number")} />
-        <.input
-          field={@form[:institution_number]}
-          type="text"
-          label={gettext("Institution number")}
-        />
-        <footer>
-          <.button phx-disable-with={gettext("Saving...")} variant="primary">
-            {gettext("Save Bank account")}
-          </.button>
-          <.button navigate={~p"/merchants/#{@merchant}"}>
-            {gettext("Cancel")}
-          </.button>
-        </footer>
-      </.form>
-    </Layouts.app>
-    """
-  end
-
-  @impl true
   def mount(params, _session, socket) do
     {:ok, apply_action(socket, socket.assigns.live_action, params)}
   end
