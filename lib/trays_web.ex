@@ -88,6 +88,7 @@ defmodule TraysWeb do
       import Phoenix.HTML
       # Core UI components
       import TraysWeb.CoreComponents
+      import TraysWeb.MerchantComponents
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS
