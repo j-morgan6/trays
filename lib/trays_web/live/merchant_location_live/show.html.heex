@@ -170,17 +170,97 @@
       </div>
 
       <.card>
-        <.card_header class="bg-gradient-to-r from-base-content/5 to-transparent">
-          <.section_title>
-            <.icon name="hero-information-circle" class="size-5 text-base-content/70" />
-            {gettext("Additional Information")}
-          </.section_title>
-        </.card_header>
-        <div class="p-6">
-          <div class="text-center py-12 text-base-content/50">
-            <.icon name="hero-ellipsis-horizontal-circle" class="mx-auto size-12" />
-            <p class="mt-4">{gettext("More details coming soon")}</p>
+        <.card_header>
+          <div class="flex items-center justify-between">
+            <.section_title>
+              <.icon name="hero-document-text" class="size-5 text-[#85b4cf]" />
+              {gettext("Invoices")}
+            </.section_title>
+            <.link
+              navigate={~p"/merchant_locations/#{@location}/invoices/new"}
+              class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] rounded-lg hover:shadow-lg transition-all duration-200"
+            >
+              <.icon name="hero-plus" class="size-4" /> {gettext("New Invoice")}
+            </.link>
           </div>
+        </.card_header>
+
+        <div
+          :if={@invoice_count == 0}
+          class="p-6 text-center py-12 text-base-content/50"
+        >
+          <.icon name="hero-document-text" class="mx-auto size-12" />
+          <h3 class="mt-4 text-lg font-semibold text-base-content">
+            {gettext("No invoices yet")}
+          </h3>
+          <p class="mt-2 text-sm">
+            {gettext("Create your first invoice to get started")}
+          </p>
+        </div>
+
+        <div :if={@invoice_count > 0} class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-base-content/10 bg-base-content">
+                <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  {gettext("Invoice #")}
+                </th>
+                <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  {gettext("Customer")}
+                </th>
+                <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  {gettext("Total")}
+                </th>
+                <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  {gettext("Status")}
+                </th>
+                <th class="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider">
+                  {gettext("Actions")}
+                </th>
+              </tr>
+            </thead>
+            <tbody id="invoices" phx-update="stream" class="divide-y divide-base-content/5">
+              <tr
+                :for={{id, invoice} <- @streams.invoices}
+                id={id}
+                class="group hover:bg-[#85b4cf]/5 transition-colors cursor-pointer"
+                phx-click={JS.navigate(~p"/merchant_locations/#{@location}/invoices/#{invoice}")}
+              >
+                <td class="px-6 py-4">
+                  <div class="font-medium text-base-content">{invoice.number}</div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-base-content">{invoice.name}</div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-base-content font-medium">
+                    ${Decimal.to_string(invoice.total_amount, :normal)}
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span class={[
+                    "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
+                    if(invoice.status == :paid,
+                      do: "bg-green-100 text-green-800",
+                      else: "bg-yellow-100 text-yellow-800"
+                    )
+                  ]}>
+                    {if invoice.status == :paid, do: gettext("Paid"), else: gettext("Outstanding")}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-2" phx-click="stop_propagation">
+                    <.link
+                      navigate={~p"/merchant_locations/#{@location}/invoices/#{invoice}/edit"}
+                      class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#85b4cf] hover:text-white hover:bg-[#85b4cf] border border-[#85b4cf] rounded-lg transition-all duration-200"
+                    >
+                      <.icon name="hero-pencil-square" class="size-3.5" /> {gettext("Edit")}
+                    </.link>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </.card>
     </div>

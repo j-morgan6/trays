@@ -138,17 +138,6 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
     end
   end
 
-  describe "Additional information section" do
-    test "displays additional information placeholder", %{conn: conn, user: user} do
-      merchant_location = merchant_location_fixture(%{user: user})
-
-      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
-
-      assert html =~ "Additional Information"
-      assert html =~ "More details coming soon"
-    end
-  end
-
   describe "Authorization" do
     test "only allows access to merchant location owner", %{conn: conn} do
       other_user = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
@@ -212,6 +201,76 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
 
       assert html =~ "contact@location.com"
       assert html =~ "555-0000"
+    end
+  end
+
+  describe "Invoices section" do
+    test "displays invoices header with count", %{conn: conn, user: user} do
+      merchant_location = merchant_location_fixture(%{user: user})
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "Invoices"
+    end
+
+    test "shows empty state when no invoices exist", %{conn: conn, user: user} do
+      merchant_location = merchant_location_fixture(%{user: user})
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "No invoices yet"
+    end
+
+    test "displays list of invoices", %{conn: conn, user: user} do
+      merchant_location = merchant_location_fixture(%{user: user})
+      
+      _invoice1 = Trays.InvoicesFixtures.invoice_fixture(%{
+        merchant_location: merchant_location,
+        number: "INV-001",
+        name: "John Doe",
+        total_amount: Decimal.new("150.00")
+      })
+
+      _invoice2 = Trays.InvoicesFixtures.invoice_fixture(%{
+        merchant_location: merchant_location,
+        number: "INV-002",
+        name: "Jane Smith",
+        total_amount: Decimal.new("250.00")
+      })
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "INV-001"
+      assert html =~ "John Doe"
+      assert html =~ "INV-002"
+      assert html =~ "Jane Smith"
+    end
+
+    test "displays invoice status badges", %{conn: conn, user: user} do
+      merchant_location = merchant_location_fixture(%{user: user})
+      
+      _invoice1 = Trays.InvoicesFixtures.invoice_fixture(%{
+        merchant_location: merchant_location,
+        status: :outstanding
+      })
+
+      _invoice2 = Trays.InvoicesFixtures.invoice_fixture(%{
+        merchant_location: merchant_location,
+        status: :paid
+      })
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "Outstanding"
+      assert html =~ "Paid"
+    end
+
+    test "shows add invoice button", %{conn: conn, user: user} do
+      merchant_location = merchant_location_fixture(%{user: user})
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "New Invoice"
     end
   end
 end

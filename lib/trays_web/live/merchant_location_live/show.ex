@@ -2,6 +2,7 @@ defmodule TraysWeb.MerchantLocationLive.Show do
   use TraysWeb, :live_view
 
   alias Trays.BankAccounts
+  alias Trays.Invoices
   alias Trays.MerchantLocations
   alias Trays.Repo
 
@@ -11,10 +12,14 @@ defmodule TraysWeb.MerchantLocationLive.Show do
       MerchantLocations.get_merchant_location!(id, socket.assigns.current_scope.user.id)
       |> Repo.preload([:merchant, :bank_account, :manager])
 
+    invoices = Invoices.list_invoices(location.id)
+
     {:ok,
      socket
      |> assign(:page_title, gettext("Location Details"))
-     |> assign(:location, location)}
+     |> assign(:location, location)
+     |> assign(:invoice_count, length(invoices))
+     |> stream(:invoices, invoices)}
   end
 
   @impl true
