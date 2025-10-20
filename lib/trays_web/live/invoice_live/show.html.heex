@@ -1,5 +1,5 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-6">
       <.link
         navigate={~p"/merchant_locations/#{@merchant_location}"}
@@ -10,10 +10,147 @@
       </.link>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
-      <div class="p-6">
-        <h1 class="text-2xl font-bold">Invoice #{@invoice.number}</h1>
-        <p class="text-base-content/70 mt-2">Invoice details coming soon...</p>
+    <div class="space-y-6">
+      <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+        <div class="bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] px-8 py-8">
+          <div class="flex items-start justify-between">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
+                <.icon name="hero-document-text" class="size-10 text-white" />
+              </div>
+              <div class="text-white">
+                <h1 class="text-3xl font-bold">Invoice</h1>
+                <p class="mt-2 text-white/90 text-2xl font-mono">{@invoice.number}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class={[
+                "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium",
+                if(@invoice.status == :paid,
+                  do: "bg-green-100 text-green-800",
+                  else: "bg-yellow-100 text-yellow-800"
+                )
+              ]}>
+                {if @invoice.status == :paid, do: gettext("Paid"), else: gettext("Outstanding")}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-8">
+          <div class="grid grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-sm font-semibold text-base-content/70 uppercase tracking-wider mb-4">
+                {gettext("Customer Information")}
+              </h3>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-lg font-bold text-base-content">{@invoice.name}</p>
+                </div>
+                <div class="space-y-1 text-base-content/80">
+                  <p class="flex items-center gap-2">
+                    <.icon name="hero-envelope" class="size-4" />
+                    {@invoice.email}
+                  </p>
+                  <p class="flex items-center gap-2">
+                    <.icon name="hero-phone" class="size-4" />
+                    {@invoice.phone_number}
+                  </p>
+                  <p class="flex items-start gap-2">
+                    <.icon name="hero-map-pin" class="size-4 mt-0.5" />
+                    <span>{@invoice.address}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-semibold text-base-content/70 uppercase tracking-wider mb-4">
+                {gettext("Invoice Details")}
+              </h3>
+              <div class="space-y-3">
+                <div class="flex justify-between items-center py-2">
+                  <span class="text-base-content/70">{gettext("Payment Terms")}:</span>
+                  <span class="font-medium text-base-content">
+                    <%= case @invoice.terms do %>
+                      <% :now -> %>
+                        {gettext("Due Now")}
+                      <% :net15 -> %>
+                        {gettext("Net 15 Days")}
+                      <% :net30 -> %>
+                        {gettext("Net 30 Days")}
+                    <% end %>
+                  </span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                  <span class="text-base-content/70">{gettext("Delivery Date")}:</span>
+                  <span class="font-medium text-base-content">
+                    {Calendar.strftime(@invoice.delivery_date, "%B %d, %Y")}
+                  </span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                  <span class="text-base-content/70">{gettext("Status")}:</span>
+                  <span class={[
+                    "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
+                    if(@invoice.status == :paid,
+                      do: "bg-green-100 text-green-800",
+                      else: "bg-yellow-100 text-yellow-800"
+                    )
+                  ]}>
+                    {if @invoice.status == :paid,
+                      do: gettext("Paid"),
+                      else: gettext("Outstanding")}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+        <div class="p-8">
+          <h3 class="text-lg font-semibold text-base-content mb-6">
+            {gettext("Amount Summary")}
+          </h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center py-3 border-b border-base-content/10">
+              <span class="text-base-content/70">{gettext("Subtotal")}:</span>
+              <span class="text-lg font-medium text-base-content">
+                ${Decimal.sub(@invoice.total_amount, @invoice.gst_hst)
+                |> Decimal.to_string(:normal)}
+              </span>
+            </div>
+            <div class="flex justify-between items-center py-3 border-b border-base-content/10">
+              <span class="text-base-content/70">{gettext("GST/HST")}:</span>
+              <span class="text-lg font-medium text-base-content">
+                ${Decimal.to_string(@invoice.gst_hst, :normal)}
+              </span>
+            </div>
+            <div class="flex justify-between items-center py-4 bg-[#85b4cf]/5 -mx-8 px-8">
+              <span class="text-xl font-bold text-base-content">{gettext("Total Amount")}:</span>
+              <span class="text-2xl font-bold text-[#85b4cf]">
+                ${Decimal.to_string(@invoice.total_amount, :normal)}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3">
+        <.link
+          navigate={~p"/merchant_locations/#{@merchant_location}/invoices/#{@invoice}/edit"}
+          class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#85b4cf] hover:text-white hover:bg-[#85b4cf] border border-[#85b4cf] rounded-lg transition-all duration-200"
+        >
+          <.icon name="hero-pencil-square" class="size-4" /> {gettext("Edit")}
+        </.link>
+        <.link
+          phx-click="delete"
+          data-confirm={gettext("Are you sure you want to delete this invoice?")}
+          class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:text-white hover:bg-red-600 border border-red-600 rounded-lg transition-all duration-200"
+        >
+          <.icon name="hero-trash" class="size-4" /> {gettext("Delete")}
+        </.link>
       </div>
     </div>
   </div>
