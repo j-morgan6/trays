@@ -96,6 +96,7 @@ defmodule Trays.MixProject do
         TraysWeb.Hooks.Authorize,
         TraysWeb.Layouts,
         TraysWeb.PageHTML,
+        TraysWeb.Plugs.Authorize,
         TraysWeb.Plugs.Locale,
         TraysWeb.Router,
         TraysWeb.Telemetry,
