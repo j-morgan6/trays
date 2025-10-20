@@ -1,0 +1,20 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <.link
+        navigate={~p"/merchant_locations/#{@merchant_location}"}
+        class="inline-flex items-center gap-2 text-sm text-base-content/70 hover:text-base-content transition-colors"
+      >
+        <.icon name="hero-arrow-left" class="size-4" />
+        {gettext("Back to Location")}
+      </.link>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+      <div class="p-6">
+        <h1 class="text-2xl font-bold">Invoice #{@invoice.number}</h1>
+        <p class="text-base-content/70 mt-2">Invoice details coming soon...</p>
+      </div>
+    </div>
+  </div>
+</Layouts.app>

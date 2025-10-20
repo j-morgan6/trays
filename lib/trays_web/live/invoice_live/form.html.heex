@@ -1,0 +1,134 @@
+<Layouts.app flash={@flash} current_scope={@current_scope}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <.link
+        navigate={~p"/merchant_locations/#{@merchant_location}"}
+        class="inline-flex items-center gap-2 text-sm text-base-content/70 hover:text-base-content transition-colors"
+      >
+        <.icon name="hero-arrow-left" class="size-4" />
+        {gettext("Back to Location")}
+      </.link>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+      <div class="bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] px-6 py-8">
+        <div class="flex items-start gap-4">
+          <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
+            <.icon name="hero-document-text" class="size-10 text-white" />
+          </div>
+          <div class="text-white">
+            <h1 class="text-3xl font-bold">{@page_title}</h1>
+            <p class="mt-2 text-white/90 text-lg">{@merchant_location.street1}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <.form
+          for={@form}
+          id="invoice-form"
+          phx-change="validate"
+          phx-submit="save"
+          class="space-y-6"
+        >
+          <div class="grid grid-cols-2 gap-6">
+            <div class="col-span-2">
+              <h3 class="text-lg font-semibold text-base-content mb-4">
+                {gettext("Customer Information")}
+              </h3>
+            </div>
+
+            <.input field={@form[:name]} type="text" label={gettext("Customer Name")} required />
+            <.input field={@form[:email]} type="email" label={gettext("Email")} required />
+            <.input
+              field={@form[:phone_number]}
+              type="text"
+              label={gettext("Phone Number")}
+              required
+            />
+            <.input
+              field={@form[:number]}
+              type="text"
+              label={gettext("Invoice Number")}
+              required
+            />
+          </div>
+
+          <.input
+            field={@form[:address]}
+            type="textarea"
+            label={gettext("Customer Address")}
+            required
+          />
+
+          <div class="grid grid-cols-2 gap-6">
+            <div class="col-span-2">
+              <h3 class="text-lg font-semibold text-base-content mb-4">
+                {gettext("Invoice Details")}
+              </h3>
+            </div>
+
+            <.input
+              field={@form[:total_amount]}
+              type="number"
+              label={gettext("Total Amount ($)")}
+              step="0.01"
+              required
+            />
+            <.input
+              field={@form[:gst_hst]}
+              type="number"
+              label={gettext("GST/HST ($)")}
+              step="0.01"
+              required
+            />
+            <.input
+              field={@form[:terms]}
+              type="select"
+              label={gettext("Payment Terms")}
+              options={[
+                {gettext("Due Now"), :now},
+                {gettext("Net 15 Days"), :net15},
+                {gettext("Net 30 Days"), :net30}
+              ]}
+              required
+            />
+            <.input
+              field={@form[:delivery_date]}
+              type="date"
+              label={gettext("Delivery Date")}
+              required
+            />
+            <.input
+              field={@form[:status]}
+              type="select"
+              label={gettext("Status")}
+              options={[
+                {gettext("Outstanding"), :outstanding},
+                {gettext("Paid"), :paid}
+              ]}
+              required
+            />
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-6 border-t border-base-content/10">
+            <.link
+              navigate={~p"/merchant_locations/#{@merchant_location}"}
+              class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-base-content hover:bg-base-content/5 border border-base-content/20 rounded-lg transition-all duration-200"
+            >
+              <.icon name="hero-x-mark" class="size-4" /> {gettext("Cancel")}
+            </.link>
+            <button
+              type="submit"
+              disabled={!@form.source.valid?}
+              class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-br from-[#85b4cf] to-[#6a94ab] rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <.icon name="hero-check-circle" class="size-5" />
+              {gettext("Save Invoice")}
+            </button>
+          </div>
+        </.form>
+      </div>
+    </div>
+  </div>
+</Layouts.app>

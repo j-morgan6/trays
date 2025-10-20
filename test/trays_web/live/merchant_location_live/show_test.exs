@@ -223,20 +223,22 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
 
     test "displays list of invoices", %{conn: conn, user: user} do
       merchant_location = merchant_location_fixture(%{user: user})
-      
-      _invoice1 = Trays.InvoicesFixtures.invoice_fixture(%{
-        merchant_location: merchant_location,
-        number: "INV-001",
-        name: "John Doe",
-        total_amount: Decimal.new("150.00")
-      })
 
-      _invoice2 = Trays.InvoicesFixtures.invoice_fixture(%{
-        merchant_location: merchant_location,
-        number: "INV-002",
-        name: "Jane Smith",
-        total_amount: Decimal.new("250.00")
-      })
+      _invoice1 =
+        Trays.InvoicesFixtures.invoice_fixture(%{
+          merchant_location: merchant_location,
+          number: "INV-001",
+          name: "John Doe",
+          total_amount: Decimal.new("150.00")
+        })
+
+      _invoice2 =
+        Trays.InvoicesFixtures.invoice_fixture(%{
+          merchant_location: merchant_location,
+          number: "INV-002",
+          name: "Jane Smith",
+          total_amount: Decimal.new("250.00")
+        })
 
       {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
 
@@ -248,16 +250,18 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
 
     test "displays invoice status badges", %{conn: conn, user: user} do
       merchant_location = merchant_location_fixture(%{user: user})
-      
-      _invoice1 = Trays.InvoicesFixtures.invoice_fixture(%{
-        merchant_location: merchant_location,
-        status: :outstanding
-      })
 
-      _invoice2 = Trays.InvoicesFixtures.invoice_fixture(%{
-        merchant_location: merchant_location,
-        status: :paid
-      })
+      _invoice1 =
+        Trays.InvoicesFixtures.invoice_fixture(%{
+          merchant_location: merchant_location,
+          status: :outstanding
+        })
+
+      _invoice2 =
+        Trays.InvoicesFixtures.invoice_fixture(%{
+          merchant_location: merchant_location,
+          status: :paid
+        })
 
       {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
 
