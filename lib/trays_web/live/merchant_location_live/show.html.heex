@@ -52,6 +52,20 @@
               </.field_value>
             </div>
 
+            <div :if={@location.email}>
+              <.field_label>{gettext("Email")}</.field_label>
+              <.field_value>
+                <p class="text-base-content">{@location.email}</p>
+              </.field_value>
+            </div>
+
+            <div :if={@location.phone_number}>
+              <.field_label>{gettext("Phone Number")}</.field_label>
+              <.field_value>
+                <p class="text-base-content">{@location.phone_number}</p>
+              </.field_value>
+            </div>
+
             <div :if={@location.manager}>
               <.field_label>{gettext("Location Manager")}</.field_label>
               <.field_value>

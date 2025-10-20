@@ -174,4 +174,44 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
       assert html =~ "Location Details"
     end
   end
+
+  describe "Contact information display" do
+    test "displays email when present", %{conn: conn, user: user} do
+      merchant_location =
+        merchant_location_fixture(%{
+          user: user,
+          email: "location@example.com"
+        })
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "location@example.com"
+    end
+
+    test "displays phone number when present", %{conn: conn, user: user} do
+      merchant_location =
+        merchant_location_fixture(%{
+          user: user,
+          phone_number: "416-555-1234"
+        })
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "416-555-1234"
+    end
+
+    test "displays both email and phone when present", %{conn: conn, user: user} do
+      merchant_location =
+        merchant_location_fixture(%{
+          user: user,
+          email: "contact@location.com",
+          phone_number: "555-0000"
+        })
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "contact@location.com"
+      assert html =~ "555-0000"
+    end
+  end
 end
