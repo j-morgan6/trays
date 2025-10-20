@@ -208,6 +208,7 @@ defmodule TraysWeb.MerchantComponents do
         "inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium",
         "border rounded-lg transition-all duration-200",
         @color == "blue" && "text-[#85b4cf] hover:text-white hover:bg-[#85b4cf] border-[#85b4cf]",
+        @color == "orange" && "text-[#e88e19] hover:text-white hover:bg-[#e88e19] border-[#e88e19]",
         @color == "red" && "text-red-600 hover:text-white hover:bg-red-600 border-red-600",
         @class
       ]}

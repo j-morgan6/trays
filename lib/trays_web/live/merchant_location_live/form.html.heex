@@ -1,32 +1,59 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
-  <.header>
-    {@page_title}
-    <:subtitle>
-      {gettext("Use this form to manage merchant_location records in your database.")}
-    </:subtitle>
-  </.header>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <.back_link navigate={~p"/merchants/#{@merchant}"}>
+        <.icon name="hero-arrow-left" class="size-4" /> {gettext("Back to Merchant")}
+      </.back_link>
+    </div>
 
-  <.form for={@form} id="merchant_location-form" phx-change="validate" phx-submit="save">
-    <.input field={@form[:street1]} type="text" label={gettext("Street1")} />
-    <.input field={@form[:street2]} type="text" label={gettext("Street2")} />
-    <.input field={@form[:city]} type="text" label={gettext("City")} />
-    <.input field={@form[:province]} type="text" label={gettext("Province")} />
-    <.input field={@form[:postal_code]} type="text" label={gettext("Postal code")} />
-    <.input field={@form[:country]} type="text" label={gettext("Country")} />
-    <.input
-      field={@form[:user_id]}
-      type="select"
-      label={gettext("Store Manager (Optional)")}
-      prompt={gettext("No store manager (defaults to merchant)")}
-      options={@store_managers}
-    />
-    <footer>
-      <.button phx-disable-with={gettext("Saving...")} variant="primary">
-        {gettext("Save Merchant location")}
-      </.button>
-      <.button navigate={~p"/merchants/#{@merchant}"}>
-        {gettext("Cancel")}
-      </.button>
-    </footer>
-  </.form>
+    <.card>
+      <.header_gradient class="bg-gradient-to-br from-[#e88e19] to-[#d17d15] px-6 py-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+            <.icon name="hero-map-pin" class="size-6 text-white" />
+          </div>
+          <div class="text-white">
+            <h1 class="text-2xl font-bold">{@page_title}</h1>
+            <p class="text-white/90 text-sm mt-1">
+              {gettext("Use this form to manage merchant_location records in your database.")}
+            </p>
+          </div>
+        </div>
+      </.header_gradient>
+
+      <div class="p-6">
+        <.form
+          for={@form}
+          id="merchant_location-form"
+          phx-change="validate"
+          phx-submit="save"
+          class="space-y-6"
+        >
+          <.input field={@form[:street1]} type="text" label={gettext("Street1")} />
+          <.input field={@form[:street2]} type="text" label={gettext("Street2")} />
+          <.input field={@form[:city]} type="text" label={gettext("City")} />
+          <.input field={@form[:province]} type="text" label={gettext("Province")} />
+          <.input field={@form[:postal_code]} type="text" label={gettext("Postal code")} />
+          <.input field={@form[:country]} type="text" label={gettext("Country")} />
+          <.input
+            field={@form[:user_id]}
+            type="select"
+            label={gettext("Store Manager (Optional)")}
+            prompt={gettext("No store manager (defaults to merchant)")}
+            options={@store_managers}
+          />
+
+          <div class="flex items-center justify-between gap-3 pt-6 border-t border-base-content/10">
+            <.btn_cancel navigate={~p"/merchants/#{@merchant}"}>
+              <.icon name="hero-arrow-left" class="size-4" /> {gettext("Cancel")}
+            </.btn_cancel>
+            <.btn_submit disabled={!@form.source.valid?} phx_disable_with={gettext("Saving...")}>
+              <.icon name="hero-check-circle" class="size-5" />
+              {gettext("Save Merchant location")}
+            </.btn_submit>
+          </div>
+        </.form>
+      </div>
+    </.card>
+  </div>
 </Layouts.app>
