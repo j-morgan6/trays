@@ -387,4 +387,162 @@ defmodule TraysWeb.UserAuthTest do
       }
     end
   end
+
+  describe "signed_in_path/2" do
+    test "returns /users/settings when already logged in" do
+      user = user_fixture(%{type: :customer})
+      assert UserAuth.signed_in_path(user, true) == ~p"/users/settings"
+    end
+
+    test "returns /merchants for admin users" do
+      user = user_fixture(%{type: :admin})
+      assert UserAuth.signed_in_path(user, false) == ~p"/merchants"
+    end
+
+    test "returns merchant page for merchant users" do
+      user = user_fixture(%{type: :merchant})
+      assert UserAuth.signed_in_path(user, false) =~ ~r/\/merchants\/\d+/
+    end
+
+    test "returns home page for customer users" do
+      user = user_fixture(%{type: :customer})
+      assert UserAuth.signed_in_path(user, false) == ~p"/"
+    end
+
+    test "returns merchant page for store managers with locations" do
+      alias Trays.MerchantLocationsFixtures
+      alias Trays.MerchantsFixtures
+
+      store_manager = user_fixture(%{type: :store_manager})
+      merchant_owner = user_fixture(%{email: "merchant_sm_test@example.com", type: :merchant})
+      merchant = MerchantsFixtures.merchant_fixture(%{user: merchant_owner})
+
+      MerchantLocationsFixtures.merchant_location_fixture(%{
+        user: store_manager,
+        merchant: merchant
+      })
+
+      path = UserAuth.signed_in_path(store_manager, false)
+      assert path == "/merchants/#{merchant.id}"
+    end
+
+    test "returns home page for store managers without locations" do
+      store_manager = user_fixture(%{type: :store_manager})
+      assert UserAuth.signed_in_path(store_manager, false) == ~p"/"
+    end
+
+    test "returns /users/settings as fallback" do
+      user = user_fixture()
+      user_with_no_type = %{user | type: nil}
+      assert UserAuth.signed_in_path(user_with_no_type, false) == ~p"/users/settings"
+    end
+  end
+
+  describe "require_merchant/2" do
+    setup %{conn: conn} do
+      %{conn: UserAuth.fetch_current_scope_for_user(conn, [])}
+    end
+
+    test "allows merchant users", %{conn: conn} do
+      user = user_fixture(%{type: :merchant})
+      conn = conn |> assign(:current_scope, Scope.for_user(user)) |> UserAuth.require_merchant([])
+      refute conn.halted
+    end
+
+    test "redirects non-merchant users", %{conn: conn} do
+      user = user_fixture(%{type: :customer})
+
+      conn =
+        conn
+        |> fetch_flash()
+        |> assign(:current_scope, Scope.for_user(user))
+        |> UserAuth.require_merchant([])
+
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) == "Merchant access required."
+    end
+
+    test "redirects unauthenticated users", %{conn: conn} do
+      conn = conn |> fetch_flash() |> UserAuth.require_merchant([])
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/"
+    end
+  end
+
+  describe "require_store_manager/2" do
+    setup %{conn: conn} do
+      %{conn: UserAuth.fetch_current_scope_for_user(conn, [])}
+    end
+
+    test "allows store manager users", %{conn: conn} do
+      user = user_fixture(%{type: :store_manager})
+
+      conn =
+        conn |> assign(:current_scope, Scope.for_user(user)) |> UserAuth.require_store_manager([])
+
+      refute conn.halted
+    end
+
+    test "allows merchant users", %{conn: conn} do
+      user = user_fixture(%{type: :merchant})
+
+      conn =
+        conn |> assign(:current_scope, Scope.for_user(user)) |> UserAuth.require_store_manager([])
+
+      refute conn.halted
+    end
+
+    test "redirects customer users", %{conn: conn} do
+      user = user_fixture(%{type: :customer})
+
+      conn =
+        conn
+        |> fetch_flash()
+        |> assign(:current_scope, Scope.for_user(user))
+        |> UserAuth.require_store_manager([])
+
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) == "Store manager access required."
+    end
+
+    test "redirects unauthenticated users", %{conn: conn} do
+      conn = conn |> fetch_flash() |> UserAuth.require_store_manager([])
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/"
+    end
+  end
+
+  describe "require_admin/2" do
+    setup %{conn: conn} do
+      %{conn: UserAuth.fetch_current_scope_for_user(conn, [])}
+    end
+
+    test "allows admin users", %{conn: conn} do
+      user = user_fixture(%{type: :admin})
+      conn = conn |> assign(:current_scope, Scope.for_user(user)) |> UserAuth.require_admin([])
+      refute conn.halted
+    end
+
+    test "redirects non-admin users", %{conn: conn} do
+      user = user_fixture(%{type: :merchant})
+
+      conn =
+        conn
+        |> fetch_flash()
+        |> assign(:current_scope, Scope.for_user(user))
+        |> UserAuth.require_admin([])
+
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) == "Admin access required."
+    end
+
+    test "redirects unauthenticated users", %{conn: conn} do
+      conn = conn |> fetch_flash() |> UserAuth.require_admin([])
+      assert conn.halted
+      assert redirected_to(conn) == ~p"/"
+    end
+  end
 end
