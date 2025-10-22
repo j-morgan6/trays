@@ -126,14 +126,14 @@ defmodule TraysWeb.MerchantLiveTest do
     test "updates business successfully", %{conn: conn, merchant: merchant} do
       {:ok, form_live, _html} = live(conn, ~p"/merchants/#{merchant}/edit")
 
-      # Submit the form - it will redirect with a flash message
-      assert {:error, {:live_redirect, %{flash: flash, to: "/merchants"}}} =
-               form_live
-               |> form("#merchant-form", merchant: @update_attrs)
-               |> render_submit()
+      result =
+        form_live
+        |> form("#merchant-form", merchant: @update_attrs)
+        |> render_submit()
 
-      # Check the flash token is present (it's a signed token so we can't decode it easily)
+      assert {:error, {:live_redirect, %{flash: flash, to: redirect_path}}} = result
       assert is_binary(flash)
+      assert redirect_path == "/merchants/#{merchant.id}"
     end
 
     test "handles validation errors when updating business", %{conn: conn, merchant: merchant} do

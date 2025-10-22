@@ -1,7 +1,7 @@
 <Layouts.app flash={@flash} current_scope={@current_scope}>
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-6">
-      <.back_link navigate={~p"/merchants"}>
+      <.back_link navigate={~p"/merchants/#{@merchant}"}>
         <.icon name="hero-arrow-left" class="size-4" /> {gettext("Back to Dashboard")}
       </.back_link>
     </div>
@@ -115,7 +115,7 @@
           </div>
 
           <.form_actions>
-            <.btn_cancel navigate={~p"/merchants"}>
+            <.btn_cancel navigate={~p"/merchants/#{@merchant}"}>
               <.icon name="hero-arrow-left" class="size-4" /> {gettext("Cancel")}
             </.btn_cancel>
             <.btn_submit disabled={!@form.source.valid?} phx_disable_with={gettext("Saving...")}>

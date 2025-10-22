@@ -151,9 +151,8 @@ defmodule TraysWeb.MerchantLive.FormTest do
              )
              |> render_submit()
 
-      assert_redirect(view, ~p"/merchants")
+      assert_redirect(view, ~p"/merchants/#{merchant}")
 
-      # Verify in database
       updated_merchant = Trays.Merchants.get_merchant!(merchant.id, user.id)
       assert updated_merchant.name == "Updated Name"
       assert updated_merchant.description == "Updated description"
@@ -187,7 +186,7 @@ defmodule TraysWeb.MerchantLive.FormTest do
 
       assert {:ok, _view, html} = live(conn, ~p"/merchants/#{merchant}/edit")
       assert html =~ "Back to Dashboard"
-      assert html =~ "href=\"/merchants\""
+      assert html =~ "href=\"/merchants/#{merchant.id}\""
     end
 
     test "cancel button links back to merchants", %{conn: conn} do
@@ -197,7 +196,7 @@ defmodule TraysWeb.MerchantLive.FormTest do
 
       assert {:ok, _view, html} = live(conn, ~p"/merchants/#{merchant}/edit")
       assert html =~ "Cancel"
-      assert html =~ "href=\"/merchants\""
+      assert html =~ "href=\"/merchants/#{merchant.id}\""
     end
   end
 

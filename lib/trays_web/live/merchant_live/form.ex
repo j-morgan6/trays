@@ -65,11 +65,11 @@ defmodule TraysWeb.MerchantLive.Form do
 
   defp save_merchant(socket, :edit, merchant_params) do
     case Merchants.update_merchant(socket.assigns.merchant, merchant_params) do
-      {:ok, _merchant} ->
+      {:ok, merchant} ->
         {:noreply,
          socket
          |> put_flash(:info, gettext("Business updated successfully"))
-         |> push_navigate(to: ~p"/merchants")}
+         |> push_navigate(to: ~p"/merchants/#{merchant}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
