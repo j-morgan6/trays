@@ -71,12 +71,22 @@ defmodule Trays.MerchantLocations do
 
   @doc """
   Returns the list of merchant_locations for a specific merchant.
-  Ensures the merchant belongs to the user.
+  For store managers, only returns locations they manage.
+  For merchant owners, returns all locations.
   """
-  def list_merchant_locations_by_merchant(merchant_id) do
-    MerchantLocation
-    |> where([ml], ml.merchant_id == ^merchant_id)
-    |> preload(:merchant)
-    |> Repo.all()
+  def list_merchant_locations_by_merchant(merchant_id, user_id, user_type) do
+    query =
+      MerchantLocation
+      |> where([ml], ml.merchant_id == ^merchant_id)
+      |> preload(:merchant)
+
+    query =
+      if user_type == :store_manager do
+        where(query, [ml], ml.user_id == ^user_id)
+      else
+        query
+      end
+
+    Repo.all(query)
   end
 end

@@ -127,7 +127,7 @@ defmodule Trays.MerchantLocationsTest do
       assert {:ok, _location} = MerchantLocations.create_merchant_location(attrs)
     end
 
-    test "list_merchant_locations_by_merchant/2 only returns locations for that merchant",
+    test "list_merchant_locations_by_merchant/3 only returns locations for that merchant",
          %{
            user1: user1,
            merchant1: merchant1
@@ -145,19 +145,57 @@ defmodule Trays.MerchantLocationsTest do
       })
 
       user1_merchant1_locations =
-        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id)
+        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id, user1.id, :merchant)
 
       assert length(user1_merchant1_locations) == 3
     end
 
-    test "list_merchant_locations_by_merchant/2 preloads merchant association", %{
+    test "list_merchant_locations_by_merchant/3 preloads merchant association", %{
+      user1: user1,
       merchant1: merchant1
     } do
-      locations = MerchantLocations.list_merchant_locations_by_merchant(merchant1.id)
+      locations =
+        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id, user1.id, :merchant)
+
       location = hd(locations)
 
       assert %Trays.Merchants.Merchant{} = location.merchant
       assert location.merchant.id == merchant1.id
+    end
+
+    test "list_merchant_locations_by_merchant/3 filters locations for store managers", %{
+      user1: user1,
+      merchant1: merchant1
+    } do
+      store_manager =
+        Trays.AccountsFixtures.user_fixture(%{email: "manager@example.com", type: :store_manager})
+
+      location_for_manager =
+        Trays.MerchantLocationsFixtures.merchant_location_fixture(%{
+          user: store_manager,
+          merchant: merchant1,
+          city: "Store Manager Location"
+        })
+
+      Trays.MerchantLocationsFixtures.merchant_location_fixture(%{
+        user: user1,
+        merchant: merchant1,
+        city: "Owner Location"
+      })
+
+      owner_locations =
+        MerchantLocations.list_merchant_locations_by_merchant(merchant1.id, user1.id, :merchant)
+
+      manager_locations =
+        MerchantLocations.list_merchant_locations_by_merchant(
+          merchant1.id,
+          store_manager.id,
+          :store_manager
+        )
+
+      assert length(owner_locations) == 3
+      assert length(manager_locations) == 1
+      assert hd(manager_locations).id == location_for_manager.id
     end
   end
 end

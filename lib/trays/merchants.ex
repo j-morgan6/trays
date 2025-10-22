@@ -20,11 +20,16 @@ defmodule Trays.Merchants do
   @doc """
   Gets a single merchant for a specific user.
 
-  Raises `Ecto.NoResultsError` if the Merchant does not exist or doesn't belong to the user.
+  For merchant owners: checks if merchant belongs to the user.
+  For store managers: checks if user manages any location under this merchant.
+
+  Raises `Ecto.NoResultsError` if the Merchant does not exist or user doesn't have access.
   """
   def get_merchant!(id, user_id) do
     Merchant
-    |> where([m], m.id == ^id and m.user_id == ^user_id)
+    |> join(:left, [m], ml in assoc(m, :merchant_locations))
+    |> where([m, ml], m.id == ^id and (m.user_id == ^user_id or ml.user_id == ^user_id))
+    |> distinct(true)
     |> Repo.one!()
   end
 

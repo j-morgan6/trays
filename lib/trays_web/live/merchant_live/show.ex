@@ -8,9 +8,11 @@ defmodule TraysWeb.MerchantLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    user_id = socket.assigns.current_scope.user.id
-    merchant = Merchants.get_merchant!(id, user_id)
-    locations = MerchantLocations.list_merchant_locations_by_merchant(merchant.id)
+    user = socket.assigns.current_scope.user
+    merchant = Merchants.get_merchant!(id, user.id)
+
+    locations =
+      MerchantLocations.list_merchant_locations_by_merchant(merchant.id, user.id, user.type)
 
     {:ok,
      socket

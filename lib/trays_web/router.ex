@@ -91,8 +91,6 @@ defmodule TraysWeb.Router do
 
     live_session :require_store_manager,
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-      # Example: live "/menu", MenuLive.Index, :index
-      # Example: live "/orders", MerchantOrderLive.Index, :index
     end
   end
 
