@@ -85,6 +85,7 @@ defmodule Trays.MixProject do
         Trays.AccountsFixtures,
         Trays.Application,
         Trays.DataCase,
+        Trays.Release,
         Trays.Repo,
         Trays.TestHelpers,
         Trays.MerchantLocationsFixtures,
