@@ -22,16 +22,6 @@
         </.hero_subtitle>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-        <.btn_cta_primary navigate={~p"/users/register"}>
-          {gettext("Get Started")} <.icon name="hero-arrow-right" class="size-5 inline" />
-        </.btn_cta_primary>
-
-        <.btn_cta_secondary navigate={~p"/users/log-in"}>
-          {gettext("Sign In")}
-        </.btn_cta_secondary>
-      </div>
-
       <div class="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <.feature_card color="blue" icon="hero-calendar-days">
           <.feature_title>{gettext("Order Management")}</.feature_title>
@@ -59,6 +49,16 @@
             )}
           </.feature_text>
         </.feature_card>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+        <.btn_cta_primary navigate={~p"/users/register"}>
+          {gettext("Get Started")} <.icon name="hero-arrow-right" class="size-5 inline" />
+        </.btn_cta_primary>
+
+        <.btn_cta_secondary navigate={~p"/users/log-in"}>
+          {gettext("Sign In")}
+        </.btn_cta_secondary>
       </div>
     </div>
   </div>
