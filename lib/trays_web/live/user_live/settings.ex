@@ -28,6 +28,8 @@ defmodule TraysWeb.UserLive.Settings do
     socket =
       socket
       |> assign(:current_email, user.email)
+      |> assign(:user_type, user.type)
+      |> assign(:user_permissions, Accounts.list_user_permissions(user))
       |> assign(:profile_form, to_form(profile_changeset))
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
@@ -121,5 +123,18 @@ defmodule TraysWeb.UserLive.Settings do
       changeset ->
         {:noreply, assign(socket, password_form: to_form(changeset, action: :insert))}
     end
+  end
+
+  defp format_action(action) do
+    action
+    |> to_string()
+    |> String.capitalize()
+  end
+
+  defp format_resource(resource) do
+    resource
+    |> to_string()
+    |> String.replace("_", " ")
+    |> String.downcase()
   end
 end

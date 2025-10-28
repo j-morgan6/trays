@@ -388,4 +388,46 @@ defmodule Trays.Accounts do
     |> select([u], {u.name, u.id})
     |> Repo.all()
   end
+
+  @doc """
+  Returns a list of permissions for the given user based on their type.
+  """
+  def list_user_permissions(%User{type: :admin}) do
+    [
+      {:manage, :all}
+    ]
+  end
+
+  def list_user_permissions(%User{type: :merchant}) do
+    [
+      {:view, :merchant},
+      {:manage, :merchant},
+      {:view, :merchant_location},
+      {:manage, :merchant_location},
+      {:view, :bank_account},
+      {:manage, :bank_account}
+    ]
+  end
+
+  def list_user_permissions(%User{type: :store_manager}) do
+    [
+      {:manage, :menu},
+      {:view, :menu},
+      {:view, :orders},
+      {:manage, :orders},
+      {:view, :merchant_location},
+      {:manage, :merchant_location},
+      {:view, :bank_account},
+      {:manage, :bank_account}
+    ]
+  end
+
+  def list_user_permissions(%User{type: :customer}) do
+    [
+      {:create, :order},
+      {:view, :own_orders}
+    ]
+  end
+
+  def list_user_permissions(_), do: []
 end

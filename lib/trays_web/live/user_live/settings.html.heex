@@ -9,7 +9,69 @@
       </div>
 
       <div class="space-y-6">
-        <!-- Profile Section -->
+        <div class="bg-gradient-to-br from-[#85b4cf]/10 via-white to-[#e88e19]/5 shadow-lg rounded-xl p-6 border-2 border-[#85b4cf]/30">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-3">
+                <.icon name="hero-shield-check" class="w-8 h-8 text-[#85b4cf]" />
+                <div>
+                  <h2 class="text-2xl font-bold text-base-content">
+                    {gettext("User Level")}
+                  </h2>
+                  <p class="text-base-content/70 text-sm">
+                    {gettext("Your account type and permissions")}
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <span class={[
+                  "inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold",
+                  @user_type == :admin && "bg-[#e88e19] text-white",
+                  @user_type == :merchant && "bg-[#85b4cf] text-white",
+                  @user_type == :store_manager && "bg-purple-500 text-white",
+                  @user_type == :customer && "bg-green-500 text-white"
+                ]}>
+                  <.icon name="hero-user" class="w-4 h-4 mr-2" />
+                  {case @user_type do
+                    :admin -> gettext("Administrator")
+                    :merchant -> gettext("Merchant")
+                    :store_manager -> gettext("Store Manager")
+                    :customer -> gettext("Customer")
+                  end}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-[#85b4cf]/20">
+            <h3 class="text-lg font-semibold text-base-content mb-3">
+              {gettext("Your Permissions")}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <%= for {action, resource} <- @user_permissions do %>
+                <div class="flex items-center gap-2 text-sm text-base-content/80">
+                  <.icon name="hero-check-circle" class="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <span>
+                    <%= case {action, resource} do %>
+                      <% {:manage, :all} -> %>
+                        {gettext("Full system access")}
+                      <% {:view, resource_name} -> %>
+                        {gettext("View")} {format_resource(resource_name)}
+                      <% {:manage, resource_name} -> %>
+                        {gettext("Manage")} {format_resource(resource_name)}
+                      <% {:create, resource_name} -> %>
+                        {gettext("Create")} {format_resource(resource_name)}
+                      <% _ -> %>
+                        {format_action(action)} {format_resource(resource)}
+                    <% end %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
         <div class="bg-white shadow-lg rounded-xl p-6 border-2 border-[#85b4cf]/20">
           <h2 class="text-2xl font-bold text-base-content mb-1">
             {gettext("Profile Information")}
