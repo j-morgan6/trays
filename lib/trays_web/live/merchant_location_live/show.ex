@@ -4,7 +4,8 @@ defmodule TraysWeb.MerchantLocationLive.Show do
   alias Trays.BankAccounts
   alias Trays.Invoices
   alias Trays.MerchantLocations
-  alias Trays.Repo
+
+  on_mount {TraysWeb.Hooks.Authorize, {:view, :merchant_location}}
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do

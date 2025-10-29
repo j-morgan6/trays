@@ -358,10 +358,7 @@ defmodule Trays.Accounts do
   def can?(%User{type: :merchant}, :manage, :bank_account), do: true
 
   # Store managers can manage menus and view/manage orders
-  def can?(%User{type: :store_manager}, :manage, :menu), do: true
-  def can?(%User{type: :store_manager}, :view, :menu), do: true
-  def can?(%User{type: :store_manager}, :view, :orders), do: true
-  def can?(%User{type: :store_manager}, :manage, :orders), do: true
+  def can?(%User{type: :store_manager}, :list, :merchant_locations), do: true
   def can?(%User{type: :store_manager}, :view, :merchant_location), do: true
   def can?(%User{type: :store_manager}, :manage, :merchant_location), do: true
   def can?(%User{type: :store_manager}, :view, :bank_account), do: true

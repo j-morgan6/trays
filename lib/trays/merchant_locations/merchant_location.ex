@@ -46,4 +46,14 @@ defmodule Trays.MerchantLocations.MerchantLocation do
     |> foreign_key_constraint(:merchant_id)
     |> foreign_key_constraint(:user_id)
   end
+
+  @doc false
+  def delete_changeset(merchant_location, _attrs \\ %{}) do
+    merchant_location
+    |> change()
+    |> no_assoc_constraint(:bank_account,
+      name: :bank_accounts_merchant_location_id_fkey,
+      message: "cannot delete location with associated bank account"
+    )
+  end
 end

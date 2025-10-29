@@ -11,10 +11,15 @@ defmodule Trays.MerchantLocations do
   @doc """
   Returns the list of merchant_locations for a specific user.
   Preloads the merchant association.
+
+  Returns locations where the user:
+  - Is the direct manager (user_id matches), OR
+  - Owns the merchant that the location belongs to
   """
   def list_merchant_locations(user_id) do
     MerchantLocation
-    |> where([ml], ml.user_id == ^user_id)
+    |> join(:inner, [ml], m in assoc(ml, :merchant))
+    |> where([ml, m], ml.user_id == ^user_id or m.user_id == ^user_id)
     |> preload(:merchant)
     |> Repo.all()
   end
@@ -59,7 +64,9 @@ defmodule Trays.MerchantLocations do
   Deletes a merchant_location.
   """
   def delete_merchant_location(%MerchantLocation{} = merchant_location) do
-    Repo.delete(merchant_location)
+    merchant_location
+    |> MerchantLocation.delete_changeset(%{})
+    |> Repo.delete()
   end
 
   @doc """

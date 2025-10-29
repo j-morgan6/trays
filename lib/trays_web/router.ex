@@ -86,12 +86,14 @@ defmodule TraysWeb.Router do
 
   ## Store Manager routes
 
-  scope "/store-manager", TraysWeb do
+  scope "/", TraysWeb do
     pipe_through [:browser, :require_authenticated_user, :require_store_manager]
 
     live_session :require_store_manager,
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-    end
+
+        live "/merchant_locations", MerchantLocationLive.Index, :index
+      end
   end
 
   ## Merchant routes

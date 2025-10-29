@@ -9,6 +9,7 @@ msgstr ""
 #: lib/trays_web/components/core_components.ex:343
 #: lib/trays_web/live/merchant_live/index.html.heex:62
 #: lib/trays_web/live/merchant_live/show.html.heex:73
+#: lib/trays_web/live/merchant_location_live/index.html.heex:70
 #: lib/trays_web/live/merchant_location_live/show.html.heex:218
 #, elixir-autogen, elixir-format
 msgid "Actions"
@@ -440,6 +441,7 @@ msgstr ""
 #: lib/trays_web/live/invoice_live/show.html.heex:152
 #: lib/trays_web/live/merchant_live/index.html.heex:107
 #: lib/trays_web/live/merchant_live/show.html.heex:120
+#: lib/trays_web/live/merchant_location_live/index.html.heex:117
 #: lib/trays_web/live/merchant_location_live/show.html.heex:147
 #, elixir-autogen, elixir-format
 msgid "Delete"
@@ -449,6 +451,7 @@ msgstr ""
 #: lib/trays_web/live/merchant_live/index.html.heex:100
 #: lib/trays_web/live/merchant_live/show.html.heex:18
 #: lib/trays_web/live/merchant_live/show.html.heex:113
+#: lib/trays_web/live/merchant_location_live/index.html.heex:110
 #: lib/trays_web/live/merchant_location_live/show.html.heex:138
 #: lib/trays_web/live/merchant_location_live/show.html.heex:257
 #, elixir-autogen, elixir-format
@@ -499,6 +502,7 @@ msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:71
 #: lib/trays_web/live/merchant_location_live/form.html.heex:34
+#: lib/trays_web/live/merchant_location_live/index.html.heex:68
 #, elixir-autogen, elixir-format
 msgid "City"
 msgstr ""
@@ -535,6 +539,7 @@ msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:72
 #: lib/trays_web/live/merchant_location_live/form.html.heex:35
+#: lib/trays_web/live/merchant_location_live/index.html.heex:69
 #, elixir-autogen, elixir-format
 msgid "Province"
 msgstr ""
@@ -560,11 +565,13 @@ msgid "Use this form to manage merchant_location records in your database."
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:61
+#: lib/trays_web/live/merchant_location_live/index.html.heex:58
 #, elixir-autogen, elixir-format
 msgid "Add First Location"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:46
+#: lib/trays_web/live/merchant_location_live/index.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "Add Location"
 msgstr ""
@@ -575,12 +582,14 @@ msgid "Add your first location to start managing this business"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:70
+#: lib/trays_web/live/merchant_location_live/index.html.heex:67
 #: lib/trays_web/live/merchant_location_live/show.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Address"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:117
+#: lib/trays_web/live/merchant_location_live/index.html.heex:114
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this location?"
 msgstr ""
@@ -621,12 +630,14 @@ msgid "Edit Business"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.ex:37
+#: lib/trays_web/live/merchant_location_live/index.ex:28
 #, elixir-autogen, elixir-format
 msgid "Location deleted successfully"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/index.html.heex:61
 #: lib/trays_web/live/merchant_live/show.html.heex:42
+#: lib/trays_web/live/merchant_location_live/index.html.heex:39
 #, elixir-autogen, elixir-format
 msgid "Locations"
 msgstr ""
@@ -637,6 +648,7 @@ msgid "New Business"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:54
+#: lib/trays_web/live/merchant_location_live/index.html.heex:51
 #, elixir-autogen, elixir-format
 msgid "No locations yet"
 msgstr ""
@@ -652,11 +664,13 @@ msgid "This is your main business name displayed throughout the dashboard."
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.html.heex:31
+#: lib/trays_web/live/merchant_location_live/index.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Total Locations"
 msgstr ""
 
 #: lib/trays_web/live/merchant_live/show.ex:42
+#: lib/trays_web/live/merchant_location_live/index.ex:35
 #, elixir-autogen, elixir-format
 msgid "Unable to delete location"
 msgstr ""
@@ -1028,4 +1042,19 @@ msgstr ""
 #: lib/trays_web/live/user_live/settings.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Your account type and permissions"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/index.html.heex:54
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Add your first location to start managing your business"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/index.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Manage all your business locations"
+msgstr ""
+
+#: lib/trays_web/live/merchant_location_live/index.html.heex:12
+#, elixir-autogen, elixir-format, fuzzy
+msgid "My Locations"
 msgstr ""
