@@ -409,26 +409,10 @@ defmodule TraysWeb.UserAuthTest do
       assert UserAuth.signed_in_path(user, false) == ~p"/"
     end
 
-    test "returns merchant page for store managers with locations" do
-      alias Trays.MerchantLocationsFixtures
-      alias Trays.MerchantsFixtures
-
+    test "returns merchant_locations index for store managers" do
       store_manager = user_fixture(%{type: :store_manager})
-      merchant_owner = user_fixture(%{email: "merchant_sm_test@example.com", type: :merchant})
-      merchant = MerchantsFixtures.merchant_fixture(%{user: merchant_owner})
-
-      MerchantLocationsFixtures.merchant_location_fixture(%{
-        user: store_manager,
-        merchant: merchant
-      })
-
       path = UserAuth.signed_in_path(store_manager, false)
-      assert path == "/merchants/#{merchant.id}"
-    end
-
-    test "returns home page for store managers without locations" do
-      store_manager = user_fixture(%{type: :store_manager})
-      assert UserAuth.signed_in_path(store_manager, false) == ~p"/"
+      assert path == ~p"/merchant_locations"
     end
 
     test "returns /users/settings as fallback" do

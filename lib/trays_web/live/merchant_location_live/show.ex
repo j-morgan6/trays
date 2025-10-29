@@ -9,10 +9,7 @@ defmodule TraysWeb.MerchantLocationLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    location =
-      MerchantLocations.get_merchant_location!(id, socket.assigns.current_scope.user.id)
-      |> Repo.preload([:merchant, :bank_account, :manager])
-
+    location = MerchantLocations.get_merchant_location!(id, socket.assigns.current_scope.user.id)
     invoices = Invoices.list_invoices(location.id)
 
     {:ok,
@@ -33,7 +30,6 @@ defmodule TraysWeb.MerchantLocationLive.Show do
         socket.assigns.location.id,
         socket.assigns.current_scope.user.id
       )
-      |> Repo.preload([:merchant, :bank_account, :manager])
 
     {:noreply,
      socket

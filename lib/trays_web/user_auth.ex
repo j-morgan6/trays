@@ -271,11 +271,8 @@ defmodule TraysWeb.UserAuth do
     ~p"/merchants/#{merchant}"
   end
 
-  def signed_in_path(%Accounts.User{type: :store_manager} = user, _already_logged_in) do
-    case Trays.MerchantLocations.list_merchant_locations(user.id) do
-      [location | _] -> ~p"/merchants/#{location.merchant_id}"
-      [] -> ~p"/"
-    end
+  def signed_in_path(%Accounts.User{type: :store_manager}, _already_logged_in) do
+    ~p"/merchant_locations"
   end
 
   def signed_in_path(%Accounts.User{type: :customer}, _already_logged_in) do

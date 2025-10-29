@@ -26,7 +26,7 @@ defmodule Trays.MerchantLocations do
 
   @doc """
   Gets a single merchant_location for a specific user.
-  Preloads the merchant association.
+  Preloads the merchant, bank_account, and manager associations.
 
   The user can access the location if:
   - They are the direct manager (user_id matches), OR
@@ -38,7 +38,7 @@ defmodule Trays.MerchantLocations do
     MerchantLocation
     |> join(:inner, [ml], m in assoc(ml, :merchant))
     |> where([ml, m], ml.id == ^id and (ml.user_id == ^user_id or m.user_id == ^user_id))
-    |> preload(:merchant)
+    |> preload([:merchant, :bank_account, :manager])
     |> Repo.one!()
   end
 

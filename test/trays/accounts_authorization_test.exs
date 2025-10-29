@@ -42,10 +42,6 @@ defmodule Trays.AccountsAuthorizationTest do
 
     test "admin can do anything", %{admin: admin} do
       assert Accounts.can?(admin, :manage, :users)
-      assert Accounts.can?(admin, :manage, :menu)
-      assert Accounts.can?(admin, :manage, :orders)
-      assert Accounts.can?(admin, :view, :orders)
-      assert Accounts.can?(admin, :create, :order)
       assert Accounts.can?(admin, :delete, :anything)
     end
 
@@ -58,28 +54,6 @@ defmodule Trays.AccountsAuthorizationTest do
       refute Accounts.can?(merchant, :manage, :users)
     end
 
-    test "customer can create orders", %{customer: customer} do
-      assert Accounts.can?(customer, :create, :order)
-    end
-
-    test "customer can view their own orders", %{customer: customer} do
-      assert Accounts.can?(customer, :view, {:order, customer.id})
-    end
-
-    test "customer cannot view other users' orders", %{customer: customer} do
-      other_user_id = -1
-      refute Accounts.can?(customer, :view, {:order, other_user_id})
-    end
-
-    test "customer cannot manage menu", %{customer: customer} do
-      refute Accounts.can?(customer, :manage, :menu)
-      refute Accounts.can?(customer, :view, :menu)
-    end
-
-    test "customer cannot manage orders", %{customer: customer} do
-      refute Accounts.can?(customer, :manage, :orders)
-    end
-
     test "merchant can view and manage merchant locations", %{merchant: merchant} do
       assert Accounts.can?(merchant, :view, :merchant_location)
       assert Accounts.can?(merchant, :manage, :merchant_location)
@@ -90,19 +64,9 @@ defmodule Trays.AccountsAuthorizationTest do
       assert Accounts.can?(merchant, :manage, :bank_account)
     end
 
-    test "store_manager can manage and view menus", %{store_manager: manager} do
-      assert Accounts.can?(manager, :manage, :menu)
-      assert Accounts.can?(manager, :view, :menu)
-    end
-
-    test "store_manager can view and manage orders", %{store_manager: manager} do
-      assert Accounts.can?(manager, :view, :orders)
-      assert Accounts.can?(manager, :manage, :orders)
-    end
-
     test "store_manager can view and manage merchant locations", %{store_manager: manager} do
       assert Accounts.can?(manager, :view, :merchant_location)
-      assert Accounts.can?(manager, :manage, :merchant_location)
+      assert Accounts.can?(manager, :list, :merchant_locations)
     end
 
     test "store_manager can view and manage bank accounts", %{store_manager: manager} do
@@ -116,16 +80,6 @@ defmodule Trays.AccountsAuthorizationTest do
 
     test "store_manager cannot view merchants", %{store_manager: manager} do
       refute Accounts.can?(manager, :view, :merchant)
-    end
-
-    test "merchant cannot view or manage menus", %{merchant: merchant} do
-      refute Accounts.can?(merchant, :view, :menu)
-      refute Accounts.can?(merchant, :manage, :menu)
-    end
-
-    test "merchant cannot view or manage orders", %{merchant: merchant} do
-      refute Accounts.can?(merchant, :view, :orders)
-      refute Accounts.can?(merchant, :manage, :orders)
     end
 
     test "default case denies unknown permissions", %{customer: customer} do

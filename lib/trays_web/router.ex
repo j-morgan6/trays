@@ -84,19 +84,7 @@ defmodule TraysWeb.Router do
     delete "/users/log-out", UserSessionController, :delete
   end
 
-  ## Store Manager routes
-
-  scope "/", TraysWeb do
-    pipe_through [:browser, :require_authenticated_user, :require_store_manager]
-
-    live_session :require_store_manager,
-      on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-
-        live "/merchant_locations", MerchantLocationLive.Index, :index
-      end
-  end
-
-  ## Merchant routes
+  ## Merchant routes (literal paths must come before parameterized paths)
 
   scope "/", TraysWeb do
     pipe_through [:browser, :require_authenticated_user, :require_merchant]
@@ -107,7 +95,6 @@ defmodule TraysWeb.Router do
       live "/merchants/:id/edit", MerchantLive.Form, :edit
 
       live "/merchant_locations/new", MerchantLocationLive.Form, :new
-      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
       live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
 
       live "/merchant_locations/:merchant_location_id/invoices/new", InvoiceLive.Form, :new
@@ -125,6 +112,18 @@ defmodule TraysWeb.Router do
            :new
 
       live "/bank_accounts/:id/edit", BankAccountLive.Form, :edit
+    end
+  end
+
+  ## Store Manager routes
+
+  scope "/", TraysWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_store_manager]
+
+    live_session :require_store_manager,
+      on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
+      live "/merchant_locations", MerchantLocationLive.Index, :index
+      live "/merchant_locations/:id", MerchantLocationLive.Show, :show
     end
   end
 
