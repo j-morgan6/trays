@@ -8,8 +8,8 @@ defmodule Trays.Invoices.Invoice do
     field :address, :string
     field :phone_number, :string
     field :number, :string
-    field :gst_hst, Money.Ecto.Amount.Type
-    field :total_amount, Money.Ecto.Amount.Type
+    field :gst_hst, Money.Ecto.Amount.Type, default: Money.new(0)
+    field :total_amount, Money.Ecto.Amount.Type, default: Money.new(0)
     field :terms, Ecto.Enum, values: [:now, :net15, :net30]
     field :delivery_date, :date
     field :status, Ecto.Enum, values: [:outstanding, :paid], default: :outstanding
@@ -41,8 +41,6 @@ defmodule Trays.Invoices.Invoice do
       :address,
       :phone_number,
       :number,
-      :gst_hst,
-      :total_amount,
       :terms,
       :delivery_date,
       :merchant_location_id
@@ -55,23 +53,27 @@ defmodule Trays.Invoices.Invoice do
   end
 
   defp validate_money(changeset, field, opts) do
-    validate_change(changeset, field, fn _, value ->
-      if is_struct(value, Money) do
-        compare_value = opts[:greater_than] || opts[:greater_than_or_equal_to]
+    value = get_field(changeset, field)
 
-        cond do
-          opts[:greater_than] && Money.compare(value, compare_value) != 1 ->
-            [{field, "must be greater than #{Money.to_string(compare_value)}"}]
+    if is_struct(value, Money) do
+      compare_value = opts[:greater_than] || opts[:greater_than_or_equal_to]
 
-          opts[:greater_than_or_equal_to] && Money.compare(value, compare_value) == -1 ->
-            [{field, "must be greater than or equal to #{Money.to_string(compare_value)}"}]
+      cond do
+        opts[:greater_than] && Money.compare(value, compare_value) != 1 ->
+          add_error(changeset, field, "must be greater than #{Money.to_string(compare_value)}")
 
-          true ->
-            []
-        end
-      else
-        []
+        opts[:greater_than_or_equal_to] && Money.compare(value, compare_value) == -1 ->
+          add_error(
+            changeset,
+            field,
+            "must be greater than or equal to #{Money.to_string(compare_value)}"
+          )
+
+        true ->
+          changeset
       end
-    end)
+    else
+      changeset
+    end
   end
 end
