@@ -60,10 +60,6 @@ defmodule TraysWeb.InvoiceLive.Form do
     {:noreply, assign(socket, form: to_form(changeset))}
   end
 
-  defp extract_form_params(form) do
-    form.params || %{}
-  end
-
   @impl true
   def handle_event("save", %{"invoice" => invoice_params}, socket) do
     save_invoice(socket, socket.assigns.live_action, invoice_params)
@@ -96,5 +92,9 @@ defmodule TraysWeb.InvoiceLive.Form do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
+  end
+
+  defp extract_form_params(form) do
+    form.params || %{}
   end
 end
