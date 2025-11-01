@@ -34,8 +34,7 @@ defmodule Trays.Invoices.InvoiceTest do
                address: ["can't be blank"],
                phone_number: ["can't be blank"],
                number: ["can't be blank"],
-               gst_hst: ["can't be blank"],
-               total_amount: ["can't be blank"],
+               total_amount: ["must be greater than Can$0.00"],
                terms: ["can't be blank"],
                delivery_date: ["can't be blank"],
                merchant_location_id: ["can't be blank"]

@@ -98,6 +98,38 @@ defmodule TraysWeb.InvoiceLive.FormTest do
 
       assert html =~ "can&#39;t be blank"
     end
+
+    test "validates total_amount on blur", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      form_live
+      |> form("#invoice-form", invoice: %{total_amount: "-10"})
+      |> render_change()
+
+      html =
+        form_live
+        |> element("input[name='invoice[total_amount]']")
+        |> render_blur()
+
+      assert html =~ "must be greater than"
+    end
+
+    test "validates gst_hst on blur", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      form_live
+      |> form("#invoice-form", invoice: %{gst_hst: "-5"})
+      |> render_change()
+
+      html =
+        form_live
+        |> element("input[name='invoice[gst_hst]']")
+        |> render_blur()
+
+      assert html =~ "must be greater than or equal to"
+    end
   end
 
   describe "Edit invoice form" do
