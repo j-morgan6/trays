@@ -25,11 +25,14 @@ defmodule TraysWeb.UserLive.Settings do
     email_changeset = Accounts.change_user_email(user, %{}, validate_unique: false)
     password_changeset = Accounts.change_user_password(user, %{}, hash_password: false)
 
+    back_path = TraysWeb.UserAuth.signed_in_path(user, false)
+
     socket =
       socket
       |> assign(:current_email, user.email)
       |> assign(:user_type, user.type)
       |> assign(:user_permissions, Accounts.list_user_permissions(user))
+      |> assign(:back_path, back_path)
       |> assign(:profile_form, to_form(profile_changeset))
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
