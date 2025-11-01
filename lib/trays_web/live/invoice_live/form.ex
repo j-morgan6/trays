@@ -4,6 +4,8 @@ defmodule TraysWeb.InvoiceLive.Form do
   alias Trays.Invoices
   alias Trays.MerchantLocations
 
+  on_mount {TraysWeb.Hooks.Authorize, {:manage, :invoice}}
+
   @impl true
   def mount(params, _session, socket) do
     merchant_location_id = params["merchant_location_id"]

@@ -356,6 +356,8 @@ defmodule Trays.Accounts do
   def can?(%User{type: :merchant}, :manage, :merchant_location), do: true
   def can?(%User{type: :merchant}, :view, :bank_account), do: true
   def can?(%User{type: :merchant}, :manage, :bank_account), do: true
+  def can?(%User{type: :merchant}, :view, :invoice), do: true
+  def can?(%User{type: :merchant}, :manage, :invoice), do: true
 
   # Store managers can manage menus and view/manage orders
   def can?(%User{type: :store_manager}, :list, :merchant_locations), do: true
@@ -363,6 +365,8 @@ defmodule Trays.Accounts do
   def can?(%User{type: :store_manager}, :manage, :merchant_location), do: true
   def can?(%User{type: :store_manager}, :view, :bank_account), do: true
   def can?(%User{type: :store_manager}, :manage, :bank_account), do: true
+  def can?(%User{type: :store_manager}, :view, :invoice), do: true
+  def can?(%User{type: :store_manager}, :manage, :invoice), do: true
 
   # Customers can create and view their own orders
   def can?(%User{type: :customer}, :create, :order), do: true
@@ -402,7 +406,8 @@ defmodule Trays.Accounts do
       {:view, :merchant_location},
       {:manage, :merchant_location},
       {:view, :bank_account},
-      {:manage, :bank_account}
+      {:manage, :bank_account},
+      {:manage, :invoice}
     ]
   end
 
@@ -411,7 +416,8 @@ defmodule Trays.Accounts do
       {:view, :merchant_location},
       {:manage, :merchant_location},
       {:view, :bank_account},
-      {:manage, :bank_account}
+      {:manage, :bank_account},
+      {:manage, :invoice}
     ]
   end
 

@@ -96,22 +96,6 @@ defmodule TraysWeb.Router do
 
       live "/merchant_locations/new", MerchantLocationLive.Form, :new
       live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
-
-      live "/merchant_locations/:merchant_location_id/invoices/new", InvoiceLive.Form, :new
-
-      live "/merchant_locations/:merchant_location_id/invoices/:id",
-           InvoiceLive.Show,
-           :show
-
-      live "/merchant_locations/:merchant_location_id/invoices/:id/edit",
-           InvoiceLive.Form,
-           :edit
-
-      live "/merchant_locations/:merchant_location_id/bank_accounts/new",
-           BankAccountLive.Form,
-           :new
-
-      live "/bank_accounts/:id/edit", BankAccountLive.Form, :edit
     end
   end
 
@@ -124,6 +108,18 @@ defmodule TraysWeb.Router do
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
       live "/merchant_locations", MerchantLocationLive.Index, :index
       live "/merchant_locations/:id", MerchantLocationLive.Show, :show
+
+      live "/merchant_locations/:merchant_location_id/invoices/new", InvoiceLive.Form, :new
+      live "/merchant_locations/:merchant_location_id/invoices/:id", InvoiceLive.Show, :show
+      live "/merchant_locations/:merchant_location_id/invoices/:id/edit", InvoiceLive.Form, :edit
+
+      live "/merchant_locations/:merchant_location_id/bank_accounts/new",
+           BankAccountLive.Form,
+           :new
+
+      live "/merchant_locations/:merchant_location_id/bank_accounts/:id/edit",
+           BankAccountLive.Form,
+           :edit
     end
   end
 

@@ -64,7 +64,7 @@ defmodule TraysWeb.BankAccountLive.Form do
         {:noreply,
          socket
          |> put_flash(:info, gettext("Bank account updated successfully"))
-         |> push_navigate(to: ~p"/merchants/#{socket.assigns.merchant}")}
+         |> push_navigate(to: ~p"/merchant_locations/#{socket.assigns.merchant_location_id}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
@@ -77,7 +77,7 @@ defmodule TraysWeb.BankAccountLive.Form do
         {:noreply,
          socket
          |> put_flash(:info, gettext("Bank account created successfully"))
-         |> push_navigate(to: ~p"/merchants/#{socket.assigns.merchant}")}
+         |> push_navigate(to: ~p"/merchant_locations/#{socket.assigns.merchant_location_id}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}

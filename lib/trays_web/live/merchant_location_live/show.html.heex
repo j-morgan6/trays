@@ -132,7 +132,9 @@
 
               <div class="pt-4 flex items-center gap-2">
                 <.btn_action
-                  navigate={~p"/bank_accounts/#{@location.bank_account}/edit"}
+                  navigate={
+                    ~p"/merchant_locations/#{@location}/bank_accounts/#{@location.bank_account}/edit"
+                  }
                   color="orange"
                 >
                   <.icon name="hero-pencil-square" class="size-4" /> {gettext("Edit")}

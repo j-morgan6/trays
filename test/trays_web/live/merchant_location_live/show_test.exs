@@ -6,7 +6,7 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
   import Trays.BankAccountsFixtures
 
   setup do
-    user = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+    user = Trays.AccountsFixtures.user_fixture(%{type: :store_manager})
     conn = Phoenix.ConnTest.build_conn()
     %{conn: TraysWeb.ConnCase.log_in_user(conn, user), user: user}
   end
@@ -101,7 +101,9 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
 
       {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
 
-      assert html =~ ~p"/bank_accounts/#{bank_account}/edit"
+      assert html =~
+               ~p"/merchant_locations/#{merchant_location}/bank_accounts/#{bank_account}/edit"
+
       assert html =~ "Edit"
       assert html =~ "Delete"
     end
