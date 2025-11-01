@@ -408,10 +408,6 @@ defmodule Trays.Accounts do
 
   def list_user_permissions(%User{type: :store_manager}) do
     [
-      {:manage, :menu},
-      {:view, :menu},
-      {:view, :orders},
-      {:manage, :orders},
       {:view, :merchant_location},
       {:manage, :merchant_location},
       {:view, :bank_account},
