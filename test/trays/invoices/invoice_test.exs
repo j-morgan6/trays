@@ -13,8 +13,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("13.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(1300),
+        total_amount: Money.new(10_000),
         terms: :net30,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id
@@ -51,8 +51,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("13.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(1300),
+        total_amount: Money.new(10_000),
         terms: :net30,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id
@@ -72,8 +72,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("-1.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(-100),
+        total_amount: Money.new(10_000),
         terms: :net30,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id
@@ -81,7 +81,7 @@ defmodule Trays.Invoices.InvoiceTest do
 
       changeset = Invoice.changeset(%Invoice{}, attrs)
       refute changeset.valid?
-      assert "must be greater than or equal to 0" in errors_on(changeset).gst_hst
+      assert "must be greater than or equal to Can$0.00" in errors_on(changeset).gst_hst
     end
 
     test "total_amount must be greater than 0" do
@@ -93,8 +93,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("0"),
-        total_amount: Decimal.new("0"),
+        gst_hst: Money.new(0),
+        total_amount: Money.new(0),
         terms: :net30,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id
@@ -102,7 +102,7 @@ defmodule Trays.Invoices.InvoiceTest do
 
       changeset = Invoice.changeset(%Invoice{}, attrs)
       refute changeset.valid?
-      assert "must be greater than 0" in errors_on(changeset).total_amount
+      assert "must be greater than Can$0.00" in errors_on(changeset).total_amount
     end
 
     test "accepts valid terms values" do
@@ -114,8 +114,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("13.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(1300),
+        total_amount: Money.new(10_000),
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id
       }
@@ -135,8 +135,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("13.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(1300),
+        total_amount: Money.new(10_000),
         terms: :net30,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id
@@ -157,8 +157,8 @@ defmodule Trays.Invoices.InvoiceTest do
         address: "123 Main St",
         phone_number: "555-1234",
         number: "INV-001",
-        gst_hst: Decimal.new("13.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(1300),
+        total_amount: Money.new(10_000),
         terms: :net30,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id

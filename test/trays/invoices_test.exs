@@ -100,8 +100,8 @@ defmodule Trays.InvoicesTest do
         address: "456 Oak St",
         phone_number: "555-5678",
         number: "INV-100",
-        gst_hst: Decimal.new("26.00"),
-        total_amount: Decimal.new("226.00"),
+        gst_hst: Money.new(2600),
+        total_amount: Money.new(22_600),
         terms: :net15,
         delivery_date: ~D[2025-02-01],
         merchant_location_id: merchant_location.id
@@ -128,8 +128,8 @@ defmodule Trays.InvoicesTest do
         address: "123 Test St",
         phone_number: "555-0000",
         number: "INV-DUPLICATE",
-        gst_hst: Decimal.new("10.00"),
-        total_amount: Decimal.new("100.00"),
+        gst_hst: Money.new(1000),
+        total_amount: Money.new(10_000),
         terms: :now,
         delivery_date: ~D[2025-01-01],
         merchant_location_id: merchant_location.id

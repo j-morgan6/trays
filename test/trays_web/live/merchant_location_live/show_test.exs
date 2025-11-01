@@ -231,7 +231,7 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
           merchant_location: merchant_location,
           number: "INV-001",
           name: "John Doe",
-          total_amount: Decimal.new("150.00")
+          total_amount: Money.new(15_000)
         })
 
       _invoice2 =
@@ -239,7 +239,7 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
           merchant_location: merchant_location,
           number: "INV-002",
           name: "Jane Smith",
-          total_amount: Decimal.new("250.00")
+          total_amount: Money.new(25_000)
         })
 
       {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")

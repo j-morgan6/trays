@@ -56,8 +56,8 @@ defmodule TraysWeb.InvoiceLive.ShowTest do
 
       assert html =~ "Total Amount"
       assert html =~ "GST/HST"
-      assert html =~ Decimal.to_string(invoice.total_amount, :normal)
-      assert html =~ Decimal.to_string(invoice.gst_hst, :normal)
+      assert html =~ Money.to_string(invoice.total_amount)
+      assert html =~ Money.to_string(invoice.gst_hst)
     end
 
     test "displays payment terms and delivery date", %{
@@ -214,8 +214,8 @@ defmodule TraysWeb.InvoiceLive.ShowTest do
       invoice =
         invoice_fixture(%{
           merchant_location: location,
-          total_amount: Decimal.new("226.00"),
-          gst_hst: Decimal.new("26.00")
+          total_amount: Money.new(22_600),
+          gst_hst: Money.new(2600)
         })
 
       {:ok, _show_live, html} =

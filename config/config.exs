@@ -73,6 +73,10 @@ config :logger, :default_formatter,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Configure Money library
+config :money,
+  default_currency: :CAD
+
 config :fun_with_flags, :cache, enabled: false
 
 config :fun_with_flags, :persistence,

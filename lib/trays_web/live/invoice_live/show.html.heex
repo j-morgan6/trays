@@ -117,20 +117,19 @@
             <div class="flex justify-between items-center py-3 border-b border-base-content/10">
               <span class="text-base-content/70">{gettext("Subtotal")}:</span>
               <span class="text-lg font-medium text-base-content">
-                ${Decimal.sub(@invoice.total_amount, @invoice.gst_hst)
-                |> Decimal.to_string(:normal)}
+                {Money.subtract(@invoice.total_amount, @invoice.gst_hst) |> Money.to_string()}
               </span>
             </div>
             <div class="flex justify-between items-center py-3 border-b border-base-content/10">
               <span class="text-base-content/70">{gettext("GST/HST")}:</span>
               <span class="text-lg font-medium text-base-content">
-                ${Decimal.to_string(@invoice.gst_hst, :normal)}
+                {Money.to_string(@invoice.gst_hst)}
               </span>
             </div>
             <div class="flex justify-between items-center py-4 bg-[#85b4cf]/5 -mx-8 px-8">
               <span class="text-xl font-bold text-base-content">{gettext("Total Amount")}:</span>
               <span class="text-2xl font-bold text-[#85b4cf]">
-                ${Decimal.to_string(@invoice.total_amount, :normal)}
+                {Money.to_string(@invoice.total_amount)}
               </span>
             </div>
           </div>

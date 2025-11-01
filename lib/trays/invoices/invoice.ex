@@ -8,8 +8,8 @@ defmodule Trays.Invoices.Invoice do
     field :address, :string
     field :phone_number, :string
     field :number, :string
-    field :gst_hst, :decimal
-    field :total_amount, :decimal
+    field :gst_hst, Money.Ecto.Amount.Type
+    field :total_amount, Money.Ecto.Amount.Type
     field :terms, Ecto.Enum, values: [:now, :net15, :net30]
     field :delivery_date, :date
     field :status, Ecto.Enum, values: [:outstanding, :paid], default: :outstanding
@@ -48,9 +48,30 @@ defmodule Trays.Invoices.Invoice do
       :merchant_location_id
     ])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must be a valid email")
-    |> validate_number(:gst_hst, greater_than_or_equal_to: 0)
-    |> validate_number(:total_amount, greater_than: 0)
+    |> validate_money(:gst_hst, greater_than_or_equal_to: Money.new(0))
+    |> validate_money(:total_amount, greater_than: Money.new(0))
     |> unique_constraint(:number)
     |> foreign_key_constraint(:merchant_location_id)
+  end
+
+  defp validate_money(changeset, field, opts) do
+    validate_change(changeset, field, fn _, value ->
+      if is_struct(value, Money) do
+        compare_value = opts[:greater_than] || opts[:greater_than_or_equal_to]
+
+        cond do
+          opts[:greater_than] && Money.compare(value, compare_value) != 1 ->
+            [{field, "must be greater than #{Money.to_string(compare_value)}"}]
+
+          opts[:greater_than_or_equal_to] && Money.compare(value, compare_value) == -1 ->
+            [{field, "must be greater than or equal to #{Money.to_string(compare_value)}"}]
+
+          true ->
+            []
+        end
+      else
+        []
+      end
+    end)
   end
 end
