@@ -15,6 +15,7 @@ defmodule Trays.Invoices.Invoice do
     field :status, Ecto.Enum, values: [:outstanding, :paid], default: :outstanding
 
     belongs_to :merchant_location, Trays.MerchantLocations.MerchantLocation
+    has_many :line_items, Trays.Invoices.LineItem
 
     timestamps(type: :utc_datetime)
   end

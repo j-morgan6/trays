@@ -30,6 +30,18 @@ defmodule Trays.Invoices do
   end
 
   @doc """
+  Gets a single invoice with its line items for a specific merchant location.
+
+  Raises `Ecto.NoResultsError` if the Invoice does not exist.
+  """
+  def get_invoice_with_line_items!(id, merchant_location_id) do
+    Invoice
+    |> where([i], i.id == ^id and i.merchant_location_id == ^merchant_location_id)
+    |> preload(:line_items)
+    |> Repo.one!()
+  end
+
+  @doc """
   Creates an invoice.
   """
   def create_invoice(attrs \\ %{}) do

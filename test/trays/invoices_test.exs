@@ -199,4 +199,94 @@ defmodule Trays.InvoicesTest do
       assert changeset.changes.name == "New Name"
     end
   end
+
+  describe "get_invoice_with_line_items!/2" do
+    test "returns the invoice with line items preloaded" do
+      merchant_location = Trays.MerchantLocationsFixtures.merchant_location_fixture()
+      invoice = Trays.InvoicesFixtures.invoice_fixture(%{merchant_location: merchant_location})
+
+      line_item1 =
+        Trays.LineItemsFixtures.line_item_fixture(%{
+          invoice: invoice,
+          description: "Product A",
+          quantity: 5,
+          amount: Money.new(10_000)
+        })
+
+      line_item2 =
+        Trays.LineItemsFixtures.line_item_fixture(%{
+          invoice: invoice,
+          description: "Product B",
+          quantity: 3,
+          amount: Money.new(15_000)
+        })
+
+      result = Invoices.get_invoice_with_line_items!(invoice.id, merchant_location.id)
+
+      assert result.id == invoice.id
+      assert result.merchant_location_id == merchant_location.id
+      assert length(result.line_items) == 2
+
+      line_item_ids = Enum.map(result.line_items, & &1.id) |> Enum.sort()
+      assert line_item_ids == [line_item1.id, line_item2.id] |> Enum.sort()
+    end
+
+    test "returns invoice with empty line_items list when no line items exist" do
+      merchant_location = Trays.MerchantLocationsFixtures.merchant_location_fixture()
+      invoice = Trays.InvoicesFixtures.invoice_fixture(%{merchant_location: merchant_location})
+
+      result = Invoices.get_invoice_with_line_items!(invoice.id, merchant_location.id)
+
+      assert result.id == invoice.id
+      assert result.line_items == []
+    end
+
+    test "raises error when invoice does not exist" do
+      merchant_location = Trays.MerchantLocationsFixtures.merchant_location_fixture()
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Invoices.get_invoice_with_line_items!(999, merchant_location.id)
+      end
+    end
+
+    test "raises error when invoice belongs to different merchant location" do
+      merchant_location1 = Trays.MerchantLocationsFixtures.merchant_location_fixture()
+      merchant_location2 = Trays.MerchantLocationsFixtures.merchant_location_fixture()
+
+      invoice = Trays.InvoicesFixtures.invoice_fixture(%{merchant_location: merchant_location1})
+
+      Trays.LineItemsFixtures.line_item_fixture(%{
+        invoice: invoice,
+        description: "Product A",
+        quantity: 5,
+        amount: Money.new(10_000)
+      })
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Invoices.get_invoice_with_line_items!(invoice.id, merchant_location2.id)
+      end
+    end
+
+    test "line items are properly associated with invoice" do
+      merchant_location = Trays.MerchantLocationsFixtures.merchant_location_fixture()
+      invoice = Trays.InvoicesFixtures.invoice_fixture(%{merchant_location: merchant_location})
+
+      line_item =
+        Trays.LineItemsFixtures.line_item_fixture(%{
+          invoice: invoice,
+          description: "Premium Widget",
+          quantity: 10,
+          amount: Money.new(25_000)
+        })
+
+      result = Invoices.get_invoice_with_line_items!(invoice.id, merchant_location.id)
+
+      assert length(result.line_items) == 1
+      retrieved_line_item = hd(result.line_items)
+      assert retrieved_line_item.id == line_item.id
+      assert retrieved_line_item.description == "Premium Widget"
+      assert retrieved_line_item.quantity == 10
+      assert retrieved_line_item.amount == Money.new(25_000)
+    end
+  end
 end
