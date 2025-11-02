@@ -10,6 +10,7 @@ msgstr ""
 #: lib/trays_web/live/merchant_live/index.html.heex:62
 #: lib/trays_web/live/merchant_live/show.html.heex:73
 #: lib/trays_web/live/merchant_location_live/show.html.heex:220
+#: lib/trays_web/live/invoice_live/form.html.heex:136
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Actions"
@@ -688,6 +689,7 @@ msgid "Are you sure you want to delete this merchant?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce commerçant?"
 
 #: lib/trays_web/live/merchant_live/index.html.heex:60
+#: lib/trays_web/live/invoice_live/form.html.heex:80
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr "Description"
@@ -871,6 +873,72 @@ msgstr "Facture nº"
 msgid "Invoice Details"
 msgstr "Détails de la facture"
 
+#: lib/trays_web/live/invoice_live/form.html.heex:69
+#, elixir-autogen, elixir-format
+msgid "Line Items"
+msgstr "Articles de facture"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:88
+#, elixir-autogen, elixir-format
+msgid "Quantity"
+msgstr "Quantité"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:96
+#, elixir-autogen, elixir-format
+msgid "Amount ($)"
+msgstr "Montant ($)"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:110
+#, elixir-autogen, elixir-format
+msgid "Add"
+msgstr "Ajouter"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:118
+#, elixir-autogen, elixir-format
+msgid "Save the invoice first to add line items"
+msgstr "Enregistrez d'abord la facture pour ajouter des articles"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:133
+#: lib/trays_web/live/merchant_location_live/show.html.heex:214
+#, elixir-autogen, elixir-format
+msgid "Total"
+msgstr "Total"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:165
+#, elixir-autogen, elixir-format
+msgid "No line items yet"
+msgstr "Aucun article pour le moment"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:81
+#, elixir-autogen, elixir-format
+msgid "Item description"
+msgstr "Description de l'article"
+
+#: lib/trays_web/live/invoice_live/form.html.heex:156
+#, elixir-autogen, elixir-format
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr?"
+
+#: lib/trays_web/live/invoice_live/form.ex:95
+#, elixir-autogen, elixir-format
+msgid "Line item added successfully"
+msgstr "Article ajouté avec succès"
+
+#: lib/trays_web/live/invoice_live/form.ex:101
+#, elixir-autogen, elixir-format
+msgid "Please save the invoice first before adding line items"
+msgstr "Veuillez d'abord enregistrer la facture avant d'ajouter des articles"
+
+#: lib/trays_web/live/invoice_live/form.ex:115
+#, elixir-autogen, elixir-format
+msgid "Line item deleted successfully"
+msgstr "Article supprimé avec succès"
+
+#: lib/trays_web/live/invoice_live/form.ex:118
+#, elixir-autogen, elixir-format
+msgid "Could not delete line item"
+msgstr "Impossible de supprimer l'article"
+
 #: lib/trays_web/live/invoice_live/form.html.heex:42
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Invoice Number"
@@ -991,17 +1059,13 @@ msgid "Status"
 msgstr "Statut"
 
 #: lib/trays_web/live/invoice_live/show.html.heex:118
+#: lib/trays_web/live/invoice_live/show.html.heex:130
+#: lib/trays_web/live/invoice_live/form.html.heex:183
+#, elixir-autogen, elixir-format
 #, elixir-autogen, elixir-format
 msgid "Subtotal"
 msgstr "Sous-total"
 
-#: lib/trays_web/live/merchant_location_live/show.html.heex:214
-#, elixir-autogen, elixir-format
-msgid "Total"
-msgstr "Total"
-
-#: lib/trays_web/live/invoice_live/show.html.heex:130
-#, elixir-autogen, elixir-format
 msgid "Total Amount"
 msgstr "Montant total"
 

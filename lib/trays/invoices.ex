@@ -4,9 +4,10 @@ defmodule Trays.Invoices do
   """
 
   import Ecto.Query, warn: false
-  alias Trays.Repo
 
   alias Trays.Invoices.Invoice
+  alias Trays.Invoices.LineItem
+  alias Trays.Repo
 
   @doc """
   Returns the list of invoices for a specific merchant location.
@@ -71,5 +72,28 @@ defmodule Trays.Invoices do
   """
   def change_invoice(%Invoice{} = invoice, attrs \\ %{}) do
     Invoice.changeset(invoice, attrs)
+  end
+
+  @doc """
+  Creates a line item for an invoice.
+  """
+  def create_line_item(attrs \\ %{}) do
+    %LineItem{}
+    |> LineItem.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Deletes a line item.
+  """
+  def delete_line_item(%LineItem{} = line_item) do
+    Repo.delete(line_item)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking line item changes.
+  """
+  def change_line_item(%LineItem{} = line_item, attrs \\ %{}) do
+    LineItem.changeset(line_item, attrs)
   end
 end

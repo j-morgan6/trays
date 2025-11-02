@@ -4,6 +4,7 @@ defmodule TraysWeb.InvoiceLive.FormTest do
   import Phoenix.LiveViewTest
   import Trays.InvoicesFixtures
   import Trays.MerchantLocationsFixtures
+  import Ecto.Query
 
   @create_attrs %{
     name: "John Doe",
@@ -130,6 +131,34 @@ defmodule TraysWeb.InvoiceLive.FormTest do
 
       assert html =~ "must be greater than or equal to"
     end
+
+    test "displays line items section", %{conn: conn, merchant_location: location} do
+      {:ok, _form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      assert html =~ "Line Items"
+      assert html =~ "Description"
+      assert html =~ "Quantity"
+      assert html =~ "Amount ($)"
+      assert html =~ "Save the invoice first to add line items"
+    end
+
+    test "displays subtotal field", %{conn: conn, merchant_location: location} do
+      {:ok, _form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      assert html =~ "Subtotal"
+      assert html =~ "$0.00"
+    end
+
+    test "line item form is disabled for new invoice", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      assert form_live
+             |> element("button", "Add")
+             |> render() =~ "disabled"
+    end
   end
 
   describe "Edit invoice form" do
@@ -177,6 +206,149 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       assert form_live
              |> form("#invoice-form", invoice: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
+    end
+
+    test "displays subtotal with zero when no line items", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, _form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      assert html =~ "Subtotal"
+      assert html =~ "$0.00"
+    end
+  end
+
+  describe "Line Items" do
+    setup [:create_invoice]
+
+    test "adds line item successfully", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      html = render_hook(form_live, "add_line_item", %{"line_item" => %{
+        "description" => "Test Item",
+        "quantity" => "2",
+        "amount" => "50.00"
+      }})
+
+      assert html =~ "Line item added successfully"
+      assert has_element?(form_live, "td", "Test Item")
+    end
+
+    test "calculates subtotal for single line item", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      Trays.Invoices.create_line_item(%{
+        invoice_id: invoice.id,
+        description: "Test Item",
+        quantity: 2,
+        amount: Money.new(50_00)
+      })
+
+      {:ok, _form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      assert html =~ "Test Item"
+      assert html =~ "100.00"
+    end
+
+    test "deletes line item successfully", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      render_hook(form_live, "add_line_item", %{"line_item" => %{
+        "description" => "Test Item",
+        "quantity" => "2",
+        "amount" => "50.00"
+      }})
+
+      line_item = Trays.Repo.one!(Trays.Invoices.LineItem)
+
+      assert form_live
+             |> element("button[phx-click='delete_line_item'][phx-value-id='#{line_item.id}']", "")
+             |> render_click() =~ "Line item deleted successfully"
+
+      refute has_element?(form_live, "td", "Test Item")
+    end
+
+    test "displays line items in table", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      Trays.Invoices.create_line_item(%{
+        invoice_id: invoice.id,
+        description: "Widget",
+        quantity: 5,
+        amount: Money.new(10_00)
+      })
+
+      {:ok, _form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      assert html =~ "Widget"
+      assert html =~ "5"
+      assert html =~ "10.00"
+      assert html =~ "50.00"
+    end
+
+    test "shows empty state when no line items", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, _form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      assert html =~ "No line items yet"
+    end
+
+    test "updates subtotal after deleting line item", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      render_hook(form_live, :add_line_item, %{"line_item" => %{
+        "description" => "Item 1",
+        "quantity" => "2",
+        "amount" => "50.00"
+      }})
+
+      render_hook(form_live, :add_line_item, %{"line_item" => %{
+        "description" => "Item 2",
+        "quantity" => "1",
+        "amount" => "25.00"
+      }})
+
+      html = render(form_live)
+      assert html =~ "125.00"
+
+      line_item =
+        from(l in Trays.Invoices.LineItem, where: l.description == "Item 1")
+        |> Trays.Repo.one!()
+
+      html =
+        form_live
+        |> element("button[phx-click='delete_line_item'][phx-value-id='#{line_item.id}']", "")
+        |> render_click()
+
+      assert html =~ "25.00"
     end
   end
 
