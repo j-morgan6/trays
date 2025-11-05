@@ -165,10 +165,10 @@
                       <td class="px-4 py-3 text-base-content">{line_item.description}</td>
                       <td class="px-4 py-3 text-right text-base-content">{line_item.quantity}</td>
                       <td class="px-4 py-3 text-right text-base-content">
-                        {Money.to_string(line_item.amount, symbol: false)}
+                        ${Money.to_string(line_item.amount, symbol: false)}
                       </td>
                       <td class="px-4 py-3 text-right font-medium text-base-content">
-                        {Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
+                        ${Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
                           symbol: false
                         )}
                       </td>
@@ -190,10 +190,10 @@
                       <td class="px-4 py-3 text-base-content">{line_item.description}</td>
                       <td class="px-4 py-3 text-right text-base-content">{line_item.quantity}</td>
                       <td class="px-4 py-3 text-right text-base-content">
-                        {Money.to_string(line_item.amount, symbol: false)}
+                        ${Money.to_string(line_item.amount, symbol: false)}
                       </td>
                       <td class="px-4 py-3 text-right font-medium text-base-content">
-                        {Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
+                        ${Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
                           symbol: false
                         )}
                       </td>
