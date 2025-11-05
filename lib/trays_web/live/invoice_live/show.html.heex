@@ -139,10 +139,10 @@
                   <td class="px-4 py-3 text-base-content">{line_item.description}</td>
                   <td class="px-4 py-3 text-right text-base-content">{line_item.quantity}</td>
                   <td class="px-4 py-3 text-right text-base-content">
-                    {Money.to_string(line_item.amount)}
+                    ${Money.to_string(line_item.amount, symbol: false)}
                   </td>
                   <td class="px-4 py-3 text-right font-medium text-base-content">
-                    {Money.to_string(Money.multiply(line_item.amount, line_item.quantity))}
+                    ${Money.to_string(Money.multiply(line_item.amount, line_item.quantity), symbol: false)}
                   </td>
                 </tr>
                 <tr :if={@invoice.line_items == []} class="border-b border-base-content/5">
@@ -165,19 +165,19 @@
             <div class="flex justify-between items-center py-3 border-b border-base-content/10">
               <span class="text-base-content/70">{gettext("Subtotal")}:</span>
               <span class="text-lg font-medium text-base-content">
-                {Money.subtract(@invoice.total_amount, @invoice.gst_hst) |> Money.to_string()}
+                ${Money.subtract(@invoice.total_amount, @invoice.gst_hst) |> Money.to_string(symbol: false)}
               </span>
             </div>
             <div class="flex justify-between items-center py-3 border-b border-base-content/10">
               <span class="text-base-content/70">{gettext("GST/HST")}:</span>
               <span class="text-lg font-medium text-base-content">
-                {Money.to_string(@invoice.gst_hst)}
+                ${Money.to_string(@invoice.gst_hst, symbol: false)}
               </span>
             </div>
             <div class="flex justify-between items-center py-4 bg-[#85b4cf]/5 -mx-8 px-8">
               <span class="text-xl font-bold text-base-content">{gettext("Total Amount")}:</span>
               <span class="text-2xl font-bold text-[#85b4cf]">
-                {Money.to_string(@invoice.total_amount)}
+                ${Money.to_string(@invoice.total_amount, symbol: false)}
               </span>
             </div>
           </div>
