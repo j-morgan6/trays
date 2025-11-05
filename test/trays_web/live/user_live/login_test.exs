@@ -51,7 +51,7 @@ defmodule TraysWeb.UserLive.LoginTest do
 
       form =
         form(lv, "#login_form_password",
-          user: %{email: user.email, password: valid_user_password(), remember_me: true}
+          user: %{email: user.email, password: valid_user_password()}
         )
 
       conn = submit_form(form, conn)
@@ -67,7 +67,7 @@ defmodule TraysWeb.UserLive.LoginTest do
       form =
         form(lv, "#login_form_password", user: %{email: "test@email.com", password: "123456"})
 
-      render_submit(form, %{user: %{remember_me: true}})
+      render_submit(form)
 
       conn = follow_trigger_action(form, conn)
       assert Phoenix.Flash.get(conn.assigns.flash, :error) == "Invalid email or password"

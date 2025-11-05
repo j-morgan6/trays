@@ -35,12 +35,10 @@ defmodule TraysWeb.UserSessionControllerTest do
         post(conn, ~p"/users/log-in", %{
           "user" => %{
             "email" => user.email,
-            "password" => valid_user_password(),
-            "remember_me" => "true"
+            "password" => valid_user_password()
           }
         })
 
-      assert conn.resp_cookies["_trays_web_user_remember_me"]
       assert redirected_to(conn) == ~p"/"
     end
 

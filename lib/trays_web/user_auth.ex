@@ -7,23 +7,11 @@ defmodule TraysWeb.UserAuth do
   alias Trays.Accounts
   alias Trays.Accounts.Scope
 
-  # Make the remember me cookie valid for 14 days. This should match
-  # the session validity setting in UserToken.
-  @max_cookie_age_in_days 14
-  @remember_me_cookie "_trays_web_user_remember_me"
-  @remember_me_options [
-    sign: true,
-    max_age: @max_cookie_age_in_days * 24 * 60 * 60,
-    same_site: "Lax"
-  ]
-
   # How old the session token should be before a new one is issued. When a request is made
-  # with a session token older than this value, then a new session token will be created
-  # and the session and remember-me cookies (if set) will be updated with the new token.
+  # with a session token older than this value, then a new session token will be created.
   # Lowering this value will result in more tokens being created by active users. Increasing
   # it will result in less time before a session token expires for a user to get issued a new
-  # token. This can be set to a value greater than `@max_cookie_age_in_days` to disable
-  # the reissuing of tokens completely.
+  # token.
   @session_reissue_age_in_days 7
 
   @doc """
@@ -56,12 +44,11 @@ defmodule TraysWeb.UserAuth do
 
     conn
     |> renew_session(nil)
-    |> delete_resp_cookie(@remember_me_cookie)
     |> redirect(to: ~p"/")
   end
 
   @doc """
-  Authenticates the user by looking into the session and remember me token.
+  Authenticates the user by looking into the session.
 
   Will reissue the session token if it is older than the configured age.
   """
@@ -80,13 +67,7 @@ defmodule TraysWeb.UserAuth do
     if token = get_session(conn, :user_token) do
       {token, conn}
     else
-      conn = fetch_cookies(conn, signed: [@remember_me_cookie])
-
-      if token = conn.cookies[@remember_me_cookie] do
-        {token, conn |> put_token_in_session(token) |> put_session(:user_remember_me, true)}
-      else
-        nil
-      end
+      nil
     end
   end
 
@@ -102,21 +83,19 @@ defmodule TraysWeb.UserAuth do
   end
 
   # This function is the one responsible for creating session tokens
-  # and storing them safely in the session and cookies. It may be called
+  # and storing them safely in the session. It may be called
   # either when logging in, during sudo mode, or to renew a session which
   # will soon expire.
   #
   # When the session is created, rather than extended, the renew_session
   # function will clear the session to avoid fixation attacks. See the
   # renew_session function to customize this behaviour.
-  defp create_or_extend_session(conn, user, params) do
+  defp create_or_extend_session(conn, user, _params) do
     token = Accounts.generate_user_session_token(user)
-    remember_me = get_session(conn, :user_remember_me)
 
     conn
     |> renew_session(user)
     |> put_token_in_session(token)
-    |> maybe_write_remember_me_cookie(token, params, remember_me)
   end
 
   # Do not renew session if the user is already logged in
@@ -147,20 +126,6 @@ defmodule TraysWeb.UserAuth do
     conn
     |> configure_session(renew: true)
     |> clear_session()
-  end
-
-  defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}, _),
-    do: write_remember_me_cookie(conn, token)
-
-  defp maybe_write_remember_me_cookie(conn, token, _params, true),
-    do: write_remember_me_cookie(conn, token)
-
-  defp maybe_write_remember_me_cookie(conn, _token, _params, _), do: conn
-
-  defp write_remember_me_cookie(conn, token) do
-    conn
-    |> put_session(:user_remember_me, true)
-    |> put_resp_cookie(@remember_me_cookie, token, @remember_me_options)
   end
 
   defp put_token_in_session(conn, token) do
