@@ -142,7 +142,9 @@
                     ${Money.to_string(line_item.amount, symbol: false)}
                   </td>
                   <td class="px-4 py-3 text-right font-medium text-base-content">
-                    ${Money.to_string(Money.multiply(line_item.amount, line_item.quantity), symbol: false)}
+                    ${Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
+                      symbol: false
+                    )}
                   </td>
                 </tr>
                 <tr :if={@invoice.line_items == []} class="border-b border-base-content/5">
@@ -165,7 +167,8 @@
             <div class="flex justify-between items-center py-3 border-b border-base-content/10">
               <span class="text-base-content/70">{gettext("Subtotal")}:</span>
               <span class="text-lg font-medium text-base-content">
-                ${Money.subtract(@invoice.total_amount, @invoice.gst_hst) |> Money.to_string(symbol: false)}
+                ${Money.subtract(@invoice.total_amount, @invoice.gst_hst)
+                |> Money.to_string(symbol: false)}
               </span>
             </div>
             <div class="flex justify-between items-center py-3 border-b border-base-content/10">
