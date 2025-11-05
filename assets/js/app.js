@@ -25,9 +25,11 @@ import {LiveSocket} from "phoenix_live_view"
 import {hooks as colocatedHooks} from "phoenix-colocated/trays"
 import topbar from "../vendor/topbar"
 import AutoDismissFlash from "./hooks/auto-dismiss-flash"
+import LineItemForm from "./hooks/line-item-form"
 
 const MyHooks = {
   AutoDismissFlash,
+  LineItemForm,
 }
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")

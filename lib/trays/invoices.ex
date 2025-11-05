@@ -43,6 +43,30 @@ defmodule Trays.Invoices do
   end
 
   @doc """
+  Creates an invoice with associated line items in a single transaction.
+  """
+  def create_invoice_with_line_items(invoice_attrs, line_items_attrs) do
+    Repo.transaction(fn ->
+      case create_invoice(invoice_attrs) do
+        {:ok, invoice} ->
+          Enum.each(line_items_attrs, fn line_item_attrs ->
+            line_item_attrs_with_invoice = Map.put(line_item_attrs, :invoice_id, invoice.id)
+
+            case create_line_item(line_item_attrs_with_invoice) do
+              {:ok, _line_item} -> :ok
+              {:error, changeset} -> Repo.rollback(changeset)
+            end
+          end)
+
+          invoice
+
+        {:error, changeset} ->
+          Repo.rollback(changeset)
+      end
+    end)
+  end
+
+  @doc """
   Creates an invoice.
   """
   def create_invoice(attrs \\ %{}) do
@@ -95,5 +119,12 @@ defmodule Trays.Invoices do
   """
   def change_line_item(%LineItem{} = line_item, attrs \\ %{}) do
     LineItem.changeset(line_item, attrs)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking temporary line item changes.
+  """
+  def change_temp_line_item(%LineItem{} = line_item, attrs \\ %{}) do
+    LineItem.temp_changeset(line_item, attrs)
   end
 end

@@ -22,6 +22,17 @@ defmodule Trays.Invoices.LineItem do
     |> foreign_key_constraint(:invoice_id)
   end
 
+  @doc """
+  Changeset for temporary line items that don't have an invoice_id yet.
+  """
+  def temp_changeset(line_item, attrs) do
+    line_item
+    |> cast(attrs, [:description, :quantity, :amount])
+    |> validate_required([:description, :quantity, :amount])
+    |> validate_number(:quantity, greater_than: 0)
+    |> validate_money(:amount, greater_than: Money.new(0))
+  end
+
   defp validate_money(changeset, field, opts) do
     value = get_field(changeset, field)
 

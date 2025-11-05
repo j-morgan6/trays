@@ -42,6 +42,8 @@ defmodule Trays.Invoices.Invoice do
       :address,
       :phone_number,
       :number,
+      :gst_hst,
+      :total_amount,
       :terms,
       :delivery_date,
       :merchant_location_id

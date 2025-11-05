@@ -344,4 +344,139 @@ defmodule Trays.Invoices.LineItemTest do
       assert changeset.valid? || !changeset.valid?
     end
   end
+
+  describe "temp_changeset/2" do
+    test "valid changeset with all required fields" do
+      attrs = %{
+        description: "Product A",
+        quantity: 5,
+        amount: Money.new(10_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      assert changeset.valid?
+    end
+
+    test "invalid changeset when description is missing" do
+      attrs = %{
+        quantity: 5,
+        amount: Money.new(10_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      assert "can't be blank" in errors_on(changeset).description
+    end
+
+    test "invalid changeset when quantity is missing" do
+      attrs = %{
+        description: "Product A",
+        amount: Money.new(10_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      assert "can't be blank" in errors_on(changeset).quantity
+    end
+
+    test "invalid changeset when amount is missing" do
+      attrs = %{
+        description: "Product A",
+        quantity: 5
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      # When amount is missing, the default Money.new(0) is used, which fails validate_money
+      assert "must be greater than Can$0.00" in errors_on(changeset).amount
+    end
+
+    test "invalid changeset when all fields are missing" do
+      changeset = LineItem.temp_changeset(%LineItem{}, %{})
+      refute changeset.valid?
+
+      assert errors_on(changeset) == %{
+               description: ["can't be blank"],
+               quantity: ["can't be blank"],
+               # When amount is missing, the default Money.new(0) is used, which fails validate_money
+               amount: ["must be greater than Can$0.00"]
+             }
+    end
+
+    test "quantity must be greater than 0" do
+      attrs = %{
+        description: "Product A",
+        quantity: 0,
+        amount: Money.new(10_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      assert "must be greater than 0" in errors_on(changeset).quantity
+    end
+
+    test "quantity cannot be negative" do
+      attrs = %{
+        description: "Product A",
+        quantity: -5,
+        amount: Money.new(10_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      assert "must be greater than 0" in errors_on(changeset).quantity
+    end
+
+    test "amount must be greater than 0" do
+      attrs = %{
+        description: "Product A",
+        quantity: 5,
+        amount: Money.new(0)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      assert "must be greater than Can$0.00" in errors_on(changeset).amount
+    end
+
+    test "amount cannot be negative" do
+      attrs = %{
+        description: "Product A",
+        quantity: 5,
+        amount: Money.new(-100)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      refute changeset.valid?
+      assert "must be greater than Can$0.00" in errors_on(changeset).amount
+    end
+
+    test "does not require invoice_id" do
+      attrs = %{
+        description: "Product A",
+        quantity: 5,
+        amount: Money.new(10_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      assert changeset.valid?
+      # invoice_id should not be in the changeset
+      refute Map.has_key?(changeset.changes, :invoice_id)
+    end
+
+    test "accepts valid temp line item data" do
+      attrs = %{
+        description: "Premium Widget - Blue",
+        quantity: 10,
+        amount: Money.new(25_000)
+      }
+
+      changeset = LineItem.temp_changeset(%LineItem{}, attrs)
+      assert changeset.valid?
+
+      assert Ecto.Changeset.get_change(changeset, :description) == "Premium Widget - Blue"
+      assert Ecto.Changeset.get_change(changeset, :quantity) == 10
+      assert Ecto.Changeset.get_change(changeset, :amount) == Money.new(25_000)
+    end
+  end
 end

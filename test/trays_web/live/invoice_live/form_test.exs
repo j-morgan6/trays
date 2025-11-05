@@ -140,7 +140,7 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       assert html =~ "Description"
       assert html =~ "Quantity"
       assert html =~ "Amount ($)"
-      assert html =~ "Save the invoice first to add line items"
+      assert html =~ "Add line items below, then save the entire invoice"
     end
 
     test "displays subtotal field", %{conn: conn, merchant_location: location} do
@@ -151,13 +151,80 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       assert html =~ "$0.00"
     end
 
-    test "line item form is disabled for new invoice", %{conn: conn, merchant_location: location} do
+    test "line item form allows adding items for new invoice", %{
+      conn: conn,
+      merchant_location: location
+    } do
       {:ok, form_live, _html} =
         live(conn, ~p"/merchant_locations/#{location}/invoices/new")
 
-      assert form_live
-             |> element("button", "Add")
-             |> render() =~ "disabled"
+      button_html = form_live |> element("button", "Add") |> render()
+      refute button_html =~ "disabled"
+    end
+
+    test "adds temp line item successfully on new invoice", %{
+      conn: conn,
+      merchant_location: location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      html =
+        render_hook(form_live, "add_temp_line_item_from_inputs", %{
+          "description" => "Test Item",
+          "quantity" => "2",
+          "amount" => "50.00"
+        })
+
+      assert html =~ "Line item added successfully"
+      assert html =~ "Test Item"
+      assert html =~ "100.00"
+    end
+
+    test "creates invoice with temp line items", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      render_hook(form_live, "add_temp_line_item_from_inputs", %{
+        "description" => "Widget",
+        "quantity" => "3",
+        "amount" => "25.00"
+      })
+
+      assert {:ok, _show_live, html} =
+               form_live
+               |> form("#invoice-form", invoice: @create_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations/#{location}")
+
+      assert html =~ "Invoice created successfully"
+
+      invoice =
+        from(i in Trays.Invoices.Invoice, where: i.number == "INV-001", preload: :line_items)
+        |> Trays.Repo.one!()
+
+      assert length(invoice.line_items) == 1
+      assert hd(invoice.line_items).description == "Widget"
+    end
+
+    test "removes temp line item on new invoice", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      render_hook(form_live, "add_temp_line_item_from_inputs", %{
+        "description" => "Test Item",
+        "quantity" => "2",
+        "amount" => "50.00"
+      })
+
+      html =
+        form_live
+        |> element("button[phx-click='remove_temp_line_item'][phx-value-index='0']")
+        |> render_click()
+
+      assert html =~ "Line item removed successfully"
+      refute html =~ "Test Item"
+      assert html =~ "No line items yet"
     end
   end
 
@@ -232,11 +299,14 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       {:ok, form_live, _html} =
         live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
 
-      html = render_hook(form_live, "add_line_item", %{"line_item" => %{
-        "description" => "Test Item",
-        "quantity" => "2",
-        "amount" => "50.00"
-      }})
+      html =
+        render_hook(form_live, "add_line_item", %{
+          "line_item" => %{
+            "description" => "Test Item",
+            "quantity" => "2",
+            "amount" => "50.00"
+          }
+        })
 
       assert html =~ "Line item added successfully"
       assert has_element?(form_live, "td", "Test Item")
@@ -269,16 +339,21 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       {:ok, form_live, _html} =
         live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
 
-      render_hook(form_live, "add_line_item", %{"line_item" => %{
-        "description" => "Test Item",
-        "quantity" => "2",
-        "amount" => "50.00"
-      }})
+      render_hook(form_live, "add_line_item", %{
+        "line_item" => %{
+          "description" => "Test Item",
+          "quantity" => "2",
+          "amount" => "50.00"
+        }
+      })
 
       line_item = Trays.Repo.one!(Trays.Invoices.LineItem)
 
       assert form_live
-             |> element("button[phx-click='delete_line_item'][phx-value-id='#{line_item.id}']", "")
+             |> element(
+               "button[phx-click='delete_line_item'][phx-value-id='#{line_item.id}']",
+               ""
+             )
              |> render_click() =~ "Line item deleted successfully"
 
       refute has_element?(form_live, "td", "Test Item")
@@ -324,17 +399,21 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       {:ok, form_live, _html} =
         live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
 
-      render_hook(form_live, :add_line_item, %{"line_item" => %{
-        "description" => "Item 1",
-        "quantity" => "2",
-        "amount" => "50.00"
-      }})
+      render_hook(form_live, :add_line_item, %{
+        "line_item" => %{
+          "description" => "Item 1",
+          "quantity" => "2",
+          "amount" => "50.00"
+        }
+      })
 
-      render_hook(form_live, :add_line_item, %{"line_item" => %{
-        "description" => "Item 2",
-        "quantity" => "1",
-        "amount" => "25.00"
-      }})
+      render_hook(form_live, :add_line_item, %{
+        "line_item" => %{
+          "description" => "Item 2",
+          "quantity" => "1",
+          "amount" => "25.00"
+        }
+      })
 
       html = render(form_live)
       assert html =~ "125.00"

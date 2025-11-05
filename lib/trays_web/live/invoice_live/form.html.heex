@@ -32,29 +32,49 @@
           class="space-y-6"
         >
           <div class="grid grid-cols-2 gap-6">
-
             <.input field={@form[:name]} type="text" label={gettext("Customer Name")} required />
-            <.input field={@form[:number]} type="text" label={gettext("Invoice Number")} required />            
+            <.input field={@form[:number]} type="text" label={gettext("Invoice Number")} required />
             <.input field={@form[:email]} type="email" label={gettext("Email")} required />
-            <.input field={@form[:delivery_date]} type="date" label={gettext("Delivery Date")} required/>
-            <.input field={@form[:phone_number]} type="text" label={gettext("Phone Number")} required />
-            <.input field={@form[:terms]} type="select" label={gettext("Payment Terms")} options={[
+            <.input
+              field={@form[:delivery_date]}
+              type="date"
+              label={gettext("Delivery Date")}
+              required
+            />
+            <.input
+              field={@form[:phone_number]}
+              type="text"
+              label={gettext("Phone Number")}
+              required
+            />
+            <.input
+              field={@form[:terms]}
+              type="select"
+              label={gettext("Payment Terms")}
+              options={[
                 {gettext("Due on receipt"), :now},
                 {gettext("Net 15 Days"), :net15},
                 {gettext("Net 30 Days"), :net30}
               ]}
               required
             />
-            <.input field={@form[:address]} type="textarea" label={gettext("Customer Address")} required />
-              <.input field={@form[:status]} type="select" label={gettext("Status")}
-                options={[
-                  {gettext("Outstanding"), :outstanding},
-                  {gettext("Paid"), :paid}
-                ]}
-                required
-              />
+            <.input
+              field={@form[:address]}
+              type="textarea"
+              label={gettext("Customer Address")}
+              required
+            />
+            <.input
+              field={@form[:status]}
+              type="select"
+              label={gettext("Status")}
+              options={[
+                {gettext("Outstanding"), :outstanding},
+                {gettext("Paid"), :paid}
+              ]}
+              required
+            />
           </div>
-
 
           <div class="grid grid-cols-2 gap-6">
             <div class="col-span-2">
@@ -62,13 +82,7 @@
                 {gettext("Line Items")}
               </h4>
 
-              <.form
-                for={@line_item_form}
-                id="line-item-form"
-                phx-change="validate_line_item"
-                phx-submit="add_line_item"
-                class="mb-4"
-              >
+              <div class="mb-4">
                 <div class="grid grid-cols-12 gap-3">
                   <div class="col-span-5">
                     <.input
@@ -76,6 +90,7 @@
                       type="text"
                       label={gettext("Description")}
                       placeholder={gettext("Item description")}
+                      phx-debounce="300"
                       required
                     />
                   </div>
@@ -85,6 +100,7 @@
                       type="number"
                       label={gettext("Quantity")}
                       min="1"
+                      phx-debounce="300"
                       required
                     />
                   </div>
@@ -94,25 +110,30 @@
                       type="number"
                       label={gettext("Amount ($)")}
                       step="0.01"
+                      phx-debounce="300"
                       required
                     />
                   </div>
                   <div class="col-span-2 flex items-end">
                     <button
-                      type="submit"
-                      class="w-full px-4 py-2 text-sm font-medium text-white bg-[#85b4cf] rounded-lg hover:bg-[#6a94ab] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      disabled={@invoice.id == nil}
+                      type="button"
+                      phx-hook="LineItemForm"
+                      id="add-line-item-button"
+                      class="w-full px-4 py-2 text-sm font-medium text-white bg-[#85b4cf] rounded-lg hover:bg-[#6a94ab] transition-colors"
                     >
                       <.icon name="hero-plus" class="size-4 inline" />
                       {gettext("Add")}
                     </button>
                   </div>
                 </div>
-              </.form>
+              </div>
 
-              <div :if={@invoice.id == nil} class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+              <div
+                :if={length(@temp_line_items) == 0}
+                class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800"
+              >
                 <.icon name="hero-information-circle" class="size-5 inline" />
-                {gettext("Save the invoice first to add line items")}
+                {gettext("Add line items below, then save the entire invoice")}
               </div>
 
               <div class="overflow-x-auto">
@@ -138,6 +159,31 @@
                   </thead>
                   <tbody>
                     <tr
+                      :for={line_item <- @temp_line_items}
+                      class="border-b border-base-content/5 hover:bg-base-content/5 bg-yellow-50"
+                    >
+                      <td class="px-4 py-3 text-base-content">{line_item.description}</td>
+                      <td class="px-4 py-3 text-right text-base-content">{line_item.quantity}</td>
+                      <td class="px-4 py-3 text-right text-base-content">
+                        {Money.to_string(line_item.amount, symbol: false)}
+                      </td>
+                      <td class="px-4 py-3 text-right font-medium text-base-content">
+                        {Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
+                          symbol: false
+                        )}
+                      </td>
+                      <td class="px-4 py-3 text-center">
+                        <button
+                          type="button"
+                          phx-click="remove_temp_line_item"
+                          phx-value-index={Enum.find_index(@temp_line_items, &(&1 == line_item))}
+                          class="text-red-600 hover:text-red-800 transition-colors"
+                        >
+                          <.icon name="hero-trash" class="size-5" />
+                        </button>
+                      </td>
+                    </tr>
+                    <tr
                       :for={line_item <- @line_items}
                       class="border-b border-base-content/5 hover:bg-base-content/5"
                     >
@@ -147,7 +193,9 @@
                         {Money.to_string(line_item.amount, symbol: false)}
                       </td>
                       <td class="px-4 py-3 text-right font-medium text-base-content">
-                        {Money.to_string(Money.multiply(line_item.amount, line_item.quantity), symbol: false)}
+                        {Money.to_string(Money.multiply(line_item.amount, line_item.quantity),
+                          symbol: false
+                        )}
                       </td>
                       <td class="px-4 py-3 text-center">
                         <button
@@ -161,7 +209,10 @@
                         </button>
                       </td>
                     </tr>
-                    <tr :if={@line_items == []} class="border-b border-base-content/5">
+                    <tr
+                      :if={@line_items == [] and @temp_line_items == []}
+                      class="border-b border-base-content/5"
+                    >
                       <td colspan="5" class="px-4 py-8 text-center text-base-content/50">
                         {gettext("No line items yet")}
                       </td>
@@ -175,7 +226,9 @@
             <div class="space-y-6">
               <div class="fieldset mb-2">
                 <label>
-                  <span class="label mb-1 text-base-content font-medium">{gettext("Subtotal")}</span>
+                  <span class="label mb-1 text-base-content font-medium">
+                    {gettext("Subtotal")}
+                  </span>
                   <div class="w-full px-3 py-2 bg-base-content/5 border border-base-content/20 rounded-lg text-base-content font-semibold">
                     {Money.to_string(@subtotal, symbol: false)}
                   </div>
