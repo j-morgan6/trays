@@ -56,8 +56,8 @@ defmodule TraysWeb.InvoiceLive.ShowTest do
 
       assert html =~ "Total Amount"
       assert html =~ "GST/HST"
-      assert html =~ Money.to_string(invoice.total_amount)
-      assert html =~ Money.to_string(invoice.gst_hst)
+      assert html =~ "$#{Money.to_string(invoice.total_amount, symbol: false)}"
+      assert html =~ "$#{Money.to_string(invoice.gst_hst, symbol: false)}"
     end
 
     test "displays payment terms and delivery date", %{
