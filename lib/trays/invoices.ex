@@ -95,8 +95,27 @@ defmodule Trays.Invoices do
   Returns an `%Ecto.Changeset{}` for tracking invoice changes.
   """
   def change_invoice(%Invoice{} = invoice, attrs \\ %{}) do
+    # When attrs is empty (loading form), convert Money fields to strings for form inputs
+    attrs =
+      if attrs == %{} and invoice.id do
+        %{
+          "gst_hst" => money_to_decimal_string(invoice.gst_hst),
+          "total_amount" => money_to_decimal_string(invoice.total_amount)
+        }
+      else
+        attrs
+      end
+
     Invoice.changeset(invoice, attrs)
   end
+
+  defp money_to_decimal_string(%Money{} = money) do
+    money
+    |> Money.to_decimal()
+    |> Decimal.to_string(:normal)
+  end
+
+  defp money_to_decimal_string(_), do: nil
 
   @doc """
   Creates a line item for an invoice.
