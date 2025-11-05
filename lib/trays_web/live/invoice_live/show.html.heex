@@ -111,6 +111,54 @@
       <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
         <div class="p-8">
           <h3 class="text-lg font-semibold text-base-content mb-6">
+            {gettext("Line Items")}
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-base-content/5 border-b border-base-content/10">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold text-base-content">
+                    {gettext("Description")}
+                  </th>
+                  <th class="px-4 py-3 text-right font-semibold text-base-content">
+                    {gettext("Quantity")}
+                  </th>
+                  <th class="px-4 py-3 text-right font-semibold text-base-content">
+                    {gettext("Unit Price")}
+                  </th>
+                  <th class="px-4 py-3 text-right font-semibold text-base-content">
+                    {gettext("Total")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  :for={line_item <- @invoice.line_items}
+                  class="border-b border-base-content/5 hover:bg-base-content/5"
+                >
+                  <td class="px-4 py-3 text-base-content">{line_item.description}</td>
+                  <td class="px-4 py-3 text-right text-base-content">{line_item.quantity}</td>
+                  <td class="px-4 py-3 text-right text-base-content">
+                    {Money.to_string(line_item.amount)}
+                  </td>
+                  <td class="px-4 py-3 text-right font-medium text-base-content">
+                    {Money.to_string(Money.multiply(line_item.amount, line_item.quantity))}
+                  </td>
+                </tr>
+                <tr :if={@invoice.line_items == []} class="border-b border-base-content/5">
+                  <td colspan="4" class="px-4 py-8 text-center text-base-content/50">
+                    {gettext("No line items")}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-base-content/10 overflow-hidden">
+        <div class="p-8">
+          <h3 class="text-lg font-semibold text-base-content mb-6">
             {gettext("Amount Summary")}
           </h3>
           <div class="space-y-4">

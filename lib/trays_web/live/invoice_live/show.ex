@@ -14,7 +14,7 @@ defmodule TraysWeb.InvoiceLive.Show do
         socket.assigns.current_scope.user.id
       )
 
-    invoice = Invoices.get_invoice!(id, location_id)
+    invoice = Invoices.get_invoice_with_line_items!(id, location_id)
 
     {:ok,
      socket
