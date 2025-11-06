@@ -286,6 +286,153 @@ defmodule TraysWeb.InvoiceLive.FormTest do
       assert html =~ "Subtotal"
       assert html =~ "$0.00"
     end
+
+    test "adds temp line item successfully during edit", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      html =
+        render_hook(form_live, "add_temp_line_item_from_inputs", %{
+          "description" => "Temp Item",
+          "quantity" => "3",
+          "amount" => "75.00"
+        })
+
+      assert html =~ "Line item added successfully"
+      assert html =~ "Temp Item"
+      assert html =~ "225.00"
+    end
+
+    test "saves temp line items when updating invoice", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      render_hook(form_live, "add_temp_line_item_from_inputs", %{
+        "description" => "Widget",
+        "quantity" => "2",
+        "amount" => "50.00"
+      })
+
+      render_hook(form_live, "add_temp_line_item_from_inputs", %{
+        "description" => "Gadget",
+        "quantity" => "1",
+        "amount" => "100.00"
+      })
+
+      assert {:ok, _show_live, html} =
+               form_live
+               |> form("#invoice-form", invoice: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations/#{location}")
+
+      assert html =~ "Invoice updated successfully"
+
+      updated_invoice =
+        from(i in Trays.Invoices.Invoice, where: i.id == ^invoice.id, preload: :line_items)
+        |> Trays.Repo.one!()
+
+      assert length(updated_invoice.line_items) == 2
+      descriptions = Enum.map(updated_invoice.line_items, & &1.description)
+      assert "Widget" in descriptions
+      assert "Gadget" in descriptions
+    end
+
+    test "removes temp line item during edit", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      render_hook(form_live, "add_temp_line_item_from_inputs", %{
+        "description" => "Temp Item",
+        "quantity" => "2",
+        "amount" => "50.00"
+      })
+
+      html =
+        form_live
+        |> element("button[phx-click='remove_temp_line_item'][phx-value-index='0']")
+        |> render_click()
+
+      assert html =~ "Line item removed successfully"
+      refute html =~ "Temp Item"
+    end
+
+    test "calculates subtotal combining existing and temp line items", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      Trays.Invoices.create_line_item(%{
+        invoice_id: invoice.id,
+        description: "Existing Item",
+        quantity: 2,
+        amount: Money.new(50_00)
+      })
+
+      {:ok, form_live, html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      assert html =~ "100.00"
+
+      html =
+        render_hook(form_live, "add_temp_line_item_from_inputs", %{
+          "description" => "Temp Item",
+          "quantity" => "1",
+          "amount" => "25.00"
+        })
+
+      assert html =~ "125.00"
+    end
+
+    test "saves temp line items along with existing line items", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      Trays.Invoices.create_line_item(%{
+        invoice_id: invoice.id,
+        description: "Existing Item",
+        quantity: 1,
+        amount: Money.new(10_000)
+      })
+
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      render_hook(form_live, "add_temp_line_item_from_inputs", %{
+        "description" => "New Item",
+        "quantity" => "2",
+        "amount" => "75.00"
+      })
+
+      assert {:ok, _show_live, html} =
+               form_live
+               |> form("#invoice-form", invoice: @update_attrs)
+               |> render_submit()
+               |> follow_redirect(conn, ~p"/merchant_locations/#{location}")
+
+      assert html =~ "Invoice updated successfully"
+
+      updated_invoice =
+        from(i in Trays.Invoices.Invoice, where: i.id == ^invoice.id, preload: :line_items)
+        |> Trays.Repo.one!()
+
+      assert length(updated_invoice.line_items) == 2
+      descriptions = Enum.map(updated_invoice.line_items, & &1.description)
+      assert "Existing Item" in descriptions
+      assert "New Item" in descriptions
+    end
   end
 
   describe "Line Items" do

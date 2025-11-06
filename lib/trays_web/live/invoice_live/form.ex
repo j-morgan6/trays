@@ -210,17 +210,42 @@ defmodule TraysWeb.InvoiceLive.Form do
   end
 
   defp save_invoice(socket, :edit, invoice_params) do
-    # For edit, we'll keep the existing logic since temp line items are only for new invoices
     case Invoices.update_invoice(socket.assigns.invoice, invoice_params) do
-      {:ok, _invoice} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, gettext("Invoice updated successfully"))
-         |> push_navigate(to: ~p"/merchant_locations/#{socket.assigns.merchant_location}")}
+      {:ok, invoice} ->
+        # Save any temp line items that were added during edit
+        case save_temp_line_items(socket.assigns.temp_line_items, invoice.id) do
+          :ok ->
+            {:noreply,
+             socket
+             |> put_flash(:info, gettext("Invoice updated successfully"))
+             |> push_navigate(to: ~p"/merchant_locations/#{socket.assigns.merchant_location}")}
+
+          {:error, changeset} ->
+            {:noreply, assign(socket, form: to_form(changeset))}
+        end
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
+  end
+
+  defp save_temp_line_items([], _invoice_id), do: :ok
+
+  defp save_temp_line_items(temp_line_items, invoice_id) do
+    temp_line_items
+    |> Enum.reduce_while(:ok, fn temp_item, _acc ->
+      line_item_attrs = %{
+        invoice_id: invoice_id,
+        description: temp_item.description,
+        quantity: temp_item.quantity,
+        amount: temp_item.amount
+      }
+
+      case Invoices.create_line_item(line_item_attrs) do
+        {:ok, _line_item} -> {:cont, :ok}
+        {:error, changeset} -> {:halt, {:error, changeset}}
+      end
+    end)
   end
 
   defp extract_form_params(form) do
