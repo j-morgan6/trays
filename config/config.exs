@@ -35,6 +35,9 @@ config :trays, TraysWeb.Endpoint,
   pubsub_server: Trays.PubSub,
   live_view: [signing_salt: "SRDbedHK"]
 
+# Configures Swoosh API Client
+config :swoosh, :api_client, Swoosh.ApiClient.Finch
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -42,7 +45,9 @@ config :trays, TraysWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :trays, Trays.Mailer, adapter: Swoosh.Adapters.Local
+config :trays, Trays.Mailer,
+  adapter: Trays.Adapters.Resend,
+  api_key: System.get_env("RESEND_API_KEY")
 
 # Configure esbuild (the version is required)
 config :esbuild,

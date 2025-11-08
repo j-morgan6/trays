@@ -871,5 +871,4 @@ defmodule TraysWeb.MerchantLive.FormTest do
       refute_redirected(view)
     end
   end
-
 end

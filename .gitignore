@@ -39,3 +39,8 @@ npm-debug.log
 .expert
 .mcp.json
 .aim/
+
+# Environment variables
+.env
+.env.*
+!.env.example

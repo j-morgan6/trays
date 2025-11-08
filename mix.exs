@@ -76,7 +76,9 @@ defmodule Trays.MixProject do
       {:phoenix_pubsub, "~> 2.1"},
       {:fun_with_flags, "~> 1.13.0"},
       {:fun_with_flags_ui, "~> 1.1"},
-      {:money, "~> 1.14"}
+      {:money, "~> 1.14"},
+      {:finch, "~> 0.16"},
+      {:dotenvy, "~> 0.8", only: [:dev, :test]}
     ]
   end
 

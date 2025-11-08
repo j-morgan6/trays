@@ -12,6 +12,7 @@ defmodule Trays.Application do
       Trays.Repo,
       {DNSCluster, query: Application.get_env(:trays, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Trays.PubSub},
+      {Finch, name: Trays.Finch},
       # Start a worker by calling: Trays.Worker.start_link(arg)
       # {Trays.Worker, arg},
       # Start to serve requests, typically the last entry
