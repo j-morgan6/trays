@@ -1,4 +1,4 @@
-defmodule SpikeEmail.Adapters.Resend do
+defmodule Trays.Adapters.Resend do
   @moduledoc """
   Custom Swoosh adapter for Resend.
   """
@@ -22,7 +22,7 @@ defmodule SpikeEmail.Adapters.Resend do
     headers = prepare_headers(api_key)
 
     case Finch.build(:post, "#{@base_url}/emails", headers, body)
-         |> Finch.request(SpikeEmail.Finch) do
+         |> Finch.request(Trays.Finch) do
       {:ok, %{status: status, body: response_body}} when status in 200..299 ->
         {:ok, %{id: Jason.decode!(response_body)["id"]}}
 
