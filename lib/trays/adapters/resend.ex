@@ -34,7 +34,9 @@ defmodule Trays.Adapters.Resend do
     end
   end
 
-  defp prepare_body(email) do
+  # Made public for testing
+  @doc false
+  def prepare_body(email) do
     %{
       from: prepare_recipient(email.from),
       to: Enum.map(email.to, &prepare_recipient/1),
@@ -45,15 +47,17 @@ defmodule Trays.Adapters.Resend do
     |> put_reply_to(email)
   end
 
-  defp prepare_recipient({nil, email}), do: email
-  defp prepare_recipient({"", email}), do: email
+  @doc false
+  def prepare_recipient({nil, email}), do: email
+  def prepare_recipient({"", email}), do: email
 
-  defp prepare_recipient({name, email}) when is_binary(name) and name != "",
+  def prepare_recipient({name, email}) when is_binary(name) and name != "",
     do: "#{name} <#{email}>"
 
-  defp prepare_recipient(email) when is_binary(email), do: email
+  def prepare_recipient(email) when is_binary(email), do: email
 
-  defp prepare_headers(api_key) do
+  @doc false
+  def prepare_headers(api_key) do
     [
       {"Authorization", "Bearer #{api_key}"},
       {"Content-Type", "application/json"},
