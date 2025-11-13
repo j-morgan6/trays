@@ -55,23 +55,23 @@ defmodule Trays.EmailsTest do
 
   describe "email best practices" do
     test "all email functions should return Email struct" do
-      # Get all exported functions from the module
-      functions = Emails.__info__(:functions)
+      # Test foo_email
+      email = Emails.foo_email()
+      assert %Email{} = email, "foo_email/0 should return a Swoosh.Email struct"
 
-      # Filter for email-building functions (exclude module_info, etc)
-      email_functions =
-        functions
-        |> Enum.filter(fn {name, _arity} ->
-          name |> Atom.to_string() |> String.ends_with?("_email")
-        end)
+      # Test invoice_email with valid data
+      email =
+        Emails.invoice_email(
+          "test@example.com",
+          "Test Client",
+          "INV-001",
+          "Dec 31, 2025",
+          [%{description: "Test", amount: "$100"}],
+          "$100",
+          "https://example.com"
+        )
 
-      # Test that each returns an Email struct
-      for {function_name, arity} <- email_functions do
-        email = apply(Emails, function_name, List.duplicate(nil, arity))
-
-        assert %Email{} = email,
-               "#{function_name}/#{arity} should return a Swoosh.Email struct"
-      end
+      assert %Email{} = email, "invoice_email/7 should return a Swoosh.Email struct"
     end
 
     test "emails have required fields" do

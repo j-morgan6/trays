@@ -34,7 +34,6 @@ defmodule Trays.Adapters.Resend do
     end
   end
 
-  # Made public for testing
   @doc false
   def prepare_body(email) do
     %{
