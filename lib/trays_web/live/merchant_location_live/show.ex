@@ -36,4 +36,18 @@ defmodule TraysWeb.MerchantLocationLive.Show do
      |> put_flash(:info, gettext("Bank account deleted successfully"))
      |> assign(:location, location)}
   end
+
+  @impl true
+  def handle_event("send_invoice_email", %{"invoice_id" => invoice_id}, socket) do
+    invoice =
+      Invoices.get_invoice_with_line_items!(
+        invoice_id,
+        socket.assigns.location.id
+      )
+
+    # TODO: Send the email
+    {:noreply,
+     socket
+     |> put_flash(:info, "Preparing to send invoice #{invoice.number} to #{invoice.email}")}
+  end
 end

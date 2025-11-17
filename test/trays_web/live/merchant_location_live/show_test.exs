@@ -278,5 +278,42 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
 
       assert html =~ "New Invoice"
     end
+
+    test "shows send invoice button for each invoice", %{conn: conn, user: user} do
+      merchant_location = merchant_location_fixture(%{user: user})
+
+      _invoice =
+        Trays.InvoicesFixtures.invoice_fixture(%{
+          merchant_location: merchant_location,
+          number: "INV-001"
+        })
+
+      {:ok, _show_live, html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      assert html =~ "Send Invoice"
+    end
+
+    test "clicking send invoice button shows flash message with invoice details", %{
+      conn: conn,
+      user: user
+    } do
+      merchant_location = merchant_location_fixture(%{user: user})
+
+      _invoice =
+        Trays.InvoicesFixtures.invoice_fixture(%{
+          merchant_location: merchant_location,
+          number: "INV-001",
+          email: "client@example.com"
+        })
+
+      {:ok, show_live, _html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
+
+      html =
+        show_live
+        |> element("button", "Send Invoice")
+        |> render_click()
+
+      assert html =~ "Preparing to send invoice INV-001 to client@example.com"
+    end
   end
 end
