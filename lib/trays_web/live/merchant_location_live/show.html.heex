@@ -254,10 +254,17 @@
                   <div class="flex items-center justify-end gap-2" phx-click="stop_propagation">
                     <.link
                       navigate={~p"/merchant_locations/#{@location}/invoices/#{invoice}/edit"}
-                      class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#85b4cf] hover:text-white hover:bg-[#85b4cf] border border-[#85b4cf] rounded-lg transition-all duration-200"
+                      class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#e88e19] hover:text-white hover:bg-[#e88e19] border border-[#e88e19] rounded-lg transition-all duration-200"
                     >
                       <.icon name="hero-pencil-square" class="size-3.5" /> {gettext("Edit")}
                     </.link>
+                    <button
+                      phx-click="send_invoice_email"
+                      phx-value-invoice_id={invoice.id}
+                      class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#85b4cf] hover:text-white hover:bg-[#85b4cf] border border-[#85b4cf] rounded-lg transition-all duration-200"
+                    >
+                      <.icon name="hero-envelope" class="size-3.5" /> {gettext("Send Invoice")}
+                    </button>
                   </div>
                 </td>
               </tr>
