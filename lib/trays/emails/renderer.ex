@@ -11,7 +11,7 @@ defmodule Trays.Emails.Renderer do
 
   # Compile templates at build time for performance
   EEx.function_from_file(:defp, :render_layout, Path.join(@layouts_dir, "email.html.heex"), [
-    :_assigns
+    :assigns
   ])
 
   EEx.function_from_file(
