@@ -293,17 +293,26 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
       assert html =~ "Send Invoice"
     end
 
-    test "clicking send invoice button shows flash message with invoice details", %{
+    test "clicking send invoice button sends email and shows success message", %{
       conn: conn,
       user: user
     } do
       merchant_location = merchant_location_fixture(%{user: user})
 
-      _invoice =
+      invoice =
         Trays.InvoicesFixtures.invoice_fixture(%{
           merchant_location: merchant_location,
           number: "INV-001",
           email: "client@example.com"
+        })
+
+      # Create at least one line item for the invoice
+      {:ok, _line_item} =
+        Trays.Invoices.create_line_item(%{
+          invoice_id: invoice.id,
+          description: "Test Service",
+          quantity: 1,
+          amount: Money.new(10_000)
         })
 
       {:ok, show_live, _html} = live(conn, ~p"/merchant_locations/#{merchant_location}")
@@ -313,7 +322,7 @@ defmodule TraysWeb.MerchantLocationLive.ShowTest do
         |> element("button", "Send Invoice")
         |> render_click()
 
-      assert html =~ "Preparing to send invoice INV-001 to client@example.com"
+      assert html =~ "Invoice INV-001 sent to client@example.com"
     end
   end
 end
