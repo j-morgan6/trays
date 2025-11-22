@@ -29,7 +29,7 @@ Accounts.register_user(%{
   name: "Debbie Dore",
   email: "debbie@trays.ca",
   phone_number: "123-456-7890",
-  password: "w",
+  password: "Debbie@123Pain",
   type: :merchant
 })
 
