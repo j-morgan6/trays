@@ -38,10 +38,8 @@ defmodule Trays.Application do
 
   # Load environment variables from .env file
   defp load_env_file do
-    # Use Application.get_env/3 instead of Mix.env() for runtime compatibility
-    env = Application.get_env(:trays, :environment, :prod)
-
-    if env in [:dev, :test] and File.exists?(".env") do
+    # Check if running in dev or test mode
+    if Code.ensure_loaded?(Mix) and Mix.env() in [:dev, :test] and File.exists?(".env") do
       Dotenvy.source([".env"])
     end
   end
