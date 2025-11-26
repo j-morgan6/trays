@@ -45,6 +45,11 @@
               <span class="text-sm text-base-content/70 font-medium">
                 {@current_scope.user.email}
               </span>
+              <%= if @current_scope.user.type != :customer do %>
+                <Layouts.nav_link href={TraysWeb.UserAuth.signed_in_path(@current_scope.user, false)}>
+                  {gettext("My Home")}
+                </Layouts.nav_link>
+              <% end %>
               <Layouts.nav_link href={~p"/users/settings"}>
                 {gettext("Settings")}
               </Layouts.nav_link>
