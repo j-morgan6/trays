@@ -2,7 +2,6 @@ defmodule TraysWeb.MerchantLive.Form do
   use TraysWeb, :live_view
 
   alias Trays.Merchants
-  alias Trays.Merchants.Merchant
 
   on_mount {TraysWeb.Hooks.Authorize, {:manage, :merchant}}
 
@@ -28,17 +27,6 @@ defmodule TraysWeb.MerchantLive.Form do
     |> assign(:merchant, merchant)
     |> assign(:name_length, String.length(merchant.name || ""))
     |> assign(:description_length, String.length(merchant.description || ""))
-    |> assign(:form, to_form(Merchants.change_merchant(merchant)))
-  end
-
-  defp apply_action(socket, :new, _params) do
-    merchant = %Merchant{}
-
-    socket
-    |> assign(:page_title, gettext("New Business"))
-    |> assign(:merchant, merchant)
-    |> assign(:name_length, 0)
-    |> assign(:description_length, 0)
     |> assign(:form, to_form(Merchants.change_merchant(merchant)))
   end
 
@@ -70,21 +58,6 @@ defmodule TraysWeb.MerchantLive.Form do
          socket
          |> put_flash(:info, gettext("Business updated successfully"))
          |> push_navigate(to: ~p"/merchants/#{merchant}")}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, form: to_form(changeset))}
-    end
-  end
-
-  defp save_merchant(socket, :new, merchant_params) do
-    merchant_params = Map.put(merchant_params, "user_id", socket.assigns.current_scope.user.id)
-
-    case Merchants.create_merchant(merchant_params) do
-      {:ok, _merchant} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, gettext("Business created successfully"))
-         |> push_navigate(to: ~p"/merchants")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}

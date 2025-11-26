@@ -578,6 +578,142 @@ defmodule TraysWeb.InvoiceLive.FormTest do
     end
   end
 
+  describe "validate_line_item event" do
+    test "validates line item on change", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      html =
+        render_hook(form_live, "validate_line_item", %{
+          "line_item" => %{
+            "description" => "",
+            "quantity" => "",
+            "amount" => ""
+          }
+        })
+
+      assert html =~ "can&#39;t be blank"
+    end
+
+    test "validates line item with valid data", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      html =
+        render_hook(form_live, "validate_line_item", %{
+          "line_item" => %{
+            "description" => "Test Item",
+            "quantity" => "2",
+            "amount" => "50.00"
+          }
+        })
+
+      refute html =~ "can&#39;t be blank"
+    end
+  end
+
+  describe "add_temp_line_item event" do
+    test "adds temp line item via form submission", %{conn: conn, merchant_location: location} do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      html =
+        render_hook(form_live, "add_temp_line_item", %{
+          "line_item" => %{
+            "description" => "Form Item",
+            "quantity" => "3",
+            "amount" => "40.00"
+          }
+        })
+
+      assert html =~ "Line item added successfully"
+      assert html =~ "Form Item"
+      assert html =~ "120.00"
+    end
+
+    test "shows error for invalid temp line item via form", %{
+      conn: conn,
+      merchant_location: location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      html =
+        render_hook(form_live, "add_temp_line_item", %{
+          "line_item" => %{
+            "description" => "",
+            "quantity" => "",
+            "amount" => ""
+          }
+        })
+
+      assert html =~ "Please check the line item fields for errors"
+    end
+  end
+
+  describe "invalid temp line item handling" do
+    test "shows error for invalid temp line item from inputs", %{
+      conn: conn,
+      merchant_location: location
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/new")
+
+      html =
+        render_hook(form_live, "add_temp_line_item_from_inputs", %{
+          "description" => "",
+          "quantity" => "",
+          "amount" => ""
+        })
+
+      assert html =~ "Please check the line item fields for errors"
+    end
+  end
+
+  describe "add_line_item error case" do
+    setup [:create_invoice]
+
+    test "shows error when line item creation fails due to validation", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      html =
+        render_hook(form_live, "add_line_item", %{
+          "line_item" => %{
+            "description" => "",
+            "quantity" => "0",
+            "amount" => "-10.00"
+          }
+        })
+
+      assert html =~ "can&#39;t be blank"
+    end
+  end
+
+  describe "save_invoice error cases" do
+    setup [:create_invoice]
+
+    test "shows error when updating invoice with invalid data", %{
+      conn: conn,
+      merchant_location: location,
+      invoice: invoice
+    } do
+      {:ok, form_live, _html} =
+        live(conn, ~p"/merchant_locations/#{location}/invoices/#{invoice}/edit")
+
+      html =
+        form_live
+        |> form("#invoice-form", invoice: %{name: nil, email: "invalid"})
+        |> render_submit()
+
+      assert html =~ "can&#39;t be blank"
+    end
+  end
+
   defp create_invoice(%{merchant_location: location}) do
     invoice = invoice_fixture(%{merchant_location: location})
     %{invoice: invoice}
