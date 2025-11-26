@@ -198,4 +198,138 @@ defmodule Trays.MerchantLocationsTest do
       assert hd(manager_locations).id == location_for_manager.id
     end
   end
+
+  describe "admin access functions" do
+    setup do
+      user1 = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+      user2 = Trays.AccountsFixtures.user_fixture(%{email: "other@example.com", type: :merchant})
+
+      merchant1 = Trays.MerchantsFixtures.merchant_fixture(%{user: user1})
+      merchant2 = Trays.MerchantsFixtures.merchant_fixture(%{user: user2})
+
+      location1 =
+        Trays.MerchantLocationsFixtures.merchant_location_fixture(%{
+          user: user1,
+          merchant: merchant1
+        })
+
+      location2 =
+        Trays.MerchantLocationsFixtures.merchant_location_fixture(%{
+          user: user2,
+          merchant: merchant2
+        })
+
+      %{
+        user1: user1,
+        user2: user2,
+        merchant1: merchant1,
+        merchant2: merchant2,
+        location1: location1,
+        location2: location2
+      }
+    end
+
+    test "list_all_merchant_locations/0 returns all locations across all users", %{
+      location1: location1,
+      location2: location2
+    } do
+      locations = MerchantLocations.list_all_merchant_locations()
+
+      assert length(locations) == 2
+      location_ids = Enum.map(locations, & &1.id)
+      assert location1.id in location_ids
+      assert location2.id in location_ids
+    end
+
+    test "list_all_merchant_locations/0 preloads merchant association", %{location1: _location1} do
+      locations = MerchantLocations.list_all_merchant_locations()
+      location = hd(locations)
+
+      assert %Trays.Merchants.Merchant{} = location.merchant
+      refute is_nil(location.merchant.name)
+    end
+
+    test "get_merchant_location!/1 returns location regardless of user ownership", %{
+      location1: location1,
+      location2: location2
+    } do
+      fetched1 = MerchantLocations.get_merchant_location!(location1.id)
+      fetched2 = MerchantLocations.get_merchant_location!(location2.id)
+
+      assert fetched1.id == location1.id
+      assert fetched2.id == location2.id
+    end
+
+    test "get_merchant_location!/1 preloads merchant, bank_account, and manager", %{
+      location1: location1
+    } do
+      location = MerchantLocations.get_merchant_location!(location1.id)
+
+      assert %Trays.Merchants.Merchant{} = location.merchant
+      assert Ecto.assoc_loaded?(location.bank_account)
+      assert Ecto.assoc_loaded?(location.manager)
+    end
+
+    test "get_merchant_location!/1 raises when location doesn't exist" do
+      assert_raise Ecto.NoResultsError, fn ->
+        MerchantLocations.get_merchant_location!(999_999)
+      end
+    end
+  end
+
+  describe "update and delete operations" do
+    setup do
+      user = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+      merchant = Trays.MerchantsFixtures.merchant_fixture(%{user: user})
+
+      location =
+        Trays.MerchantLocationsFixtures.merchant_location_fixture(%{
+          user: user,
+          merchant: merchant
+        })
+
+      %{user: user, merchant: merchant, location: location}
+    end
+
+    test "update_merchant_location/2 updates location with valid attrs", %{location: location} do
+      update_attrs = %{city: "Updated City", street1: "456 New Street"}
+
+      assert {:ok, updated} = MerchantLocations.update_merchant_location(location, update_attrs)
+      assert updated.city == "Updated City"
+      assert updated.street1 == "456 New Street"
+    end
+
+    test "update_merchant_location/2 returns error with invalid attrs", %{location: location} do
+      invalid_attrs = %{city: nil, street1: nil}
+
+      assert {:error, changeset} =
+               MerchantLocations.update_merchant_location(location, invalid_attrs)
+
+      assert %{city: ["can't be blank"]} = errors_on(changeset)
+    end
+
+    test "delete_merchant_location/1 deletes the location", %{location: location} do
+      assert {:ok, deleted} = MerchantLocations.delete_merchant_location(location)
+      assert deleted.id == location.id
+
+      assert_raise Ecto.NoResultsError, fn ->
+        MerchantLocations.get_merchant_location!(location.id)
+      end
+    end
+
+    test "change_merchant_location/1 returns a changeset", %{location: location} do
+      changeset = MerchantLocations.change_merchant_location(location)
+
+      assert %Ecto.Changeset{} = changeset
+      assert changeset.data == location
+    end
+
+    test "change_merchant_location/2 returns a changeset with changes", %{location: location} do
+      attrs = %{city: "New City"}
+      changeset = MerchantLocations.change_merchant_location(location, attrs)
+
+      assert %Ecto.Changeset{} = changeset
+      assert changeset.changes == %{city: "New City"}
+    end
+  end
 end

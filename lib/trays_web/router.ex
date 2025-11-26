@@ -89,9 +89,10 @@ defmodule TraysWeb.Router do
   end
 
   ## Merchant routes (literal paths must come before parameterized paths)
+  ## Also accessible to admins
 
   scope "/", TraysWeb do
-    pipe_through [:browser, :require_authenticated_user, :require_merchant]
+    pipe_through [:browser, :require_authenticated_user, :require_merchant_or_admin]
 
     live_session :require_merchant,
       on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
@@ -100,6 +101,17 @@ defmodule TraysWeb.Router do
 
       live "/merchant_locations/new", MerchantLocationLive.Form, :new
       live "/merchant_locations/:id/edit", MerchantLocationLive.Form, :edit
+    end
+  end
+
+  # Admin routes
+
+  scope "/", TraysWeb do
+    pipe_through [:browser, :require_authenticated_user, :require_admin]
+
+    live_session :require_admin,
+      on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
+      live "/merchants", MerchantLive.Index, :index
     end
   end
 
@@ -124,17 +136,6 @@ defmodule TraysWeb.Router do
       live "/merchant_locations/:merchant_location_id/bank_accounts/:id/edit",
            BankAccountLive.Form,
            :edit
-    end
-  end
-
-  # Admin routes
-
-  scope "/", TraysWeb do
-    pipe_through [:browser, :require_authenticated_user, :require_admin]
-
-    live_session :require_admin,
-      on_mount: [{TraysWeb.UserAuth, :require_authenticated}] do
-      live "/merchants", MerchantLive.Index, :index
     end
   end
 end

@@ -18,6 +18,15 @@ defmodule Trays.Merchants do
   end
 
   @doc """
+  Gets a single merchant by ID (for admin access).
+
+  Raises `Ecto.NoResultsError` if the Merchant does not exist.
+  """
+  def get_merchant!(id) do
+    Repo.get!(Merchant, id)
+  end
+
+  @doc """
   Gets a single merchant for a specific user.
 
   For merchant owners: checks if merchant belongs to the user.

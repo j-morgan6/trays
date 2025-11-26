@@ -15,13 +15,14 @@ defmodule TraysWeb.MerchantLive.ShowTest do
                live(conn, ~p"/merchants/#{merchant}")
     end
 
-    test "requires merchant role", %{conn: conn} do
+    test "requires merchant or admin role", %{conn: conn} do
       user = user_fixture(%{type: :customer})
       merchant_user = user_fixture(%{email: "merchant@example.com", type: :merchant})
       merchant = merchant_fixture(%{user: merchant_user})
       conn = log_in_user(conn, user)
 
-      assert {:error, {:redirect, %{to: "/", flash: %{"error" => "Merchant access required."}}}} =
+      assert {:error,
+              {:redirect, %{to: "/", flash: %{"error" => "Merchant or admin access required."}}}} =
                live(conn, ~p"/merchants/#{merchant}")
     end
 

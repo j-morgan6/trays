@@ -285,14 +285,34 @@ defmodule TraysWeb.UserAuth do
   end
 
   @doc """
-  Requires the user to be a store manager.
+  Requires the user to be a merchant or an admin.
 
-  Used for protecting store manager-only routes.
+  Used for routes that should be accessible to both merchants and admins.
+  """
+  def require_merchant_or_admin(conn, _opts) do
+    user = conn.assigns.current_scope && conn.assigns.current_scope.user
+
+    if user && user.type in [:merchant, :admin] do
+      conn
+    else
+      conn
+      |> put_session(:user_return_to, nil)
+      |> put_flash(:error, "Merchant or admin access required.")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
+  @doc """
+  Requires the user to be a store manager, merchant, or admin.
+
+  Used for protecting store manager routes that should also be accessible
+  to merchants and admins.
   """
   def require_store_manager(conn, _opts) do
     user = conn.assigns.current_scope && conn.assigns.current_scope.user
 
-    if user && (user.type == :store_manager || user.type == :merchant) do
+    if user && user.type in [:store_manager, :merchant, :admin] do
       conn
     else
       conn

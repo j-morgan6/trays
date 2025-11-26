@@ -9,7 +9,7 @@ defmodule TraysWeb.MerchantLive.Show do
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     user = socket.assigns.current_scope.user
-    merchant = Merchants.get_merchant!(id, user.id)
+    merchant = get_merchant_for_user(id, user)
 
     locations =
       MerchantLocations.list_merchant_locations_by_merchant(merchant.id, user.id, user.type)
@@ -24,6 +24,9 @@ defmodule TraysWeb.MerchantLive.Show do
      )
      |> stream(:locations, locations)}
   end
+
+  defp get_merchant_for_user(id, %{type: :admin}), do: Merchants.get_merchant!(id)
+  defp get_merchant_for_user(id, user), do: Merchants.get_merchant!(id, user.id)
 
   @impl true
   def handle_event("delete_location", %{"id" => id}, socket) do

@@ -17,8 +17,8 @@ defmodule TraysWeb.MerchantLocationLive.Form do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    user_id = socket.assigns.current_scope.user.id
-    merchant_location = MerchantLocations.get_merchant_location!(id, user_id)
+    user = socket.assigns.current_scope.user
+    merchant_location = get_location_for_user(id, user)
     merchant_location = Trays.Repo.preload(merchant_location, :merchant)
 
     socket
@@ -39,6 +39,9 @@ defmodule TraysWeb.MerchantLocationLive.Form do
     |> assign(:merchant, merchant)
     |> assign(:form, to_form(MerchantLocations.change_merchant_location(merchant_location)))
   end
+
+  defp get_location_for_user(id, %{type: :admin}), do: MerchantLocations.get_merchant_location!(id)
+  defp get_location_for_user(id, user), do: MerchantLocations.get_merchant_location!(id, user.id)
 
   @impl true
   def handle_event("validate", %{"merchant_location" => merchant_location_params}, socket) do

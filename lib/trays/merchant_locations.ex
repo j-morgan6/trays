@@ -9,6 +9,16 @@ defmodule Trays.MerchantLocations do
   alias Trays.MerchantLocations.MerchantLocation
 
   @doc """
+  Returns all merchant_locations (for admin access).
+  Preloads the merchant association.
+  """
+  def list_all_merchant_locations do
+    MerchantLocation
+    |> preload(:merchant)
+    |> Repo.all()
+  end
+
+  @doc """
   Returns the list of merchant_locations for a specific user.
   Preloads the merchant association.
 
@@ -22,6 +32,19 @@ defmodule Trays.MerchantLocations do
     |> where([ml, m], ml.user_id == ^user_id or m.user_id == ^user_id)
     |> preload(:merchant)
     |> Repo.all()
+  end
+
+  @doc """
+  Gets a single merchant_location by ID (for admin access).
+  Preloads the merchant, bank_account, and manager associations.
+
+  Raises `Ecto.NoResultsError` if the Merchant location does not exist.
+  """
+  def get_merchant_location!(id) do
+    MerchantLocation
+    |> where([ml], ml.id == ^id)
+    |> preload([:merchant, :bank_account, :manager])
+    |> Repo.one!()
   end
 
   @doc """

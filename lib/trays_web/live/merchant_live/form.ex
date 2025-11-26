@@ -19,8 +19,8 @@ defmodule TraysWeb.MerchantLive.Form do
   defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    user_id = socket.assigns.current_scope.user.id
-    merchant = Merchants.get_merchant!(id, user_id)
+    user = socket.assigns.current_scope.user
+    merchant = get_merchant_for_user(id, user)
 
     socket
     |> assign(:page_title, gettext("Edit Business"))
@@ -29,6 +29,9 @@ defmodule TraysWeb.MerchantLive.Form do
     |> assign(:description_length, String.length(merchant.description || ""))
     |> assign(:form, to_form(Merchants.change_merchant(merchant)))
   end
+
+  defp get_merchant_for_user(id, %{type: :admin}), do: Merchants.get_merchant!(id)
+  defp get_merchant_for_user(id, user), do: Merchants.get_merchant!(id, user.id)
 
   @impl true
   def handle_event("validate", %{"merchant" => merchant_params}, socket) do
