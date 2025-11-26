@@ -6,7 +6,7 @@
 - Use `mix precommit` alias when you are done with all changes and fix any pending issues
 - Use the already included and available `:req` (`Req`) library for HTTP requests, **avoid** `:httpoison`, `:tesla`, and `:httpc`. Req is included by default and is the preferred HTTP client for Phoenix apps
 - Use the already included and available `:gettext` library for internationalization. **Always** use the `gettext` macro for translations and **never** use the `Gettext` module directly.
-- Always provide a French translation of all text that is visible in the UI
+- **Always** provide a French translation of all text that is visible in the UI
 
 ### Quality guidelines  
 
