@@ -105,4 +105,86 @@ defmodule TraysWeb.MerchantLocationLive.IndexTest do
       assert path == ~p"/"
     end
   end
+
+  describe "Admin access" do
+    setup do
+      admin = Trays.AccountsFixtures.user_fixture(%{type: :admin})
+      conn = Phoenix.ConnTest.build_conn()
+      %{conn: TraysWeb.ConnCase.log_in_user(conn, admin), admin: admin}
+    end
+
+    test "admin can access merchant_locations index", %{conn: conn} do
+      {:ok, _index_live, html} = live(conn, ~p"/merchant_locations")
+
+      assert html =~ "My Locations"
+    end
+
+    test "admin sees all locations from all users", %{conn: conn} do
+      user1 = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+      user2 = Trays.AccountsFixtures.user_fixture(%{type: :merchant, email: "other@example.com"})
+
+      merchant1 = Trays.MerchantsFixtures.merchant_fixture(%{user: user1})
+      merchant2 = Trays.MerchantsFixtures.merchant_fixture(%{user: user2})
+
+      location1 =
+        merchant_location_fixture(%{
+          user: user1,
+          merchant: merchant1,
+          city: "Toronto"
+        })
+
+      location2 =
+        merchant_location_fixture(%{
+          user: user2,
+          merchant: merchant2,
+          city: "Vancouver"
+        })
+
+      {:ok, _index_live, html} = live(conn, ~p"/merchant_locations")
+
+      assert html =~ location1.city
+      assert html =~ location2.city
+      assert html =~ "Total Locations"
+      assert html =~ "2"
+    end
+
+    test "admin sees correct location count for all locations", %{conn: conn} do
+      user1 = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+      user2 = Trays.AccountsFixtures.user_fixture(%{type: :merchant, email: "other2@example.com"})
+
+      merchant1 = Trays.MerchantsFixtures.merchant_fixture(%{user: user1})
+      merchant2 = Trays.MerchantsFixtures.merchant_fixture(%{user: user2})
+
+      merchant_location_fixture(%{user: user1, merchant: merchant1})
+      merchant_location_fixture(%{user: user1, merchant: merchant1})
+      merchant_location_fixture(%{user: user2, merchant: merchant2})
+
+      {:ok, _index_live, html} = live(conn, ~p"/merchant_locations")
+
+      assert html =~ "Total Locations"
+      assert html =~ "3"
+    end
+
+    test "admin sees empty state when no locations exist", %{conn: conn} do
+      {:ok, _index_live, html} = live(conn, ~p"/merchant_locations")
+
+      assert html =~ "No locations yet"
+      assert html =~ "No locations have been added yet"
+    end
+  end
+
+  describe "Merchant access" do
+    test "merchant users cannot access merchant_locations index", %{} do
+      merchant = Trays.AccountsFixtures.user_fixture(%{type: :merchant})
+
+      conn =
+        Phoenix.ConnTest.build_conn()
+        |> TraysWeb.ConnCase.log_in_user(merchant)
+
+      {:error, {:redirect, %{to: path, flash: flash}}} = live(conn, ~p"/merchant_locations")
+
+      assert path == ~p"/"
+      assert flash["error"] == "You are not authorized to access this page."
+    end
+  end
 end

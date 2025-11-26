@@ -209,6 +209,71 @@ defmodule TraysWeb.MerchantLive.ShowTest do
     end
   end
 
+  describe "Merchant Show - Admin Access" do
+    test "admin can view any merchant's store", %{conn: conn} do
+      admin = user_fixture(%{type: :admin})
+      merchant_user = user_fixture(%{email: "merchant@example.com", type: :merchant})
+      merchant = merchant_fixture(%{user: merchant_user, name: "Other Store"})
+      conn = log_in_user(conn, admin)
+
+      assert {:ok, _view, html} = live(conn, ~p"/merchants/#{merchant}")
+      assert html =~ "Other Store"
+    end
+
+    test "admin sees all locations for a merchant", %{conn: conn} do
+      admin = user_fixture(%{type: :admin})
+      merchant_user = user_fixture(%{email: "merchant@example.com", type: :merchant})
+      merchant = merchant_fixture(%{user: merchant_user})
+
+      merchant_location_fixture(%{
+        user: merchant_user,
+        merchant: merchant,
+        street1: "123 Main St",
+        city: "Toronto"
+      })
+
+      merchant_location_fixture(%{
+        user: merchant_user,
+        merchant: merchant,
+        street1: "456 Queen St",
+        city: "Vancouver"
+      })
+
+      conn = log_in_user(conn, admin)
+
+      assert {:ok, _view, html} = live(conn, ~p"/merchants/#{merchant}")
+      assert html =~ "123 Main St"
+      assert html =~ "456 Queen St"
+      assert html =~ "Toronto"
+      assert html =~ "Vancouver"
+    end
+
+    test "admin sees correct location count for any merchant", %{conn: conn} do
+      admin = user_fixture(%{type: :admin})
+      merchant_user = user_fixture(%{email: "merchant@example.com", type: :merchant})
+      merchant = merchant_fixture(%{user: merchant_user})
+
+      merchant_location_fixture(%{user: merchant_user, merchant: merchant})
+      merchant_location_fixture(%{user: merchant_user, merchant: merchant, city: "Vancouver"})
+
+      conn = log_in_user(conn, admin)
+
+      assert {:ok, _view, html} = live(conn, ~p"/merchants/#{merchant}")
+      assert html =~ "Total Locations"
+      assert html =~ ">2<"
+    end
+
+    test "admin sees empty state when merchant has no locations", %{conn: conn} do
+      admin = user_fixture(%{type: :admin})
+      merchant_user = user_fixture(%{email: "merchant@example.com", type: :merchant})
+      merchant = merchant_fixture(%{user: merchant_user})
+      conn = log_in_user(conn, admin)
+
+      assert {:ok, _view, html} = live(conn, ~p"/merchants/#{merchant}")
+      assert html =~ "No locations yet"
+    end
+  end
+
   describe "Merchant Show - Delete Location" do
     test "deletes location successfully", %{conn: conn} do
       user = user_fixture(%{type: :merchant})
