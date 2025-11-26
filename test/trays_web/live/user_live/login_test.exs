@@ -10,36 +10,6 @@ defmodule TraysWeb.UserLive.LoginTest do
 
       assert html =~ "Sign in"
       assert html =~ "Sign up"
-      assert html =~ "Magic Link Login"
-    end
-  end
-
-  describe "user login - magic link" do
-    test "sends magic link email when user exists", %{conn: conn} do
-      user = user_fixture()
-
-      {:ok, lv, _html} = live(conn, ~p"/users/log-in")
-
-      {:ok, _lv, html} =
-        form(lv, "#login_form_magic", user: %{email: user.email})
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/users/log-in")
-
-      assert html =~ "If your email is in our system"
-
-      assert Trays.Repo.get_by!(Trays.Accounts.UserToken, user_id: user.id).context ==
-               "login"
-    end
-
-    test "does not disclose if user is registered", %{conn: conn} do
-      {:ok, lv, _html} = live(conn, ~p"/users/log-in")
-
-      {:ok, _lv, html} =
-        form(lv, "#login_form_magic", user: %{email: "idonotexist@example.com"})
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/users/log-in")
-
-      assert html =~ "If your email is in our system"
     end
   end
 
@@ -100,10 +70,9 @@ defmodule TraysWeb.UserLive.LoginTest do
 
       assert html =~ "You need to reauthenticate"
       refute html =~ "Sign up"
-      assert html =~ "Magic Link Login"
 
       assert html =~
-               ~s(<input type="email" name="user[email]" id="login_form_magic_email" value="#{user.email}")
+               ~s(<input type="email" name="user[email]" id="login_form_password_email" value="#{user.email}")
     end
   end
 end

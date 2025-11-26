@@ -19,21 +19,10 @@ defmodule TraysWeb.UserLive.Registration do
   @impl true
   def handle_event("save", %{"user" => user_params}, socket) do
     case Accounts.register_user(user_params) do
-      {:ok, user} ->
-        {:ok, _} =
-          Accounts.deliver_login_instructions(
-            user,
-            &url(~p"/users/log-in/#{&1}")
-          )
-
+      {:ok, _user} ->
         {:noreply,
          socket
-         |> put_flash(
-           :info,
-           gettext("An email was sent to %{email}, please access it to confirm your account.",
-             email: user.email
-           )
-         )
+         |> put_flash(:info, gettext("Account created successfully. Please log in."))
          |> push_navigate(to: ~p"/users/log-in")}
 
       {:error, %Ecto.Changeset{} = changeset} ->

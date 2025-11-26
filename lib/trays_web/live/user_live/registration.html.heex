@@ -66,6 +66,24 @@
             required
           />
 
+          <.input
+            field={@form[:password]}
+            type="password"
+            label={gettext("Password")}
+            placeholder="••••••••"
+            autocomplete="new-password"
+            required
+          />
+
+          <.input
+            field={@form[:password_confirmation]}
+            type="password"
+            label={gettext("Confirm Password")}
+            placeholder="••••••••"
+            autocomplete="new-password"
+            required
+          />
+
           <div class="pt-2">
             <.button
               phx-disable-with={gettext("Creating account...")}

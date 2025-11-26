@@ -85,12 +85,6 @@ defmodule Trays.AccountsFixtures do
     |> Trays.Repo.update_all(set: [authenticated_at: authenticated_at])
   end
 
-  def generate_user_magic_link_token(user) do
-    {encoded_token, user_token} = Accounts.UserToken.build_email_token(user, "login")
-    Trays.Repo.insert!(user_token)
-    {encoded_token, user_token.token}
-  end
-
   def offset_user_token(token, amount_to_add, unit) do
     dt =
       DateTime.utc_now(:second)

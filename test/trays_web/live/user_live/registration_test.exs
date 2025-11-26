@@ -40,14 +40,13 @@ defmodule TraysWeb.UserLive.RegistrationTest do
       {:ok, lv, _html} = live(conn, ~p"/users/register")
 
       email = unique_user_email()
-      form = form(lv, "#registration_form", user: valid_user_attributes_no_password(email: email))
+      form = form(lv, "#registration_form", user: valid_user_attributes(email: email))
 
       {:ok, _lv, html} =
         render_submit(form)
         |> follow_redirect(conn, ~p"/users/log-in")
 
-      assert html =~
-               ~r/An email was sent to .*, please access it to confirm your account/
+      assert html =~ "Account created successfully. Please log in."
     end
 
     test "renders errors for duplicated email", %{conn: conn} do
