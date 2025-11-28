@@ -61,9 +61,8 @@ defmodule Trays.Emails do
         payment_url,
         opts \\ []
       ) do
-    # TODO: Update from_email and from_name to use the correct email and name
-    from_email = Keyword.get(opts, :from_email, "onboarding@resend.dev")
-    from_name = Keyword.get(opts, :from_name, "Trays")
+    from_email = Keyword.get(opts, :from_email, "invoices@ordertrays.ca")
+    from_name = Keyword.get(opts, :from_name, "OrderTrays")
 
     message =
       Keyword.get(

@@ -23,7 +23,9 @@ defmodule TraysWeb.MerchantLocationLive.Show do
      |> stream(:invoices, invoices)}
   end
 
-  defp get_location_for_user(id, %{type: :admin}), do: MerchantLocations.get_merchant_location!(id)
+  defp get_location_for_user(id, %{type: :admin}),
+    do: MerchantLocations.get_merchant_location!(id)
+
   defp get_location_for_user(id, user), do: MerchantLocations.get_merchant_location!(id, user.id)
 
   @impl true

@@ -101,8 +101,14 @@ if config_env() == :prod do
 
   # ## Configuring the mailer
   #
-  # Configure the mailer for production using Resend
+  # Configure the mailer for production using SMTP (Google Workspace)
   config :trays, Trays.Mailer,
-    adapter: Trays.Adapters.Resend,
-    api_key: System.get_env("RESEND_API_KEY")
+    adapter: Swoosh.Adapters.SMTP,
+    relay: System.get_env("SMTP_RELAY") || "smtp.gmail.com",
+    username: System.get_env("SMTP_USERNAME"),
+    password: System.get_env("SMTP_PASSWORD"),
+    ssl: true,
+    tls: :always,
+    auth: :always,
+    port: 587
 end

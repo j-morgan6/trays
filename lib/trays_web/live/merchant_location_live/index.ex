@@ -18,6 +18,8 @@ defmodule TraysWeb.MerchantLocationLive.Index do
      |> stream(:locations, locations)}
   end
 
-  defp list_locations_for_user(%{type: :admin}), do: MerchantLocations.list_all_merchant_locations()
+  defp list_locations_for_user(%{type: :admin}),
+    do: MerchantLocations.list_all_merchant_locations()
+
   defp list_locations_for_user(user), do: MerchantLocations.list_merchant_locations(user.id)
 end

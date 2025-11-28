@@ -50,11 +50,11 @@ defmodule TraysWeb.Router do
     end
   end
 
-    scope "/admin" do
-      pipe_through [:browser, :require_authenticated_user, :require_admin]
+  scope "/admin" do
+    pipe_through [:browser, :require_authenticated_user, :require_admin]
 
-      live_dashboard "/dashboard", metrics: TraysWeb.Telemetry
-    end
+    live_dashboard "/dashboard", metrics: TraysWeb.Telemetry
+  end
 
   scope path: "/feature-flags" do
     pipe_through [:browser, :require_authenticated_user, :require_admin]
