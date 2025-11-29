@@ -45,9 +45,7 @@ config :swoosh, :api_client, Swoosh.ApiClient.Finch
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :trays, Trays.Mailer,
-  adapter: Trays.Adapters.Resend,
-  api_key: System.get_env("RESEND_API_KEY")
+config :trays, Trays.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,

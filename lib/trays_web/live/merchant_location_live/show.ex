@@ -93,7 +93,10 @@ defmodule TraysWeb.MerchantLocationLive.Show do
          socket
          |> put_flash(:info, "Invoice #{invoice.number} sent to #{invoice.email}")}
 
-      {:error, _reason} ->
+      {:error, reason} ->
+        require Logger
+        Logger.error("Failed to send invoice email: #{inspect(reason)}")
+
         {:noreply,
          socket
          |> put_flash(:error, "Failed to send invoice email. Please try again.")}

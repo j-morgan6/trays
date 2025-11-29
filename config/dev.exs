@@ -86,3 +86,5 @@ config :phoenix_live_view,
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+# Mailer configuration is in config/runtime.exs to access environment variables

@@ -7,6 +7,15 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 
+# Load environment variables from .env file in dev/test
+if config_env() in [:dev, :test] and File.exists?(".env") do
+  Dotenvy.source([".env", System.get_env()],
+    side_effect: fn env ->
+      Enum.each(env, fn {key, value} -> System.put_env(key, value) end)
+    end
+  )
+end
+
 # ## Using releases
 #
 # If you use `mix release`, you need to explicitly enable the server
@@ -18,6 +27,22 @@ import Config
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
   config :trays, TraysWeb.Endpoint, server: true
+end
+
+if config_env() == :dev do
+  # Configure mailer for development using SMTP (Google Workspace)
+  config :trays, Trays.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: System.get_env("SMTP_RELAY") || "smtp.gmail.com",
+    username: System.get_env("SMTP_USERNAME"),
+    password: System.get_env("SMTP_PASSWORD"),
+    ssl: true,
+    auth: :always,
+    port: 465,
+    retries: 1,
+    sockopts: [
+      {:verify, :verify_none}
+    ]
 end
 
 if config_env() == :prod do
@@ -108,7 +133,10 @@ if config_env() == :prod do
     username: System.get_env("SMTP_USERNAME"),
     password: System.get_env("SMTP_PASSWORD"),
     ssl: true,
-    tls: :always,
     auth: :always,
-    port: 587
+    port: 465,
+    retries: 1,
+    sockopts: [
+      {:verify, :verify_none}
+    ]
 end

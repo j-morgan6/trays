@@ -7,9 +7,6 @@ defmodule Trays.Application do
 
   @impl true
   def start(_type, _args) do
-    # Load environment variables from .env file in development
-    load_env_file()
-
     children = [
       TraysWeb.Telemetry,
       Trays.Repo,
@@ -34,13 +31,5 @@ defmodule Trays.Application do
   def config_change(changed, _new, removed) do
     TraysWeb.Endpoint.config_change(changed, removed)
     :ok
-  end
-
-  # Load environment variables from .env file
-  defp load_env_file do
-    # Check if running in dev or test mode
-    if Code.ensure_loaded?(Mix) and Mix.env() in [:dev, :test] and File.exists?(".env") do
-      Dotenvy.source([".env"])
-    end
   end
 end
