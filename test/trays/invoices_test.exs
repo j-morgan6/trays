@@ -643,7 +643,7 @@ defmodule Trays.InvoicesTest do
       refute changeset.valid?
       assert "can't be blank" in errors_on(changeset).quantity
       # Amount validation shows as Money validation error when nil
-      assert length(errors_on(changeset).amount) > 0
+      assert not Enum.empty?(errors_on(changeset).amount)
     end
 
     test "validates amount is greater than zero" do
