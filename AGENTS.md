@@ -20,7 +20,7 @@
 
 - When you add or update a dependency run `mix deps.audit` and `mix hex.audit` to check for security issues
 - When you add or update a dependency run `mix hex.outdated` to check for outdated dependencies
-- when you complete a task run `mix sobelow --config` to check for security issues and fix any issue
+- when you complete a task run `mix sobelow --config .sobelow-conf` to check for security issues and fix any issue
 
 ### Phoenix v1.8 guidelines
 
